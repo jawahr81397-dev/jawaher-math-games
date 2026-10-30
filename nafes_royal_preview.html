@@ -1,1 +1,377 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>معاينة | عبقريات نافس الملكية</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Alexandria:wght@500;700;800&display=swap" rel="stylesheet"><style>:root{--g:#062c2b;--g2:#0c5549;--gold:#e8bf74;--cyan:#81e7ef;--txt:#fff7e7}*{box-sizing:border-box}body{margin:0;font-family:Cairo,Tahoma,sans-serif;color:var(--txt);background:radial-gradient(circle at 15% 0%,#1d6457,transparent 45%),linear-gradient(145deg,#031c23,#073a35 55%,#051c28);min-height:100vh}header{text-align:center;padding:20px 12px 12px}.mini{font-size:12px;color:#e9d7a9}.hero{position:relative;max-width:950px;margin:10px auto 20px;border:1px solid #e8bf7470;border-radius:30px;background:linear-gradient(150deg,#07382e,#0a2630);padding:25px 18px 36px;overflow:hidden;text-align:center;box-shadow:0 22px 65px #0006}.hero:before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle,#76e7e51a,transparent 35%);animation:pulse 5s ease-in-out infinite;pointer-events:none}.logo-wrap{width:min(60vw,270px);height:min(60vw,270px);margin:auto;display:grid;place-items:center;position:relative}.ring{position:absolute;width:94%;height:94%;border:1px solid var(--gold);border-radius:50%;animation:spin 16s linear infinite}.ring:after{content:'✦';position:absolute;top:-15px;color:var(--gold);font-size:25px}.ring.two{width:110%;height:60%;border-color:var(--cyan);transform:rotate(-25deg);animation:orbit 12s linear infinite}.logo{width:100%;height:100%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 0 15px #81e7ef77);animation:float 4s ease-in-out infinite}.fallback{font-size:90px;filter:drop-shadow(0 0 15px #e8bf74);animation:float 4s ease-in-out infinite}.hero h1{font:800 clamp(32px,6vw,60px) Alexandria,Tahoma,sans-serif;color:var(--gold);margin:12px 0}.hero p{color:#d2eee8}.tag{display:inline-block;border:1px solid #e8bf7480;padding:6px 18px;border-radius:30px;color:var(--gold)}main{max-width:950px;margin:auto;padding:0 14px 50px}.tabs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:25px 0}.tabs button,.btn{border:1px solid var(--gold);border-radius:15px;padding:13px 22px;background:linear-gradient(120deg,#d4a95c,#ffe3a2);color:#11342c;font:800 15px Cairo;cursor:pointer}.tabs button:not(.active){background:#ffffff12;color:#fff;border-color:#ffffff55}.panel{background:linear-gradient(145deg,#0e4a41,#082d34);border:1px solid #caa66580;border-radius:23px;padding:24px;box-shadow:0 12px 35px #0003}.panel h2{color:var(--gold);margin-top:0;font-family:Alexandria}label{display:block;margin:14px 0 6px}input{width:100%;padding:14px;border-radius:12px;border:1px solid #b8ad8a;background:#fffdf6;font:inherit;color:#133a34}.muted{color:#c1dcd5;font-size:13px}.sample{border:1px solid #e8bf7450;background:#ffffff0c;padding:17px;border-radius:15px;margin:18px 0}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.option{border:1px solid #bba66c;background:#fff7e9;color:#12473e;border-radius:12px;padding:13px;text-align:right;font:700 16px Cairo}.option:focus,.option:hover{background:#f3dba5}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{text-align:center;background:#ffffff12;border:1px solid #e8bf7455;padding:20px 8px;border-radius:17px}.metric strong{display:block;color:var(--gold);font-size:28px}.hidden{display:none}footer{text-align:center;color:#d6c6a6;padding:20px}.notice{color:#ffe5a8;border:1px dashed #e8bf74;padding:12px;border-radius:12px;text-align:center;margin-bottom:15px}@keyframes spin{to{transform:rotate(360deg)}}@keyframes orbit{from{transform:rotate(-25deg)}to{transform:rotate(335deg)}}@keyframes float{50%{transform:translateY(-12px)}}@keyframes pulse{50%{opacity:.3;transform:scale(1.15)}}@media(max-width:540px){.options{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.panel{padding:16px}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></head><body><header><span class="mini">وزارة التعليم · الرياضيات · الصف السادس الابتدائي</span></header><section class="hero"><span class="tag">✦ أكاديمية التميز الرياضي ✦</span><div class="logo-wrap"><div class="ring"></div><div class="ring two"></div><img class="logo" src="https://jawaher-math-games.vercel.app/jawhara-logo.png" alt="شعار جوهرة ماث" onerror="this.style.display='none';document.getElementById('fallback').style.display='block'"><span class="fallback" id="fallback" style="display:none">💎</span></div><h1>عبقريات نافس</h1><p>حلّلي ✦ فكّري ✦ تألقي في عالم الرياضيات</p></section><main><div class="notice">💎 معاينة للتصميم فقط — لا تتصل ببيانات الطالبات ولا تحفظ إجابات أو نقاط</div><div class="tabs"><button class="active" id="studentTab" onclick="showTab('student')">🎓 بوابة الطالبة</button><button id="teacherTab" onclick="showTab('teacher')">👑 لوحة المعلمة</button></div><section id="student" class="panel"><h2>أهلًا بعبقرية الرياضيات ✨</h2><p>كل سؤال خطوة نحو القمة!</p><label>رمز الدخول الخاص بكِ</label><input placeholder="أدخلي رمز الطالبة" disabled><p class="muted">الدخول معطّل في المعاينة حفاظًا على بيانات الطالبات.</p><div class="sample"><h3>✨ نموذج سؤال نافس</h3><p>ما المضاعف المشترك الأصغر للعددين ٦ و٨؟</p><div class="options"><button class="option" onclick="answer(this,false)">أ ◯ ١٢</button><button class="option" onclick="answer(this,true)">ب ◯ ٢٤</button><button class="option" onclick="answer(this,false)">ج ◯ ٣٦</button><button class="option" onclick="answer(this,false)">د ◯ ٤٨</button></div><p id="feedback" aria-live="polite"></p></div></section><section id="teacher" class="panel hidden"><h2>👑 مركز قيادة عبقريات نافس</h2><p>لوحة ملكية لإدارة الأسئلة وقراءة مؤشرات التميز.</p><div class="metrics"><div class="metric"><strong>٢٤</strong>الطالبات (رقم توضيحي)</div><div class="metric"><strong>١١</strong>الأسئلة (رقم توضيحي)</div><div class="metric"><strong>٪٨٥</strong>إتقان تجريبي</div></div><div class="sample"><h3>📊 تحليل المهارات</h3><p>مساحة مستقبلية لعرض الإحصاءات الحقيقية من النظام الحالي.</p></div><div class="sample"><h3>✍️ إدارة الأسئلة</h3><p>نفس وظائف النشر وإيقاف النشر وإضافة الطالبات عند تركيب التصميم على الصفحة الفعلية.</p></div></section></main><footer>💎 جوهرة ماث | المعلمة/ جواهر السبيعي</footer><script>function showTab(t){document.getElementById('student').classList.toggle('hidden',t!=='student');document.getElementById('teacher').classList.toggle('hidden',t!=='teacher');document.getElementById('studentTab').classList.toggle('active',t==='student');document.getElementById('teacherTab').classList.toggle('active',t==='teacher')}function answer(el,ok){document.getElementById('feedback').textContent=ok?'أحسنتِ! إجابة صحيحة ✨':'حاولي مرة أخرى 💚';el.style.background=ok?'#b8f0d8':'#ffe0c8'}</script></body></html>
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عبقريات نافس | النسخة الملكية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Alexandria:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#062c2b;
+  --g2:#0c5549;
+  --gold:#e8bf74;
+  --cyan:#81e7ef;
+  --txt:#fff7e7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Cairo,Tahoma,sans-serif;
+  color:var(--txt);
+  background:
+    radial-gradient(circle at 15% 0%,#1d6457,transparent 45%),
+    linear-gradient(145deg,#031c23,#073a35 55%,#051c28);
+  min-height:100vh;
+}
+header{text-align:center;padding:20px 12px 12px}
+.mini{font-size:12px;color:#e9d7a9}
+.hero{
+  position:relative;
+  max-width:950px;
+  margin:10px auto 20px;
+  border:1px solid #e8bf7470;
+  border-radius:30px;
+  background:linear-gradient(150deg,#07382e,#0a2630);
+  padding:25px 18px 36px;
+  overflow:hidden;
+  text-align:center;
+  box-shadow:0 22px 65px #0006;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background:radial-gradient(circle,#76e7e51a,transparent 35%);
+  animation:pulse 5s ease-in-out infinite;
+  pointer-events:none;
+}
+.logo-wrap{
+  width:min(60vw,270px);
+  height:min(60vw,270px);
+  margin:auto;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.ring{
+  position:absolute;
+  width:94%;
+  height:94%;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  animation:spin 16s linear infinite;
+}
+.ring:after{
+  content:'✦';
+  position:absolute;
+  top:-15px;
+  color:var(--gold);
+  font-size:25px;
+}
+.ring.two{
+  width:110%;
+  height:60%;
+  border-color:var(--cyan);
+  animation:orbit 12s linear infinite;
+}
+.logo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 0 15px #81e7ef77);
+  animation:float 4s ease-in-out infinite;
+}
+.fallback{
+  font-size:90px;
+  animation:float 4s ease-in-out infinite;
+}
+.hero h1{
+  font:800 clamp(32px,6vw,60px) Alexandria,Tahoma,sans-serif;
+  color:var(--gold);
+  margin:12px 0;
+}
+.hero p{color:#d2eee8}
+.tag{
+  display:inline-block;
+  border:1px solid #e8bf7480;
+  padding:6px 18px;
+  border-radius:30px;
+  color:var(--gold);
+}
+main{
+  max-width:950px;
+  margin:auto;
+  padding:0 14px 50px;
+}
+.tabs{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+.tabs button,.btn{
+  border:1px solid var(--gold);
+  border-radius:15px;
+  padding:13px 22px;
+  background:linear-gradient(120deg,#d4a95c,#ffe3a2);
+  color:#11342c;
+  font:800 15px Cairo;
+  cursor:pointer;
+}
+.tabs button:not(.active){
+  background:#ffffff12;
+  color:#fff;
+  border-color:#ffffff55;
+}
+.panel{
+  background:linear-gradient(145deg,#0e4a41,#082d34);
+  border:1px solid #caa66580;
+  border-radius:23px;
+  padding:24px;
+  box-shadow:0 12px 35px #0003;
+}
+.panel h2{
+  color:var(--gold);
+  margin-top:0;
+  font-family:Alexandria;
+}
+label{display:block;margin:14px 0 6px}
+input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #b8ad8a;
+  background:#fffdf6;
+  font:inherit;
+  color:#133a34;
+}
+.muted{color:#c1dcd5;font-size:13px}
+.sample{
+  border:1px solid #e8bf7450;
+  background:#ffffff0c;
+  padding:17px;
+  border-radius:15px;
+  margin:18px 0;
+}
+.options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.option{
+  border:1px solid #bba66c;
+  background:#fff7e9;
+  color:#12473e;
+  border-radius:12px;
+  padding:13px;
+  text-align:right;
+  font:700 16px Cairo;
+  cursor:pointer;
+}
+.option:hover{background:#f3dba5}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.metric{
+  text-align:center;
+  background:#ffffff12;
+  border:1px solid #e8bf7455;
+  padding:20px 8px;
+  border-radius:17px;
+}
+.metric strong{
+  display:block;
+  color:var(--gold);
+  font-size:28px;
+}
+.hidden{display:none}
+footer{
+  text-align:center;
+  color:#d6c6a6;
+  padding:20px;
+}
+.notice{
+  color:#ffe5a8;
+  border:1px dashed #e8bf74;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  margin-bottom:15px;
+}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+@keyframes orbit{
+  from{transform:rotate(-25deg)}
+  to{transform:rotate(335deg)}
+}
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
+@keyframes pulse{
+  50%{opacity:.3;transform:scale(1.15)}
+}
+@media(max-width:540px){
+  .options,.metrics{grid-template-columns:1fr}
+  .panel{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="mini">
+    وزارة التعليم · الرياضيات · الصف السادس الابتدائي
+  </span>
+</header>
+
+<section class="hero">
+  <span class="tag">✦ أكاديمية التميز الرياضي ✦</span>
+
+  <div class="logo-wrap">
+    <div class="ring"></div>
+    <div class="ring two"></div>
+
+    <img
+      class="logo"
+      src="https://jawaher-math-games.vercel.app/jawhara-logo.png"
+      alt="شعار جوهرة ماث"
+      onerror="this.style.display='none';document.getElementById('fallback').style.display='block'">
+
+    <span class="fallback" id="fallback" style="display:none">
+      💎
+    </span>
+  </div>
+
+  <h1>عبقريات نافس</h1>
+  <p>حلّلي ✦ فكّري ✦ تألقي في عالم الرياضيات</p>
+</section>
+
+<main>
+  <div class="notice">
+    💎 معاينة للتصميم فقط — لا تتصل ببيانات الطالبات
+    ولا تحفظ إجابات أو نقاط
+  </div>
+
+  <div class="tabs">
+    <button class="active" id="studentTab"
+      onclick="showTab('student')">
+      🎓 بوابة الطالبة
+    </button>
+
+    <button id="teacherTab"
+      onclick="showTab('teacher')">
+      👑 لوحة المعلمة
+    </button>
+  </div>
+
+  <section id="student" class="panel">
+    <h2>أهلًا بعبقرية الرياضيات ✨</h2>
+    <p>كل سؤال خطوة نحو القمة!</p>
+
+    <label>رمز الدخول الخاص بكِ</label>
+    <input placeholder="أدخلي رمز الطالبة" disabled>
+
+    <p class="muted">
+      الدخول معطّل في المعاينة حفاظًا على بيانات الطالبات.
+    </p>
+
+    <div class="sample">
+      <h3>✨ نموذج سؤال نافس</h3>
+      <p>ما المضاعف المشترك الأصغر للعددين ٦ و٨؟</p>
+
+      <div class="options">
+        <button class="option" onclick="answer(this,false)">
+          أ ◯ ١٢
+        </button>
+        <button class="option" onclick="answer(this,true)">
+          ب ◯ ٢٤
+        </button>
+        <button class="option" onclick="answer(this,false)">
+          ج ◯ ٣٦
+        </button>
+        <button class="option" onclick="answer(this,false)">
+          د ◯ ٤٨
+        </button>
+      </div>
+
+      <p id="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="teacher" class="panel hidden">
+    <h2>👑 مركز قيادة عبقريات نافس</h2>
+    <p>لوحة ملكية لإدارة الأسئلة وقراءة مؤشرات التميز.</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <strong>٢٤</strong>
+        الطالبات (رقم توضيحي)
+      </div>
+      <div class="metric">
+        <strong>١١</strong>
+        الأسئلة (رقم توضيحي)
+      </div>
+      <div class="metric">
+        <strong>٪٨٥</strong>
+        إتقان تجريبي
+      </div>
+    </div>
+
+    <div class="sample">
+      <h3>📊 تحليل المهارات</h3>
+      <p>
+        مساحة مستقبلية لعرض الإحصاءات الحقيقية
+        من النظام الحالي.
+      </p>
+    </div>
+
+    <div class="sample">
+      <h3>✍️ إدارة الأسئلة</h3>
+      <p>
+        ستُربط وظائف النشر وإضافة الطالبات
+        بالنظام الحالي عند اعتماد التصميم.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  💎 جوهرة ماث | المعلمة/ جواهر السبيعي
+</footer>
+
+<script>
+function showTab(t){
+  document.getElementById('student')
+    .classList.toggle('hidden',t!=='student');
+
+  document.getElementById('teacher')
+    .classList.toggle('hidden',t!=='teacher');
+
+  document.getElementById('studentTab')
+    .classList.toggle('active',t==='student');
+
+  document.getElementById('teacherTab')
+    .classList.toggle('active',t==='teacher');
+}
+
+function answer(el,ok){
+  document.getElementById('feedback').textContent =
+    ok
+      ? 'أحسنتِ! إجابة صحيحة ✨'
+      : 'حاولي مرة أخرى 💚';
+
+  el.style.background = ok ? '#b8f0d8' : '#ffe0c8';
+}
+</script>
+</body>
+</html>
