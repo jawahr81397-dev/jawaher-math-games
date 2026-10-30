@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧩 تحدي الثنائيات – عباقرة الكسور الاعتيادية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Arabic Fonts: Cairo & Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pair1: '#ff2e93', // الوردي للثنائي الأول
+                        pair2: '#00d2ff', // الأزرق للثنائي الثاني
+                        pair3: '#10b981', // الأخضر للثنائي الثالث
+                        pair4: '#a855f7', // البنفسجي للثنائي الرابع
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Fraction CSS Display */
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 4px;
+            font-weight: 800;
+        }
+        .fraction .numerator {
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 2px;
+            line-height: 1;
+        }
+        .fraction .denominator {
+            padding-top: 2px;
+            line-height: 1;
+        }
+
+        /* Animated Pulse Glow for Correct Answers */
+        @keyframes pulseSuccess {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-success {
+            animation: pulseSuccess 0.4s ease-in-out;
+        }
+
+        /* Custom Scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-white flex flex-col justify-between relative overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="w-full px-4 py-3 bg-slate-900/90 border-b border-slate-800 shadow-xl flex flex-wrap justify-between items-center z-10">
+        <div class="flex items-center gap-3">
+            <div class="text-3xl sm:text-4xl animate-bounce">🧩</div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-cyan-300 to-emerald-400">
+                    تحدي الثنائيات – عباقرة الكسور الاعتيادية
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-300 font-bold">
+                    الصف السادس الابتدائي | جمع، ضرب وقسمة الكسور | إعداد المعلمة: <span id="teacher-name-disp" class="text-amber-300 font-extrabold">جواهر السبيعي</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Controls & Timer -->
+        <div class="flex items-center gap-3 my-2 sm:my-0">
+            <!-- Timer Box -->
+            <div class="bg-slate-950 border-2 border-cyan-400 px-4 py-1.5 rounded-2xl flex items-center gap-2.5 shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-stopwatch text-cyan-400 text-xl animate-pulse"></i>
+                <div class="text-center">
+                    <span class="block text-[9px] text-cyan-200 font-bold">الوقت</span>
+                    <span id="timer-display" class="text-xl sm:text-2xl font-black text-amber-300">90</span>
+                </div>
+            </div>
+
+            <!-- Start / Settings / Sound Buttons -->
+            <button id="start-btn" onclick="toggleGame()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-2 text-sm">
+                <i id="start-icon" class="fa-solid fa-play"></i>
+                <span id="start-text">ابدأ التحدي</span>
+            </button>
+            <button onclick="openSettings()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 p-2.5 rounded-xl border border-slate-700 shadow transition">
+                <i class="fa-solid fa-gear text-base"></i>
+            </button>
+            <button id="sound-btn" onclick="toggleSound()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 p-2.5 rounded-xl border border-slate-700 shadow transition">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-base text-emerald-400"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN GAME GRID (4 PAIRS / DUAL TEAMS) -->
+    <main class="flex-1 p-3 sm:p-5 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 z-10">
+
+        <!-- PAIR 1: PINK PAIR -->
+        <div id="pair-card-0" class="bg-slate-900/90 border-2 border-pink-500/60 rounded-3xl p-4 flex flex-col justify-between shadow-xl shadow-pink-950/40 relative overflow-hidden transition-all">
+            <!-- PAIR 1: PINK PAIR -->
+            <div>
+                <div class="bg-pink-950/80 border border-pink-500/40 rounded-2xl p-2.5 mb-3 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">👩‍🤝‍👩</span>
+                        <div>
+                            <h3 id="pair-title-0" class="font-extrabold text-pink-300 text-xs sm:text-sm">الثنائي الأول</h3>
+                            <p id="pair-members-0" class="text-[10px] text-pink-200/80 font-bold">طالبة ١ + طالبة ٢</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-pink-500/20 text-pink-300 font-extrabold px-2.5 py-1 rounded-full border border-pink-400/30">
+                        <span id="score-0">0</span>/3 ⭐
+                    </span>
+                </div>
+
+                <!-- Operations Badges -->
+                <div class="flex justify-center gap-1 mb-2 text-[10px] font-bold">
+                    <span class="bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded-md border border-pink-500/30">جمع ➕</span>
+                    <span class="bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded-md border border-pink-500/30">ضرب ✖️</span>
+                    <span class="bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded-md border border-pink-500/30">قسمة ➗</span>
+                </div>
+
+                <!-- Question Box -->
+                <div id="q-box-0" class="bg-slate-950/90 border border-pink-500/30 p-3 rounded-2xl min-h-[100px] flex items-center justify-center text-center text-sm font-bold text-slate-200 mb-3">
+                    اضغطي "ابدأ التحدي" للبدء
+                </div>
+            </div>
+
+            <!-- Options Grid -->
+            <div id="options-0" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <!-- PAIR 2: BLUE PAIR -->
+            <!-- PAIR 2: BLUE PAIR -->
+            <div>
+                <div class="bg-cyan-950/80 border border-cyan-500/40 rounded-2xl p-2.5 mb-3 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">👩‍🤝‍👩</span>
+                        <div>
+                            <h3 id="pair-title-1" class="font-extrabold text-cyan-300 text-xs sm:text-sm">الثنائي الثاني</h3>
+                            <p id="pair-members-1" class="text-[10px] text-cyan-200/80 font-bold">طالبة ١ + طالبة ٢</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-cyan-500/20 text-cyan-300 font-extrabold px-2.5 py-1 rounded-full border border-cyan-400/30">
+                        <span id="score-1">0</span>/3 ⭐
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-1 mb-2 text-[10px] font-bold">
+                    <span class="bg-cyan-900/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/30">جمع ➕</span>
+                    <span class="bg-cyan-900/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/30">ضرب ✖️</span>
+                    <span class="bg-cyan-900/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/30">قسمة ➗</span>
+                </div>
+
+                <div id="q-box-1" class="bg-slate-950/90 border border-cyan-500/30 p-3 rounded-2xl min-h-[100px] flex items-center justify-center text-center text-sm font-bold text-slate-200 mb-3">
+                    اضغطي "ابدأ التحدي" للبدء
+                </div>
+            </div>
+
+            <div id="options-1" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <!-- PAIR 3: GREEN PAIR -->
+            <!-- PAIR 3: GREEN PAIR -->
+            <div>
+                <div class="bg-emerald-950/80 border border-emerald-500/40 rounded-2xl p-2.5 mb-3 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">👩‍🤝‍👩</span>
+                        <div>
+                            <h3 id="pair-title-2" class="font-extrabold text-emerald-300 text-xs sm:text-sm">الثنائي الثالث</h3>
+                            <p id="pair-members-2" class="text-[10px] text-emerald-200/80 font-bold">طالبة ١ + طالبة ٢</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-300 font-extrabold px-2.5 py-1 rounded-full border border-emerald-400/30">
+                        <span id="score-2">0</span>/3 ⭐
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-1 mb-2 text-[10px] font-bold">
+                    <span class="bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/30">جمع ➕</span>
+                    <span class="bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/30">ضرب ✖️</span>
+                    <span class="bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/30">قسمة ➗</span>
+                </div>
+
+                <div id="q-box-2" class="bg-slate-950/90 border border-emerald-500/30 p-3 rounded-2xl min-h-[100px] flex items-center justify-center text-center text-sm font-bold text-slate-200 mb-3">
+                    اضغطي "ابدأ التحدي" للبدء
+                </div>
+            </div>
+
+            <div id="options-2" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <!-- PAIR 4: PURPLE PAIR -->
+            <!-- PAIR 4: PURPLE PAIR -->
+            <div>
+                <div class="bg-purple-950/80 border border-purple-500/40 rounded-2xl p-2.5 mb-3 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">👩‍🤝‍👩</span>
+                        <div>
+                            <h3 id="pair-title-3" class="font-extrabold text-purple-300 text-xs sm:text-sm">الثنائي الرابع</h3>
+                            <p id="pair-members-3" class="text-[10px] text-purple-200/80 font-bold">طالبة ١ + طالبة ٢</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-purple-500/20 text-purple-300 font-extrabold px-2.5 py-1 rounded-full border border-purple-400/30">
+                        <span id="score-3">0</span>/3 ⭐
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-1 mb-2 text-[10px] font-bold">
+                    <span class="bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded-md border border-purple-500/30">جمع ➕</span>
+                    <span class="bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded-md border border-purple-500/30">ضرب ✖️</span>
+                    <span class="bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded-md border border-purple-500/30">قسمة ➗</span>
+                </div>
+
+                <div id="q-box-3" class="bg-slate-950/90 border border-purple-500/30 p-3 rounded-2xl min-h-[100px] flex items-center justify-center text-center text-sm font-bold text-slate-200 mb-3">
+                    اضغطي "ابدأ التحدي" للبدء
+                </div>
+            </div>
+
+            <div id="options-3" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full py-2.5 bg-slate-950 border-t border-slate-800 text-center text-slate-400 text-xs z-10">
+        <p class="font-semibold">إعداد معلمة المادة / <span id="footer-teacher-name" class="text-amber-300 font-bold">جواهر السبيعي</span> | لعبة تعليمية تفاعلية لتعزيز العمل الجماعي الثنائي 🌟</p>
+    </footer>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-2xl overflow-y-auto max-h-[90vh] no-scrollbar">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> إعدادات المعلمة وتسمية الثنائيات
+                </h3>
+                <button onclick="closeSettings()" class="text-slate-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm">
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">اسم المعلمة:</label>
+                    <input type="text" id="teacher-input" value="جواهر السبيعي" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">وقت التحدي (بالثواني):</label>
+                    <input type="number" id="duration-input" value="90" min="30" max="300" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-amber-400">
+                </div>
+
+                <!-- Names inputs for 4 Dual Pairs -->
+                <div class="space-y-2 border-t border-slate-800 pt-3">
+                    <p class="font-extrabold text-amber-300 text-xs">أسماء الطالبات في كل ثنائي:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[11px] font-bold text-pink-400 mb-0.5">الثنائي الأول (الوردي):</label>
+                            <input type="text" id="pair-input-0" value="طالبة ١ + طالبة ٢" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-cyan-400 mb-0.5">الثنائي الثاني (الأزرق):</label>
+                            <input type="text" id="pair-input-1" value="طالبة ١ + طالبة ٢" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-emerald-400 mb-0.5">الثنائي الثالث (الأخضر):</label>
+                            <input type="text" id="pair-input-2" value="طالبة ١ + طالبة ٢" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-purple-400 mb-0.5">الثنائي الرابع (البنفسجي):</label>
+                            <input type="text" id="pair-input-3" value="طالبة ١ + طالبة ٢" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-800 flex justify-end gap-2">
+                    <button onclick="closeSettings()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl font-bold">إلغاء</button>
+                    <button onclick="saveSettings()" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-black shadow-lg">حفظ التغييرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WINNER / RESULTS MODAL -->
+    <div id="results-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-amber-400/80 rounded-3xl max-w-lg w-full p-6 text-center shadow-2xl relative overflow-hidden">
+            <div class="text-6xl mb-3 animate-bounce">👑</div>
+            <h2 class="text-xl sm:text-2xl font-black text-amber-300 mb-1">
+                تتويج الثنائي المتميز!
+            </h2>
+            <p id="winner-announcement" class="text-sm sm:text-base text-cyan-300 font-bold mb-4"></p>
+
+            <div id="leaderboard" class="space-y-2 mb-5"></div>
+
+            <p class="text-xs text-slate-400 mb-4 border-t border-slate-800 pt-3">
+                إعداد معلمة المادة / <span id="win-teacher-name" class="text-amber-300 font-bold">جواهر السبيعي</span>
+            </p>
+
+            <button onclick="restartGame()" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-8 py-3 rounded-2xl text-sm shadow-xl hover:scale-105 transition">
+                <i class="fa-solid fa-rotate-right ml-2"></i> بدء تحدي جديد
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==========================================================================
+           MATHEMATICALLY ACCURATE FRACTION QUESTIONS (ADDITION, MULTIPLICATION, DIVISION)
+           Grade 6 Curriculum Suitable - 3 Questions Per Pair ( الجمع، الضرب، القسمة )
+           ========================================================================== */
+        const questionsData = {
+            // PAIR 0
+            0: [
+                {
+                    type: 'جمع الكسور ➕',
+                    q: 'أوجد الناتج في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span> + <span class="fraction"><span class="numerator">2</span><span class="denominator">4</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">3</span><span class="denominator">4</span></span>', '<span class="fraction"><span class="numerator">3</span><span class="denominator">8</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>', '<span class="fraction"><span class="numerator">2</span><span class="denominator">4</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'ضرب الكسور ✖️',
+                    q: 'أوجد ناتج الضرب في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span> × <span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">1</span><span class="denominator">3</span></span>', '<span class="fraction"><span class="numerator">2</span><span class="denominator">6</span></span>', '<span class="fraction"><span class="numerator">3</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'قسمة الكسور ➗',
+                    q: 'أوجد ناتج القسمة في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">3</span></span> ÷ <span class="fraction"><span class="numerator">1</span><span class="denominator">6</span></span>',
+                    options: ['2', '3', '<span class="fraction"><span class="numerator">1</span><span class="denominator">18</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>'],
+                    correct: 0
+                }
+            ],
+            // PAIR 1
+            1: [
+                {
+                    type: 'جمع الكسور ➕',
+                    q: 'أوجد الناتج في أبسط صورة:<br><span class="fraction"><span class="numerator">2</span><span class="denominator">5</span></span> + <span class="fraction"><span class="numerator">1</span><span class="denominator">5</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">3</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">3</span><span class="denominator">10</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">5</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'ضرب الكسور ✖️',
+                    q: 'أوجد ناتج الضرب في أبسط صورة:<br><span class="fraction"><span class="numerator">3</span><span class="denominator">4</span></span> × <span class="fraction"><span class="numerator">1</span><span class="denominator">3</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span>', '<span class="fraction"><span class="numerator">3</span><span class="denominator">12</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">3</span></span>', '<span class="fraction"><span class="numerator">2</span><span class="denominator">4</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'قسمة الكسور ➗',
+                    q: 'أوجد ناتج القسمة في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span> ÷ <span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span>',
+                    options: ['2', '4', '<span class="fraction"><span class="numerator">1</span><span class="denominator">8</span></span>', '1'],
+                    correct: 0
+                }
+            ],
+            // PAIR 2
+            2: [
+                {
+                    type: 'جمع الكسور ➕',
+                    q: 'أوجد الناتج في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">6</span></span> + <span class="fraction"><span class="numerator">3</span><span class="denominator">6</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">6</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">3</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">12</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'ضرب الكسور ✖️',
+                    q: 'أوجد ناتج الضرب في أبسط صورة:<br><span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span> × <span class="fraction"><span class="numerator">3</span><span class="denominator">5</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">2</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">6</span><span class="denominator">15</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">3</span><span class="denominator">5</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'قسمة الكسور ➗',
+                    q: 'أوجد ناتج القسمة في أبسط صورة:<br><span class="fraction"><span class="numerator">2</span><span class="denominator">5</span></span> ÷ <span class="fraction"><span class="numerator">2</span><span class="denominator">5</span></span>',
+                    options: ['1', '<span class="fraction"><span class="numerator">4</span><span class="denominator">25</span></span>', '2', '<span class="fraction"><span class="numerator">1</span><span class="denominator">5</span></span>'],
+                    correct: 0
+                }
+            ],
+            // PAIR 3
+            3: [
+                {
+                    type: 'جمع الكسور ➕',
+                    q: 'أوجد الناتج في أبسط صورة:<br><span class="fraction"><span class="numerator">3</span><span class="denominator">8</span></span> + <span class="fraction"><span class="numerator">1</span><span class="denominator">8</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">8</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">16</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'ضرب الكسور ✖️',
+                    q: 'أوجد ناتج الضرب في أبسط صورة:<br><span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span> × <span class="fraction"><span class="numerator">4</span><span class="denominator">5</span></span>',
+                    options: ['<span class="fraction"><span class="numerator">1</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">4</span><span class="denominator">20</span></span>', '<span class="fraction"><span class="numerator">2</span><span class="denominator">5</span></span>', '<span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span>'],
+                    correct: 0
+                },
+                {
+                    type: 'قسمة الكسور ➗',
+                    q: 'أوجد ناتج القسمة في أبسط صورة:<br><span class="fraction"><span class="numerator">3</span><span class="denominator">4</span></span> ÷ <span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span>',
+                    options: ['3', '<span class="fraction"><span class="numerator">3</span><span class="denominator">16</span></span>', '4', '1'],
+                    correct: 0
+                }
+            ]
+        };
+
+        // Game State Variables
+        let teacherName = "جواهر السبيعي";
+        let gameTime = 90;
+        let timer = 90;
+        let timerInterval = null;
+        let isGameRunning = false;
+        let soundEnabled = true;
+
+        let pairNames = ["الثنائي الأول", "الثنائي الثاني", "الثنائي الثالث", "الثنائي الرابع"];
+        let memberNames = ["طالبة ١ + طالبة ٢", "طالبة ١ + طالبة ٢", "طالبة ١ + طالبة ٢", "طالبة ١ + طالبة ٢"];
+
+        let state = [
+            { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+            { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+            { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+            { score: 0, currentQ: 0, timeTaken: 0, finished: false }
+        ];
+
+        // Synthesizer Audio
+        let audioCtx = null;
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.25);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.25);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch(e){}
+        }
+
+        function toggleGame() {
+            if (isGameRunning) pauseGame();
+            else startGame();
+        }
+
+        function startGame() {
+            isGameRunning = true;
+            document.getElementById('start-icon').className = 'fa-solid fa-pause';
+            document.getElementById('start-text').textContent = 'إيقاف مؤقت';
+
+            for (let i = 0; i < 4; i++) renderQuestion(i);
+
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timer--;
+                document.getElementById('timer-display').textContent = timer;
+
+                state.forEach(p => { if (!p.finished) p.timeTaken++; });
+
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function pauseGame() {
+            isGameRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('start-icon').className = 'fa-solid fa-play';
+            document.getElementById('start-text').textContent = 'استئناف التحدي';
+
+            for (let i = 0; i < 4; i++) {
+                const btns = document.querySelectorAll(`#options-${i} button`);
+                btns.forEach(btn => btn.disabled = true);
+            }
+        }
+
+        function renderQuestion(pairIdx) {
+            const pair = state[pairIdx];
+            const qBox = document.getElementById(`q-box-${pairIdx}`);
+            const optBox = document.getElementById(`options-${pairIdx}`);
+
+            if (pair.currentQ >= 3) {
+                pair.finished = true;
+                qBox.innerHTML = '<span class="text-emerald-400 font-bold">✨ أكتملت جميع أسئلة الكسور بنجاح!</span>';
+                optBox.innerHTML = '<div class="col-span-2 text-center text-xs text-slate-400 py-2">في انتظار باقي الثنائيات...</div>';
+                checkAllFinished();
+                return;
+            }
+
+            const qData = questionsData[pairIdx][pair.currentQ];
+            qBox.innerHTML = `<span class="block text-[11px] text-amber-300 mb-1 font-extrabold">${qData.type}</span>${qData.q}`;
+
+            optBox.innerHTML = '';
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-slate-800/90 hover:bg-slate-700 active:scale-95 border border-slate-700 rounded-xl p-2 text-xs font-bold text-white transition flex items-center justify-center min-h-[44px] shadow';
+                btn.innerHTML = opt;
+                btn.onclick = () => handleAnswer(pairIdx, idx);
+                if (!isGameRunning) btn.disabled = true;
+                optBox.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(pairIdx, selectedIdx) {
+            if (!isGameRunning) return;
+
+            const pair = state[pairIdx];
+            const qData = questionsData[pairIdx][pair.currentQ];
+
+            if (selectedIdx === qData.correct) {
+                pair.score++;
+                playSound('correct');
+                document.getElementById(`score-${pairIdx}`).textContent = pair.score;
+                
+                // Card Glow Animation
+                const card = document.getElementById(`pair-card-${pairIdx}`);
+                card.classList.add('animate-success');
+                setTimeout(() => card.classList.remove('animate-success'), 400);
+            } else {
+                playSound('wrong');
+            }
+
+            pair.currentQ++;
+            renderQuestion(pairIdx);
+        }
+
+        function checkAllFinished() {
+            if (state.every(p => p.finished)) endGame();
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            isGameRunning = false;
+
+            let ranked = state.map((p, idx) => ({
+                ...p,
+                id: idx,
+                title: pairNames[idx],
+                members: memberNames[idx]
+            }));
+
+            ranked.sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
+                return a.timeTaken - b.timeTaken;
+            });
+
+            const winner = ranked[0];
+            document.getElementById('winner-announcement').textContent = `الثنائي الفائز: ${winner.members} (${winner.score}/3 نقاط في ${winner.timeTaken} ثانية)`;
+
+            const lb = document.getElementById('leaderboard');
+            lb.innerHTML = '';
+            const medals = ['🥇', '🥈', '🥉', '🌟'];
+
+            ranked.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = `p-3 rounded-2xl border flex justify-between items-center text-xs font-bold bg-slate-950 border-slate-800`;
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">${medals[idx]}</span>
+                        <div>
+                            <span class="block text-white">${item.members}</span>
+                            <span class="text-[10px] text-slate-400">${item.title}</span>
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        <span class="block text-amber-300">النقاط: ${item.score}/3</span>
+                        <span class="text-[10px] text-slate-400">${item.timeTaken} ثانية</span>
+                    </div>
+                `;
+                lb.appendChild(row);
+            });
+
+            document.getElementById('results-modal').classList.remove('hidden');
+        }
+
+        function restartGame() {
+            clearInterval(timerInterval);
+            isGameRunning = false;
+            timer = gameTime;
+
+            state = [
+                { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+                { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+                { score: 0, currentQ: 0, timeTaken: 0, finished: false },
+                { score: 0, currentQ: 0, timeTaken: 0, finished: false }
+            ];
+
+            document.getElementById('timer-display').textContent = timer;
+            document.getElementById('start-icon').className = 'fa-solid fa-play';
+            document.getElementById('start-text').textContent = 'ابدأ التحدي';
+            document.getElementById('results-modal').classList.add('hidden');
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`score-${i}`).textContent = '0';
+                document.getElementById(`q-box-${i}`).innerHTML = 'اضغطي "ابدأ التحدي" للبدء';
+                document.getElementById(`options-${i}`).innerHTML = '';
+            }
+        }
+
+        function openSettings() {
+            document.getElementById('teacher-input').value = teacherName;
+            document.getElementById('duration-input').value = gameTime;
+            for (let i = 0; i < 4; i++) document.getElementById(`pair-input-${i}`).value = memberNames[i];
+            document.getElementById('settings-modal').classList.remove('hidden');
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.add('hidden');
+        }
+
+        function saveSettings() {
+            teacherName = document.getElementById('teacher-input').value || "جواهر السبيعي";
+            gameTime = parseInt(document.getElementById('duration-input').value) || 90;
+
+            document.getElementById('teacher-name-disp').textContent = teacherName;
+            document.getElementById('footer-teacher-name').textContent = teacherName;
+            document.getElementById('win-teacher-name').textContent = teacherName;
+
+            for (let i = 0; i < 4; i++) {
+                memberNames[i] = document.getElementById(`pair-input-${i}`).value || memberNames[i];
+                document.getElementById(`pair-members-${i}`).textContent = memberNames[i];
+            }
+
+            closeSettings();
+            restartGame();
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('sound-icon').className = soundEnabled ? 'fa-solid fa-volume-high text-base text-emerald-400' : 'fa-solid fa-volume-xmark text-base text-rose-400';
+        }
+    </script>
+</body>
+</html>
