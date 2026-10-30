@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>بوابة الرياضيات | جواهر السبيعي</title>
 
 <style>
@@ -12,7 +14,9 @@
   --bg:#f3f7f3;
   --ink:#193d30;
 }
+
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:var(--bg);
@@ -20,6 +24,7 @@ body{
   font-family:Tahoma,Arial,sans-serif;
   line-height:1.8;
 }
+
 header{
   background:linear-gradient(125deg,#123c30,#226c53);
   color:white;
@@ -27,23 +32,32 @@ header{
   padding:42px 14px;
   border-bottom:5px solid var(--gold);
 }
-header h1{font-size:36px;margin:6px}
+
+header h1{
+  font-size:clamp(28px,6vw,40px);
+  margin:6px;
+}
+
 header p{color:#f0dfa9}
+
 main{
   max-width:1000px;
   margin:30px auto;
   padding:0 17px;
   min-height:45vh;
 }
+
 h2{
   border-right:5px solid var(--gold);
   padding-right:12px;
 }
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
   gap:18px;
 }
+
 .card{
   background:white;
   border:1px solid #e0e8df;
@@ -51,8 +65,11 @@ h2{
   padding:24px;
   box-shadow:0 5px 20px #153d2810;
 }
+
 .icon{font-size:42px}
+
 .card p{color:#60736a}
+
 .btn{
   display:inline-block;
   border:0;
@@ -64,11 +81,7 @@ h2{
   text-decoration:none;
   cursor:pointer;
 }
-.btn.alt{
-  background:white;
-  color:var(--green);
-  border:2px solid #bdcfbf;
-}
+
 .tag{
   display:inline-block;
   color:#6c571e;
@@ -77,7 +90,12 @@ h2{
   border-radius:20px;
   padding:4px 13px;
 }
-.items{display:grid;gap:14px}
+
+.items{
+  display:grid;
+  gap:14px;
+}
+
 .item{
   display:flex;
   justify-content:space-between;
@@ -85,52 +103,72 @@ h2{
   gap:15px;
   flex-wrap:wrap;
 }
+
 .item h3{margin:0}
+
 .item small{color:#60736a}
+
 .muted{color:#60736a}
+
 footer{
   text-align:center;
   color:#4a6958;
   padding:25px;
 }
+
 a{overflow-wrap:anywhere}
+
 @media(max-width:540px){
-  .item .btn{width:100%;text-align:center}
+  .item .btn{
+    width:100%;
+    text-align:center;
+  }
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
-<div style="font-size:45px">✦ 📐 ✦</div>
-<h1>بوابة الرياضيات</h1>
-<p>نتعلم • نتحدى • نبدع</p>
-<strong>المعلمة/ جواهر السبيعي</strong>
+  <div style="font-size:45px">✦ 📐 ✦</div>
+  <h1>بوابة الرياضيات</h1>
+  <p>نتعلم • نتحدى • نبدع</p>
+  <strong>المعلمة/ جواهر السبيعي</strong>
 </header>
 
 <main id="app"></main>
 
 <footer>
-إعداد المعلمة/ جواهر السبيعي
+  إعداد المعلمة/ جواهر السبيعي
 </footer>
 
 <script>
 
 /*
-هنا نضيف الألعاب والملفات والروابط مستقبلًا.
+بوابة الرياضيات
+المعلمة/ جواهر السبيعي
 
-مثال:
-{title:'ملخص القسمة',url:'summary.pdf'}
+لإضافة محتوى جديد مستقبلًا:
+نرفع الملف إلى GitHub
+ثم نضيف اسمه للقسم المناسب.
 
-ملفات PDF والصور والفيديوهات يمكن رفعها
-إلى GitHub ثم إضافة رابطها هنا.
+الأقسام الفارغة تعرض كلمة قريبًا.
 */
 
+// الملفات التي ننتظر رفعها
+const pendingFiles=[
+  'star_today.html',
+  'thursday_stars.html'
+];
+
+// قائمة المحتويات
 const content={
 
+  // ألعاب خامس
   grade5:[],
 
+  // ألعاب سادس
   grade6:[
     {
       title:'🚂 قطار التحدي الرياضي',
@@ -139,14 +177,101 @@ const content={
     }
   ],
 
+  // ملخصات خامس
   summaries5:[],
+
+  // ملخصات سادس
   summaries6:[],
+
+  // التحدي الأسبوعي
   challenges:[],
-  excellence:[],
+
+  // التميز والتكريمات
+  excellence:[
+
+    {
+      title:'🏆 بطلات القسمة',
+      description:'تكريم بطلات القسمة للصفين الخامس والسادس مع أغنية ومؤثرات',
+      url:'division_heroes.html'
+    },
+
+    {
+      title:'⭐ نجمة اليوم',
+      description:'إعلان نجمة اليوم مع مؤثرات احتفالية',
+      url:'star_today.html'
+    },
+
+    {
+      title:'🎭 نجمات الخميس',
+      description:'مسرح الحضور والتميز',
+      url:'thursday_stars.html'
+    },
+
+    {
+      title:'🌟 المتميزات في القسمة – خامس',
+      description:'تكريم الطالبات المتميزات في القسمة',
+      url:'الطالبات المميزات في القسمة الصف الخامس .pdf'
+    },
+
+    {
+      title:'💚 تحفيز طالبات سادس',
+      description:'قسمة الكسور العشرية',
+      url:'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC'
+    },
+
+    {
+      title:'✨ تحفيز في حصة القسمة',
+      description:'القسمة على عدد من رقمين',
+      url:'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
+    },
+
+    {
+      title:'👩‍🏫 تكريم المعلمة الصغيرة',
+      description:'شهادة تقدير للمعلمة الصغيرة',
+      url:'تكريم المعلمة الصغيرة.jpg'
+    },
+
+    {
+      title:'⭐ نجمة الأسبوع',
+      description:'تكريم نجمة الأسبوع جنان بوخضر',
+      url:'نجمة الاسبوع جنان بوخضر .PNG'
+    },
+
+    {
+      title:'👑 شهادة شكر نجمة الشهر',
+      description:'شهادة تكريم نجمة الشهر',
+      url:'شهادة شكر نجمة الشهر.PNG'
+    },
+
+    {
+      title:'🎬 نجمة الشهر – سادس',
+      description:'فيديو تكريم سنا الحويشان',
+      url:'نجمة الشهر صف سادس سنا الحويشان.MOV'
+    },
+
+    {
+      title:'🇸🇦 شكر وتقدير – إنجازات اليوم الوطني',
+      description:'شهادات شكر للمهمة الأدائية',
+      url:'‎⁨شهادات شكر مهمة ادائية_اليوم_الوطني_96_جواهر _السبيعي⁩.pdf'
+    },
+
+    {
+      title:'🎖️ شهادات شكر',
+      description:'تكريم وتقدير الإنجازات',
+      url:'‎⁨شهادات شكر⁩.pdf.pdf'
+    }
+
+  ],
+
+  // الأنشطة والمناسبات
+  activities:[],
+
+  // التدريبات والاختبارات
   practice:[]
 
 };
 
+// أقسام البوابة
 const categories={
 
   grade5:{
@@ -164,13 +289,13 @@ const categories={
   summaries5:{
     title:'📚 ملخص للدروس – خامس',
     icon:'📘',
-    description:'ملخصات وملفات وروابط الصف الخامس'
+    description:'ملفات PDF وصور وروابط'
   },
 
   summaries6:{
     title:'📚 ملخص للدروس – سادس',
     icon:'📗',
-    description:'ملخصات وملفات وروابط الصف السادس'
+    description:'ملفات PDF وصور وروابط'
   },
 
   challenges:{
@@ -180,9 +305,15 @@ const categories={
   },
 
   excellence:{
-    title:'🎖️ لوحة التميز',
+    title:'🎖️ لوحة التميز والتكريمات',
     icon:'🏅',
-    description:'شهادات وصور وفيديوهات وروابط'
+    description:'شهادات وتكريمات وصور وفيديوهات'
+  },
+
+  activities:{
+    title:'🎉 الأنشطة والمناسبات',
+    icon:'🎉',
+    description:'فعاليات وإذاعات ومبادرات وأنشطة مدرسية'
   },
 
   practice:{
@@ -195,18 +326,34 @@ const categories={
 
 const app=document.getElementById('app');
 
+// إنشاء عنصر
 function element(tag,cls,text){
+
   const e=document.createElement(tag);
+
   if(cls)e.className=cls;
-  if(text!==undefined)e.textContent=text;
+
+  if(text!==undefined){
+    e.textContent=text;
+  }
+
   return e;
 }
 
+// إنشاء رابط
 function link(label,url){
-  const a=element('a','btn',label);
-  a.href=url;
 
+  const a=element('a','btn',label);
+
+  // يدعم أسماء الملفات العربية والمسافات
   if(/^https?:\/\//i.test(url)){
+    a.href=url;
+    a.target='_blank';
+    a.rel='noopener noreferrer';
+  }else if(url.startsWith('#')){
+    a.href=url;
+  }else{
+    a.href=encodeURI(url);
     a.target='_blank';
     a.rel='noopener noreferrer';
   }
@@ -214,7 +361,9 @@ function link(label,url){
   return a;
 }
 
+// بطاقة رئيسية
 function card(icon,title,description,button,url){
+
   const c=element('article','card');
 
   c.append(
@@ -227,6 +376,7 @@ function card(icon,title,description,button,url){
   return c;
 }
 
+// الصفحة الرئيسية
 function home(){
 
   app.replaceChildren();
@@ -261,17 +411,17 @@ function home(){
 
     card(
       '📚',
-      'ملخص للدروس',
+      'ملخص للدروس – خامس',
       'ملخصات PDF وصور وروابط',
-      'ملخصات خامس',
+      'افتحي الملخصات',
       '#summaries5'
     ),
 
     card(
       '📗',
-      'ملخصات الصف السادس',
+      'ملخص للدروس – سادس',
       'ملخصات وملفات وروابط',
-      'ملخصات سادس',
+      'افتحي الملخصات',
       '#summaries6'
     ),
 
@@ -285,10 +435,18 @@ function home(){
 
     card(
       '🎖️',
-      'لوحة التميز',
-      'إنجازات وشهادات وتكريمات',
-      'افتحي اللوحة',
+      'لوحة التميز والتكريمات',
+      'إنجازات وشهادات وتكريمات الطالبات',
+      'افتحي لوحة التميز',
       '#excellence'
+    ),
+
+    card(
+      '🎉',
+      'الأنشطة والمناسبات',
+      'إذاعات ومبادرات وفعاليات مدرسية',
+      'افتحي الأنشطة',
+      '#activities'
     ),
 
     card(
@@ -308,6 +466,7 @@ function home(){
 
 }
 
+// صفحة القسم
 function section(key){
 
   const info=categories[key];
@@ -360,10 +519,21 @@ function section(key){
       );
     }
 
-    box.append(
-      details,
-      link('فتح المحتوى ↗',item.url)
-    );
+    box.appendChild(details);
+
+    if(pendingFiles.includes(item.url)){
+
+      box.append(
+        element('span','tag','بانتظار رفع الملف')
+      );
+
+    }else{
+
+      box.append(
+        link('فتح المحتوى ↗',item.url)
+      );
+
+    }
 
     list.append(box);
 
@@ -373,6 +543,7 @@ function section(key){
 
 }
 
+// التنقل بين الأقسام
 function render(){
 
   const key=decodeURIComponent(
