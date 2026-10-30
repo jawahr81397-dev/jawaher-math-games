@@ -58,7 +58,7 @@ h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 18px;
 }
 
@@ -165,7 +165,7 @@ a {
 
 <script>
 
-// محتويات البوابة
+/* محتويات البوابة */
 
 const content = {
 
@@ -183,80 +183,79 @@ const content = {
   summaries6: [],
   challenges: [],
 
-  excellence: [
+  /* الشهادات والتكريمات */
 
+  certificates: [
     {
-      title: '🏆 بطلات القسمة',
-      description: 'تكريم بطلات القسمة للصفين الخامس والسادس',
-      url: 'division_heroes.html'
+      title: '🎖️ شهادات شكر',
+      description: 'شهادات التقدير والإنجاز',
+      url: 'thank_you_certificates.pdf.pdf'
     },
-
     {
-      title: '⭐ نجمة اليوم',
-      description: 'تكريم نجمة اليوم بمؤثرات احتفالية',
-      url: 'نجمة اليوم.html'
-    },
-
-    {
-      title: '🎭 نجمات الخميس',
-      description: 'مسرح الحضور والتميز',
-      url: 'hursday_stars.html'
-    },
-
-    {
-      title: '💌 بريد السعادة',
-      description: 'مبادرة تحفيزية لنشر السعادة والتشجيع بين الطالبات',
-      url: 'بريد السعادة.HEIC'
-    },
-
-    {
-      title: '🌟 المتميزات في القسمة – خامس',
-      description: 'تكريم المتميزات في مهارة القسمة',
-      url: 'الطالبات المميزات في القسمة الصف الخامس .pdf'
-    },
-
-    {
-      title: '💚 تحفيز طالبات سادس',
-      description: 'قسمة الكسور العشرية',
-      url: 'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC'
-    },
-
-    {
-      title: '✨ تحفيز في حصة القسمة',
-      description: 'القسمة على عدد من رقمين',
-      url: 'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
-    },
-
-    {
-      title: '👩‍🏫 المعلمة الصغيرة',
-      description: 'تكريم المعلمة الصغيرة',
+      title: '👩‍🏫 تكريم المعلمة الصغيرة',
+      description: 'شهادة تقدير للمعلمة الصغيرة',
       url: 'تكريم المعلمة الصغيرة.jpg'
     },
-
-    {
-      title: '⭐ نجمة الأسبوع',
-      description: 'تكريم جنان بوخضر',
-      url: 'نجمة الاسبوع جنان بوخضر .PNG'
-    },
-
     {
       title: '👑 شهادة نجمة الشهر',
       description: 'شهادة شكر نجمة الشهر',
       url: 'شهادة شكر نجمة الشهر.PNG'
     },
-
     {
       title: '🎬 نجمة الشهر – سادس',
       description: 'فيديو تكريم سنا الحويشان',
       url: 'نجمة الشهر صف سادس سنا الحويشان.MOV'
-    },
-
-    {
-      title: '🎖️ شهادات شكر',
-      description: 'شهادات التقدير والإنجاز',
-      url: 'thank_you_certificates.pdf.pdf'
     }
+  ],
 
+  /* التحفيزات */
+
+  motivation: [
+    {
+      title: '💌 بريد السعادة',
+      description: 'مبادرة تحفيزية لنشر السعادة والتشجيع',
+      url: 'بريد السعادة.HEIC'
+    },
+    {
+      title: '🌟 المتميزات في القسمة – خامس',
+      description: 'تكريم المتميزات في مهارة القسمة',
+      url: 'الطالبات المميزات في القسمة الصف الخامس .pdf'
+    },
+    {
+      title: '💚 تحفيز طالبات سادس',
+      description: 'قسمة الكسور العشرية',
+      url: 'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC'
+    },
+    {
+      title: '✨ تحفيز في حصة القسمة',
+      description: 'القسمة على عدد من رقمين',
+      url: 'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
+    }
+  ],
+
+  /* نجمات التميز */
+
+  stars: [
+    {
+      title: '⭐ نجمة اليوم',
+      description: 'إعلان نجمة اليوم بمؤثرات احتفالية',
+      url: 'نجمة اليوم.html'
+    },
+    {
+      title: '🎭 نجمات الخميس',
+      description: 'مسرح الحضور والتميز',
+      url: 'hursday_stars.html'
+    },
+    {
+      title: '⭐ نجمة الأسبوع',
+      description: 'تكريم جنان بوخضر',
+      url: 'نجمة الاسبوع جنان بوخضر .PNG'
+    },
+    {
+      title: '🏆 بطلات القسمة',
+      description: 'تكريم بطلات القسمة للصفين الخامس والسادس',
+      url: 'division_heroes.html'
+    }
   ],
 
   activities: [],
@@ -264,7 +263,7 @@ const content = {
 
 };
 
-// أقسام البوابة
+/* أسماء الأقسام */
 
 const categories = {
 
@@ -298,10 +297,22 @@ const categories = {
     description: 'تحديات رياضية متجددة'
   },
 
-  excellence: {
-    title: '🎖️ لوحة التميز والتكريمات',
+  certificates: {
+    title: '🏅 الشهادات والتكريمات',
     icon: '🏅',
-    description: 'شهادات وتكريمات وتحفيز الطالبات'
+    description: 'شهادات الشكر والتقدير ونجمة الشهر'
+  },
+
+  motivation: {
+    title: '💌 التحفيزات',
+    icon: '💌',
+    description: 'بريد السعادة وتحفيز الطالبات'
+  },
+
+  stars: {
+    title: '🌟 نجمات التميز',
+    icon: '🌟',
+    description: 'نجمة اليوم ونجمات الخميس وبطلات القسمة'
   },
 
   activities: {
@@ -365,6 +376,8 @@ function card(icon, title, description, button, url) {
   return c;
 }
 
+/* الصفحة الرئيسية */
+
 function home() {
   app.replaceChildren();
 
@@ -423,7 +436,7 @@ function home() {
     card(
       '🎖️',
       'لوحة التميز والتكريمات',
-      'نجوم الطالبات • شهادات • بريد السعادة',
+      'الشهادات • التحفيزات • نجمات التميز',
       'افتحي لوحة التميز',
       '#excellence'
     ),
@@ -452,6 +465,51 @@ function home() {
   );
 }
 
+/* لوحة التميز الرئيسية */
+
+function excellenceHome() {
+  app.replaceChildren();
+
+  const grid = element('div', 'grid');
+
+  grid.append(
+
+    card(
+      '🏅',
+      'الشهادات والتكريمات',
+      'شهادات الشكر والتقدير ونجمة الشهر',
+      'افتحي الشهادات',
+      '#certificates'
+    ),
+
+    card(
+      '💌',
+      'التحفيزات',
+      'بريد السعادة وتحفيز الطالبات',
+      'افتحي التحفيزات',
+      '#motivation'
+    ),
+
+    card(
+      '🌟',
+      'نجمات التميز',
+      'نجمة اليوم ونجمات الخميس وبطلات القسمة',
+      'افتحي النجمات',
+      '#stars'
+    )
+
+  );
+
+  app.append(
+    link('↩ العودة للبوابة', '#home'),
+    element('h2', '', '🎖️ لوحة التميز والتكريمات'),
+    element('p', 'muted', 'اختاري القسم الذي تريدين استعراضه'),
+    grid
+  );
+}
+
+/* عرض محتويات كل قسم */
+
 function section(key) {
   const info = categories[key];
 
@@ -462,8 +520,12 @@ function section(key) {
 
   app.replaceChildren();
 
+  const backUrl = ['certificates', 'motivation', 'stars'].includes(key)
+    ? '#excellence'
+    : '#home';
+
   app.append(
-    link('↩ العودة للبوابة', '#home'),
+    link('↩ رجوع', backUrl),
     element('h2', '', info.title),
     element('p', 'muted', info.description)
   );
@@ -511,13 +573,15 @@ function section(key) {
   app.append(list);
 }
 
+/* التنقل بين الأقسام */
+
 function render() {
-  const key = decodeURIComponent(
-    location.hash.slice(1)
-  );
+  const key = decodeURIComponent(location.hash.slice(1));
 
   if (!key || key === 'home') {
     home();
+  } else if (key === 'excellence') {
+    excellenceHome();
   } else {
     section(key);
   }
@@ -530,6 +594,5 @@ window.addEventListener('hashchange', render);
 render();
 
 </script>
-
 </body>
 </html>
