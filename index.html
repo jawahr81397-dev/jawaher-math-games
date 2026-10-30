@@ -1,16 +1,547 @@
 
-/* إضافات جواهر الإبداعية */
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بوابة الرياضيات | جواهر السبيعي</title>
+<style>
+:root {
+  --green:#174d3b;
+  --gold:#caa74e;
+  --bg:#f3f7f3;
+  --ink:#193d30;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.8;
+}
+header {
+  text-align:center;
+  background:linear-gradient(125deg,#123c30,#226c53);
+  color:white;
+  padding:42px 15px;
+  border-bottom:5px solid var(--gold);
+}
+header h1 {font-size:34px;margin:5px 0}
+header p {color:#f3dfa8}
+main {
+  max-width:1050px;
+  margin:30px auto;
+  padding:0 16px;
+  min-height:55vh;
+}
+h2 {
+  border-right:5px solid var(--gold);
+  padding-right:12px;
+  margin-top:25px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+}
+.card {
+  background:white;
+  border:1px solid #dfe8df;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 5px 20px #153d2810;
+}
+.card h3 {margin:8px 0}
+.card p,.muted {color:#64756a}
+.icon {font-size:40px}
+.btn {
+  display:inline-block;
+  background:#185b44;
+  color:white;
+  padding:11px 18px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+  text-align:center;
+}
+.btn:hover {background:#104332}
+.items {display:grid;gap:16px}
+.item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.item h3 {margin:0}
+.item small {color:#66786d}
+.tag {
+  display:inline-block;
+  padding:5px 15px;
+  border-radius:25px;
+  background:#fff8df;
+  border:1px solid #ecd99c;
+  color:#6c571e;
+}
+footer {
+  text-align:center;
+  padding:25px;
+  color:#557262;
+}
+a {overflow-wrap:anywhere}
+@media(max-width:540px){
+  .item .btn {width:100%}
+  header h1 {font-size:29px}
+}
+</style>
+</head>
+<body>
 
-// مختبر جواهر السري - الصف السادس
-content.grade6.push({
-  title: '🔬 مختبر جواهر السري – تبسيط الكسور',
-  description: 'مختبر تفاعلي وتجارب وشهادة إنجاز',
-  url: 'jawaher_fraction_lab.html'
-});
+<header>
+  <div style="font-size:44px">✦ 📐 ✦</div>
+  <h1>بوابة الرياضيات</h1>
+  <p>نتعلم • نتحدى • نبدع</p>
+  <strong>المعلمة/ جواهر السبيعي</strong>
+</header>
 
-// الكتاب السحري - الأنشطة التعليمية التفاعلية
-content.activities.push({
-  title: '📖 كتاب جواهر السحري – الأعمدة البيانية',
-  description: 'مشهد ثلاثي الأبعاد لتمثيل البيانات بالأعمدة',
-  url: 'Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4'
-});
+<main id="app"></main>
+
+<footer>إعداد المعلمة/ جواهر السبيعي</footer>
+
+<script>
+const content = {
+  grade5: [
+    {
+      title:'🔐 غرفة العمليات الجبرية',
+      description:'مهمات المعادلات الجبرية وضبط الصف',
+      url:'algebra_mission_grade5.html'
+    },
+    {
+      title:'🗝️ كنز القسمة المفقود',
+      description:'افتحي أقفال الكنز بحل مسائل القسمة',
+      url:'treasure_grade5.html'
+    },
+    {
+      title:'🎡 عجلة تحدي الضرب',
+      description:'عجلة تفاعلية وأسئلة ضرب ونقاط',
+      url:'wheel_grade5.html'
+    },
+    {
+      title:'🎈 سباق المناطيد',
+      description:'منافسة المجموعات في سماء الرياضيات',
+      url:'balloon_grade5.html'
+    },
+    {
+      title:'🚪 الأبواب الغامضة',
+      description:'اختاري الباب واكتشفي السؤال أو المفاجأة',
+      url:'doors_grade5.html'
+    }
+  ],
+
+  grade6: [
+    {
+      title:'🚂 قطار التحدي الرياضي',
+      description:'الكسور العشرية • أربع محطات',
+      url:'train.html'
+    },
+    {
+      title:'🚀 سباق المجرّة – تبسيط الكسور الاعتيادية',
+      description:'سباق تفاعلي بين أربع مجموعات',
+      url:'galaxy_race_math_game 3.html'
+    },
+    {
+      title:'💎 العوامل الأولية',
+      description:'نشاط تفاعلي في العوامل الأولية',
+      url:'firestore.html'
+    },
+    {
+      title:'🧩 تحدي الثنائيات – عباقرة الكسور',
+      description:'منافسة أربعة ثنائيات في الكسور الاعتيادية',
+      url:'dual_fraction_challenge_game_fixed.html'
+    },
+    {
+      title:'🔬 مختبر جواهر السري – تبسيط الكسور',
+      description:'تجارب تفاعلية وتصحيح فوري وشهادة إنجاز',
+      url:'jawaher_fraction_lab.html'
+    }
+  ],
+
+  review5: [
+    {
+      title:'💎 حقيبة جواهر – التحديات التفاعلية (خامس)',
+      description:'محطات لتنمية التفكير الرياضي مع تصحيح فوري',
+      url:'jawaher_thinking_grade5.html'
+    },
+    {
+      title:'📄 حقيبة جواهر – أوراق العمل (خامس)',
+      description:'تدريبات قابلة للطباعة',
+      url:'jawaher_thinking_grade5_worksheets.html'
+    }
+  ],
+
+  review6: [
+    {
+      title:'💎 حقيبة جواهر – مختبر التفكير الرياضي (سادس)',
+      description:'أسئلة متنوعة وتحديات مع تفسير الإجابات',
+      url:'jawaher_thinking_grade6.html'
+    },
+    {
+      title:'📄 حقيبة جواهر – أوراق العمل (سادس)',
+      description:'أوراق تدريب قابلة للطباعة',
+      url:'jawaher_thinking_grade6_worksheets.html'
+    }
+  ],
+
+  challenges: [
+    {
+      title:'🎬 تحدي المضاعف المشترك الأصغر',
+      description:'تحدٍّ مصور للصف السادس',
+      url:'lcm_challenge.mp4.MP4'
+    }
+  ],
+
+  certificates: [
+    {
+      title:'🎖️ شهادات شكر',
+      description:'شهادات التقدير والإنجاز',
+      url:'thank_you_certificates.pdf.pdf'
+    },
+    {
+      title:'👩‍🏫 تكريم المعلمة الصغيرة',
+      description:'شهادة تقدير للمعلمة الصغيرة',
+      url:'تكريم المعلمة الصغيرة.jpg'
+    },
+    {
+      title:'👑 شهادة نجمة الشهر',
+      description:'شهادة شكر نجمة الشهر',
+      url:'شهادة شكر نجمة الشهر.PNG'
+    },
+    {
+      title:'🎬 نجمة الشهر – سادس',
+      description:'فيديو تكريم سنا الحويشان',
+      url:'نجمة الشهر صف سادس سنا الحويشان.MOV'
+    }
+  ],
+
+  motivation: [
+    {
+      title:'💌 بريد السعادة',
+      description:'مبادرة تحفيزية لنشر السعادة والتشجيع',
+      url:'بريد السعادة.HEIC'
+    },
+    {
+      title:'🌟 المتميزات في القسمة – خامس',
+      description:'تكريم المتميزات في مهارة القسمة',
+      url:'الطالبات المميزات في القسمة الصف الخامس .pdf'
+    },
+    {
+      title:'💚 تحفيز طالبات سادس',
+      description:'قسمة الكسور العشرية',
+      url:'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC'
+    },
+    {
+      title:'✨ تحفيز في حصة القسمة',
+      description:'القسمة على عدد من رقمين',
+      url:'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
+    }
+  ],
+
+  stars: [
+    {
+      title:'⭐ نجمة اليوم',
+      description:'إعلان نجمة اليوم بمؤثرات احتفالية',
+      url:'نجمة اليوم.html'
+    },
+    {
+      title:'🎭 نجمات الخميس',
+      description:'مسرح الحضور والتميز',
+      url:'hursday_stars.html'
+    },
+    {
+      title:'⭐ نجمة الأسبوع',
+      description:'تكريم جنان بوخضر',
+      url:'نجمة الاسبوع جنان بوخضر .PNG'
+    },
+    {
+      title:'🏆 بطلات القسمة',
+      description:'تكريم بطلات القسمة للصفين الخامس والسادس',
+      url:'division_heroes.html'
+    }
+  ],
+
+  activities: [
+    {
+      title:'💌 هناك رسالة تنتظركِ – القاسم المشترك الأكبر',
+      description:'نشاط تفاعلي مرتبط بالدرس ورسالة تحفيزية',
+      url:'interactive_qr.html'
+    },
+    {
+      title:'📖 كتاب جواهر السحري – حكاية الأعمدة البيانية',
+      description:'مشهد ثلاثي الأبعاد لدرس تمثيل البيانات بالأعمدة',
+      url:'Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4'
+    }
+  ],
+
+  schoolActivities: [],
+
+  practice: [
+    {
+      title:'🇸🇦 رحلة المعادلات في ربوع وطني – مهمة أدائية',
+      description:'مهمة تربط المعادلات بالرياضيات والهوية الوطنية',
+      url:'saudi_equations_task.mp4'
+    }
+  ]
+};
+
+const categories = {
+  grade5:{
+    title:'🎮 ألعاب الصف الخامس',
+    icon:'🎯',
+    description:'ألعاب الرياضيات التفاعلية للصف الخامس'
+  },
+  grade6:{
+    title:'🎮 ألعاب الصف السادس',
+    icon:'🚀',
+    description:'ألعاب الرياضيات التفاعلية للصف السادس'
+  },
+  review5:{
+    title:'📘 المراجعة وتعزيز مهارات التفكير العليا – الصف الخامس',
+    icon:'📘',
+    description:'حقيبة جواهر: تحديات تفاعلية وأوراق عمل'
+  },
+  review6:{
+    title:'📗 المراجعة وتعزيز مهارات التفكير العليا – الصف السادس',
+    icon:'📗',
+    description:'حقيبة جواهر: مختبر التفكير الرياضي وأوراق عمل'
+  },
+  challenges:{
+    title:'⭐ التحدي الأسبوعي',
+    icon:'⭐',
+    description:'تحديات رياضية متجددة'
+  },
+  certificates:{
+    title:'🏅 الشهادات والتكريمات',
+    icon:'🏅',
+    description:'شهادات الشكر والتقدير'
+  },
+  motivation:{
+    title:'💌 التحفيزات',
+    icon:'💌',
+    description:'بريد السعادة وتحفيز الطالبات'
+  },
+  stars:{
+    title:'🌟 نجمات التميز',
+    icon:'🌟',
+    description:'نجمة اليوم ونجمات الخميس وبطلات القسمة'
+  },
+  activities:{
+    title:'💌 الأنشطة التعليمية التفاعلية',
+    icon:'💌',
+    description:'أنشطة مرتبطة بالدروس وتنمية المهارات'
+  },
+  schoolActivities:{
+    title:'🎨🎙️ الأنشطة والإذاعات المدرسية',
+    icon:'🎙️',
+    description:'إذاعات الرياضيات والمبادرات والفعاليات'
+  },
+  practice:{
+    title:'📝 التدريبات والاختبارات والمهام الأدائية',
+    icon:'✏️',
+    description:'المهام الأدائية والتدريبات والاختبارات'
+  }
+};
+
+const app = document.getElementById('app');
+
+function element(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function link(label, url) {
+  const a = element('a','btn',label);
+
+  if (url.startsWith('#')) {
+    a.href = url;
+  } else {
+    a.href = /^https?:\/\//i.test(url)
+      ? url
+      : encodeURI(url);
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  }
+
+  return a;
+}
+
+function card(icon,title,description,button,url) {
+  const c = element('article','card');
+  c.append(
+    element('div','icon',icon),
+    element('h3','',title),
+    element('p','',description),
+    link(button,url)
+  );
+  return c;
+}
+
+function home() {
+  app.replaceChildren();
+  const grid = element('div','grid');
+
+  grid.append(
+    card('🎯','ألعاب الصف الخامس',
+      'خمس ألعاب وتحديات تفاعلية',
+      'افتحي ألعاب خامس','#grade5'),
+
+    card('🚀','ألعاب الصف السادس',
+      'قطار التحدي • سباق المجرّة • مختبر جواهر السري',
+      'افتحي ألعاب سادس','#grade6'),
+
+    card('🏆','عبقريات نافس',
+      'تحديات نافس ونقاط المنافسة الشهرية',
+      'دخول عبقريات نافس','nafes.html'),
+
+    card('📘','المراجعة وتعزيز مهارات التفكير العليا – خامس',
+      'حقيبة جواهر: تحديات تفاعلية وأوراق عمل',
+      'افتحي حقيبة خامس','#review5'),
+
+    card('📗','المراجعة وتعزيز مهارات التفكير العليا – سادس',
+      'حقيبة جواهر: مختبر التفكير وأوراق عمل',
+      'افتحي حقيبة سادس','#review6'),
+
+    card('⭐','التحدي الأسبوعي',
+      'تحديات رياضية متجددة',
+      'افتحي التحديات','#challenges'),
+
+    card('🎖️','لوحة التميز والتكريمات',
+      'الشهادات • التحفيزات • نجمات التميز',
+      'افتحي لوحة التميز','#excellence'),
+
+    card('💌','الأنشطة التعليمية التفاعلية',
+      'هناك رسالة تنتظركِ • الكتاب السحري',
+      'افتحي الأنشطة','#activities'),
+
+    card('🎨🎙️','الأنشطة والإذاعات المدرسية',
+      'الإذاعات والمبادرات والفعاليات المدرسية',
+      'افتحي الأنشطة والإذاعات','#schoolActivities'),
+
+    card('📝','التدريبات والاختبارات والمهام الأدائية',
+      'رحلة المعادلات في ربوع وطني • مهام أدائية',
+      'افتحي القسم','#practice')
+  );
+
+  app.append(
+    element('h2','','أقسام بوابة الرياضيات'),
+    grid
+  );
+}
+
+function excellenceHome() {
+  app.replaceChildren();
+  const grid = element('div','grid');
+
+  grid.append(
+    card('🏅','الشهادات والتكريمات',
+      'شهادات الشكر والتقدير ونجمة الشهر',
+      'افتحي الشهادات','#certificates'),
+
+    card('💌','التحفيزات',
+      'بريد السعادة وتحفيز الطالبات',
+      'افتحي التحفيزات','#motivation'),
+
+    card('🌟','نجمات التميز',
+      'نجمة اليوم ونجمات الخميس وبطلات القسمة',
+      'افتحي النجمات','#stars')
+  );
+
+  app.append(
+    link('↩ العودة للبوابة','#home'),
+    element('h2','','🎖️ لوحة التميز والتكريمات'),
+    element('p','muted','اختاري القسم المطلوب'),
+    grid
+  );
+}
+
+function section(key) {
+  const info = categories[key];
+  if (!info) {
+    home();
+    return;
+  }
+
+  app.replaceChildren();
+
+  const backUrl =
+    ['certificates','motivation','stars'].includes(key)
+    ? '#excellence' : '#home';
+
+  app.append(
+    link('↩ رجوع',backUrl),
+    element('h2','',info.title),
+    element('p','muted',info.description)
+  );
+
+  const items = content[key] || [];
+
+  if (!items.length) {
+    const box = element('article','card');
+    box.append(
+      element('div','icon',info.icon),
+      element('h3','','لا يوجد محتوى منشور حاليًا'),
+      element('p','muted','سيظهر المحتوى هنا عند إضافته.'),
+      element('span','tag','قريبًا')
+    );
+    app.append(box);
+    return;
+  }
+
+  const list = element('div','items');
+
+  items.forEach(item => {
+    const box = element('article','card item');
+    const details = element('div');
+
+    details.append(
+      element('h3','',item.title)
+    );
+
+    if (item.description) {
+      details.append(
+        element('small','',item.description)
+      );
+    }
+
+    box.append(
+      details,
+      link('فتح المحتوى ↗',item.url)
+    );
+
+    list.append(box);
+  });
+
+  app.append(list);
+}
+
+function render() {
+  const key = decodeURIComponent(location.hash.slice(1));
+
+  if (!key || key === 'home') {
+    home();
+  } else if (key === 'excellence') {
+    excellenceHome();
+  } else {
+    section(key);
+  }
+
+  window.scrollTo(0,0);
+}
+
+window.addEventListener('hashchange',render);
+render();
+</script>
+</body>
+</html>
