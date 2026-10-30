@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة العوامل الأولية - إعداد المعلمة جواهر السبيعي</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Tajawal Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Tajawal', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-button:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .glass-button:active:not(:disabled) {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Animated Glowing Pulse for Badges */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(236, 72, 153, 0.8); }
+        }
+
+        .glow-effect {
+            animation: glow 2s infinite;
+        }
+
+        /* Correct Answer Popup Animation */
+        @keyframes popSuccess {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .animate-pop-success {
+            animation: popSuccess 0.4s ease-out forwards;
+        }
+
+        /* Wrong Answer Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-12px); }
+            40%, 80% { transform: translateX(12px); }
+        }
+
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Custom Floating Particles Overlay Canvas */
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Math Exponent Badge */
+        .math-expr sup {
+            font-size: 0.75em;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        /* Factor Tree styling */
+        .tree-node {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between items-center p-3 sm:p-6 overflow-x-hidden">
+
+    <!-- Fullscreen FX Canvas for Confetti, Stars & Visual Effects -->
+    <canvas id="fx-canvas"></canvas>
+
+    <header class="w-full max-w-4xl glass-card rounded-2xl p-4 mb-4 flex justify-between items-center z-10 border-b border-purple-500/30">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-white shadow-lg text-2xl font-black">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-pink-400 to-purple-300">
+                    تحدي العوامل الأولية
+                </h1>
+                <p class="text-xs sm:text-sm text-purple-200 font-medium">الرياضيات - الصف السادس الابتدائي • <span class="text-amber-300 font-bold">إعداد المعلمة: جواهر السبيعي 🌸</span></p>
+            </div>
+        </div>
+
+        <!-- Controls: Sound, Guide & Teacher Dashboard -->
+        <div class="flex items-center gap-2">
+            <button onclick="requestTeacherPinAccess()" class="glass-button px-3 py-2 rounded-xl text-amber-300 text-xs sm:text-sm font-bold flex items-center gap-1.5 hover:text-white" title="لوحة نتائج الطالبات للمعلمة">
+                <i class="fa-solid fa-lock text-amber-400 text-base"></i>
+                <span class="hidden sm:inline">لوحة المعلمة</span>
+            </button>
+            <button id="btn-sound" onclick="toggleSound()" class="glass-button w-10 h-10 rounded-xl flex items-center justify-center text-amber-300 text-lg hover:text-white" title="تشغيل/كتم الصوت">
+                <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+            </button>
+            <button onclick="openGuideModal()" class="glass-button w-10 h-10 rounded-xl flex items-center justify-center text-cyan-300 text-lg hover:text-white" title="طريقة اللعب والمفاهيم">
+                <i class="fa-solid fa-circle-question"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="w-full max-w-4xl flex-grow flex flex-col justify-center items-center relative z-10 my-2">
+
+        <!-- SCREEN 1: START / REGISTRATION SCREEN -->
+        <div id="screen-start" class="w-full glass-card rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center">
+            <div class="inline-block p-4 rounded-full bg-purple-500/20 text-yellow-300 mb-4 animate-bounce">
+                <i class="fa-solid fa-wand-magic-sparkles text-5xl"></i>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white mb-2">
+                مرحباً بكِ يا بطلة الرياضيات! 🌟
+            </h2>
+            <!-- Teacher Name Badge Header -->
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-pink-500/20 border border-amber-400/40 rounded-full px-4 py-1.5 mb-4">
+                <i class="fa-solid fa-chalkboard-user text-amber-300 text-base"></i>
+                <span class="text-xs sm:text-sm font-bold text-amber-200">إعداد وتصميم المعلمة: <strong class="text-amber-300 text-sm sm:text-base underline underline-offset-4 decoration-amber-400">جواهر السبيعي</strong> ✨</span>
+            </div>
+
+            <p class="text-gray-300 max-w-xl text-sm sm:text-base mb-6 leading-relaxed">
+                اكتشفي الأعداد الأولية والمركبة وحللي الأعداد إلى عواملها الأولية! أدخلي اسمكِ الثلاثي أو الرباعي للبدء وحفظ درجتكِ للمعلمة.
+            </p>
+
+            <!-- Student Registration Form -->
+            <div class="w-full max-w-md bg-slate-900/70 border border-purple-500/40 rounded-2xl p-5 mb-6 text-right shadow-2xl">
+                <label class="block text-amber-300 font-bold text-sm mb-2">
+                    <i class="fa-solid fa-user-graduate ml-1"></i> اسم الطالبة (مطلوب للبدء): <span class="text-rose-400">*</span>
+                </label>
+                <input type="text" id="student-name-input" placeholder="اكتبي اسمكِ هنا (مثال: نورة أحمد علي)" class="w-full bg-slate-800/90 border border-purple-400/40 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-400/30 mb-4 transition">
+
+                <label class="block text-cyan-300 font-bold text-sm mb-2">
+                    <i class="fa-solid fa-users-rectangle ml-1"></i> الصف / الفصل:
+                </label>
+                <input type="text" id="student-class-input" placeholder="مثال: السادس ( أ )" class="w-full bg-slate-800/90 border border-purple-400/40 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30 transition">
+
+                <div id="name-error-msg" class="hidden text-rose-400 text-xs font-bold mt-2">
+                    <i class="fa-solid fa-circle-exclamation ml-1"></i> يرجى كتابة الاسم قبل بدء التحدي!
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-8">
+                <button onclick="validateAndStartQuiz()" class="glass-button p-5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-xl">
+                    <i class="fa-solid fa-play text-2xl"></i>
+                    <span>بدء التحدي التفاعلي</span>
+                </button>
+                <button onclick="openTreeExplorer()" class="glass-button p-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-xl">
+                    <i class="fa-solid fa-sitemap text-2xl"></i>
+                    <span>مستكشف شجرة العوامل</span>
+                </button>
+            </div>
+
+            <!-- Rules Summary Quick Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full text-right text-xs sm:text-sm">
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-amber-400 font-bold mb-1"><i class="fa-solid fa-star ml-1"></i>العدد الأولي</span>
+                    له عاملان فقط: نفسه والعدد 1 (مثل: 2, 3, 5, 7, 11).
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-cyan-400 font-bold mb-1"><i class="fa-solid fa-cubes ml-1"></i>العدد غير الأولي</span>
+                    له أكثر من عاملين (مثل: 4, 6, 8, 9, 12).
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10 col-span-2 sm:col-span-1">
+                    <span class="block text-pink-400 font-bold mb-1"><i class="fa-solid fa-superscript ml-1"></i>استعمال الأسس</span>
+                    التعبير عن تكرار ضرب العامل الأولي (مثل 2 × 2 × 2 = 2³).
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: ACTIVE QUIZ PLAY SCREEN -->
+        <div id="screen-quiz" class="w-full glass-card rounded-3xl p-4 sm:p-8 hidden flex-col">
+            
+            <!-- Quiz Header Info Bar -->
+            <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+                <!-- Question Counter -->
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-400 font-medium">السؤال:</span>
+                    <span id="q-counter" class="text-xl font-black text-amber-300">1 / 10</span>
+                </div>
+
+                <!-- Streak Bar -->
+                <div class="flex items-center gap-2 bg-amber-500/20 px-3 py-1.5 rounded-full border border-amber-500/30">
+                    <i class="fa-solid fa-fire text-amber-400 animate-pulse"></i>
+                    <span class="text-xs text-amber-200">سلسلة انتصارات:</span>
+                    <span id="streak-count" class="font-black text-amber-300">0</span>
+                </div>
+
+                <!-- Score Board -->
+                <div class="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full border border-purple-500/30">
+                    <i class="fa-solid fa-trophy text-yellow-300"></i>
+                    <span class="text-xs text-purple-200">النقاط:</span>
+                    <span id="score-val" class="font-black text-white text-lg">0</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800/80 rounded-full h-2.5 mb-6 overflow-hidden border border-white/10">
+                <div id="progress-bar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-2.5 rounded-full transition-all duration-500" style="width: 10%"></div>
+            </div>
+
+            <!-- Question Card Header -->
+            <div class="bg-slate-900/60 rounded-2xl p-6 mb-6 border border-purple-500/20 text-center relative overflow-hidden">
+                <span id="question-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-purple-500/30 text-purple-200 mb-3 border border-purple-400/30">
+                    العوامل الأولية
+                </span>
+                <h3 id="question-text" class="text-xl sm:text-2xl font-black text-white leading-relaxed">
+                    جاري تحميل السؤال...
+                </h3>
+            </div>
+
+            <!-- Multiple Choice Options Grid -->
+            <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <!-- Dynamic options injected here via JS -->
+            </div>
+
+            <!-- Explanation & Feedback Footer Box -->
+            <div id="feedback-box" class="hidden p-4 rounded-2xl text-center mb-4 transition-all duration-300">
+                <div id="feedback-title" class="font-black text-lg mb-1 flex items-center justify-center gap-2"></div>
+                <div id="feedback-desc" class="text-sm leading-relaxed text-gray-200"></div>
+                <button id="btn-next" onclick="nextQuestion()" class="mt-4 glass-button px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-600 text-white font-bold inline-flex items-center gap-2 shadow-lg">
+                    <span>السؤال التالي</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: STUDENT FINAL RESULTS SCREEN (PRIVACY MAINTAINED - NO PUBLIC LEADERBOARD) -->
+        <div id="screen-result" class="w-full glass-card rounded-3xl p-6 sm:p-10 text-center hidden flex-col items-center">
+            <div id="result-icon-container" class="w-24 h-24 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-slate-900 text-5xl mb-4 shadow-2xl glow-effect">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h2 id="result-title" class="text-3xl sm:text-4xl font-extrabold text-white mb-2">
+                نتيجة مذهلة! 🎉
+            </h2>
+            <p id="result-student-name" class="text-amber-300 font-bold text-lg mb-1"></p>
+            <p id="result-subtitle" class="text-gray-300 text-sm mb-6">لقد أتممت جميع أسئلة درس العوامل الأولية بمهارة عالية!</p>
+
+            <!-- Submission Status Badge -->
+            <div id="submission-status" class="w-full max-w-lg mb-6 p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-spinner fa-spin text-lg" id="status-icon"></i>
+                <span id="status-text">جاري حفظ النتيجة في قاعدة البيانات...</span>
+            </div>
+
+            <!-- Detailed Score Summary Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-xl mb-8">
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="block text-xs text-gray-400 mb-1">الدرجة الكلية</span>
+                    <span id="res-score" class="text-2xl font-black text-amber-300">0</span>
+                </div>
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="block text-xs text-gray-400 mb-1">النسبة المئوية</span>
+                    <span id="res-percentage" class="text-2xl font-black text-cyan-300">0%</span>
+                </div>
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="block text-xs text-gray-400 mb-1">الإجابات الصحيحة</span>
+                    <span id="res-correct" class="text-2xl font-black text-emerald-400">0</span>
+                </div>
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="block text-xs text-gray-400 mb-1">الإجابات الخاطئة</span>
+                    <span id="res-wrong" class="text-2xl font-black text-rose-400">0</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 w-full max-w-md">
+                <button onclick="startGame('quiz')" class="glass-button px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>إعادة التحدي</span>
+                </button>
+                <button onclick="showStartScreen()" class="glass-button px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i>
+                    <span>الصفحة الرئيسية</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: TEACHER PIN ACCESS PROTECTOR -->
+    <div id="modal-pin" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-amber-500/40 text-center">
+            <div class="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-3xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-user-lock"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-white mb-2">لوحة المعلمة الخاصة</h3>
+            <p class="text-xs text-gray-300 mb-6">يرجى إدخال رمز الدخول الخاص بالمعلمة لعرض النتائج المخزنة:</p>
+
+            <form onsubmit="verifyTeacherPin(event)">
+                <input type="password" id="teacher-pin-input" maxlength="10" placeholder="أدخلي رمز الدخول السرّي..." class="w-full bg-slate-900 border border-amber-400/40 rounded-xl px-4 py-3 text-center text-white text-lg font-bold tracking-widest focus:outline-none focus:border-amber-300 mb-3">
+                <div id="pin-error-msg" class="hidden text-rose-400 text-xs font-bold mb-4">
+                    <i class="fa-solid fa-circle-xmark ml-1"></i> رمز الدخول غير صحيح!
+                </div>
+                <div class="flex gap-3">
+                    <button type="submit" class="w-full glass-button py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black">
+                        دخول اللوحة
+                    </button>
+                    <button type="button" onclick="closeTeacherPinAccess()" class="w-full glass-button py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold">
+                        إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 1: FACTOR TREE EXPLORER -->
+    <div id="modal-tree" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-purple-500/30 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-sitemap text-2xl text-purple-400"></i>
+                    <h3 class="text-xl font-extrabold text-white">مستكشف شجرة العوامل الأولية</h3>
+                </div>
+                <button onclick="closeTreeExplorer()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="text-sm text-gray-300 mb-4">
+                اختر عدداً أو اكتبه لعرض كيفية تحليله بأسلوب شجرة العوامل إلى عوامله الأولية:
+            </p>
+
+            <div class="flex gap-2 mb-6">
+                <input type="number" id="tree-input" min="2" max="300" value="24" class="bg-slate-900 border border-purple-500/40 rounded-xl px-4 py-2 text-white font-bold w-full focus:outline-none focus:border-purple-400" placeholder="أدخل عدداً (مثلاً: 36)...">
+                <button onclick="generateTreeFromInput()" class="glass-button px-6 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold shrink-0">
+                    حلّل العدد
+                </button>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-6 text-xs font-bold">
+                <span class="text-gray-400 self-center">أمثلة سريعة:</span>
+                <button onclick="setTreeNum(12)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">12</button>
+                <button onclick="setTreeNum(18)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">18</button>
+                <button onclick="setTreeNum(24)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">24</button>
+                <button onclick="setTreeNum(36)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">36</button>
+                <button onclick="setTreeNum(50)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">50</button>
+                <button onclick="setTreeNum(72)" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-cyan-300">72</button>
+            </div>
+
+            <div class="bg-slate-900/80 rounded-2xl p-6 border border-white/10 text-center min-h-[220px] flex flex-col items-center justify-center overflow-x-auto">
+                <div id="tree-output-display" class="w-full flex flex-col items-center justify-center"></div>
+            </div>
+
+            <div id="tree-summary-text" class="mt-4 p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl text-center text-sm font-bold text-amber-300"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: LESSON RULES & EXPLANATION MODAL -->
+    <div id="modal-guide" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-xl w-full rounded-3xl p-6 sm:p-8 border border-cyan-500/30 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-book-open text-2xl text-cyan-400"></i>
+                    <h3 class="text-xl font-extrabold text-white">ملخص درس العوامل الأولية</h3>
+                </div>
+                <button onclick="closeGuideModal()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-sm text-gray-200 leading-relaxed">
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <h4 class="font-bold text-amber-300 text-base mb-1">1. العدد الأولي (Prime Number)</h4>
+                    <p>هو عدد كلي أكبر من 1 وله <strong>عاملان فقط</strong> هما: العدد 1 والعدد نفسه.<br>
+                    <span class="text-cyan-300 font-semibold">أمثلة للأعداد الأولية الأولى:</span> 2, 3, 5, 7, 11, 13, 17, 19, 23, 29...</p>
+                </div>
+
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <h4 class="font-bold text-pink-300 text-base mb-1">2. العدد غير الأولي (المركب Composite)</h4>
+                    <p>هو عدد كلي أكبر من 1 وله <strong>أكثر من عاملين</strong>.<br>
+                    <span class="text-pink-300 font-semibold">أمثلة:</span> 4 (عوامله 1، 2، 4)، 6 (عوامله 1، 2، 3، 6)، 9 (عوامله 1، 3، 9).</p>
+                </div>
+
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <h4 class="font-bold text-emerald-300 text-base mb-1">3. ملاحظة هامة جداً 💡</h4>
+                    <p>العددين <strong>0 و 1</strong> ليسا أعداداً أولية ولا غير أولية!</p>
+                </div>
+
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <h4 class="font-bold text-purple-300 text-base mb-1">4. تحليل العدد إلى عوامله الأولية والأسس</h4>
+                    <p>كتابة العدد كحاصل ضرب أعداد أولية فقط.<br>
+                    مثال: 24 = 2 × 2 × 2 × 3 = 2³ × 3</p>
+                </div>
+            </div>
+
+            <button onclick="closeGuideModal()" class="mt-6 w-full glass-button py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold">
+                فهمت ذلك، فلنبدأ التحدي! 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: TEACHER DASHBOARD (لوحة نتائج الطالبات) -->
+    <div id="modal-teacher" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-50 hidden flex items-center justify-center p-3 sm:p-6">
+        <div class="glass-card max-w-5xl w-full rounded-3xl p-5 sm:p-8 border border-amber-500/40 max-h-[92vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-300 text-xl border border-amber-400/30">
+                        <i class="fa-solid fa-clipboard-user"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold text-white">سجل نتائج الطالبات - المعلمة جواهر السبيعي</h3>
+                        <p class="text-xs text-amber-200">النتائج مرتبة تلقائياً من الأعلى درجة إلى الأقل درجة وتسري عبر جميع الأجهزة والجلسات</p>
+                    </div>
+                </div>
+                <button onclick="closeTeacherDashboard()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Stats Summary Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-center">
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-xs text-gray-400">عدد الطالبات</span>
+                    <span id="dash-total-students" class="text-xl font-black text-amber-300">0</span>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-xs text-gray-400">متوسط الدرجات</span>
+                    <span id="dash-avg-score" class="text-xl font-black text-cyan-300">0</span>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-xs text-gray-400">أعلى درجة</span>
+                    <span id="dash-top-score" class="text-xl font-black text-emerald-400">0</span>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                    <span class="block text-xs text-gray-400">حالة الربط</span>
+                    <span id="dash-db-status" class="text-xs font-bold text-emerald-300 flex items-center justify-center gap-1 mt-1">
+                        <i class="fa-solid fa-signal"></i> مباشر
+                    </span>
+                </div>
+            </div>
+
+            <!-- Search & Control Buttons -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="text" id="dash-search" oninput="filterTeacherResults()" placeholder="بحث باسم الطالبة أو الفصل..." class="bg-slate-900 border border-white/20 rounded-xl px-4 py-2 text-xs sm:text-sm text-white flex-grow focus:outline-none focus:border-amber-400">
+                <button onclick="window.refreshTeacherResultsFromFirestore()" class="glass-button px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-cyan-300 hover:text-cyan-100 flex items-center gap-1.5" title="تحديث وقراءة أحدث النتائج من Firestore">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>تحديث النتائج</span>
+                </button>
+                <button onclick="clearAllFirestoreResults()" class="glass-button px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-rose-300 hover:text-rose-100 flex items-center gap-1.5" title="مسح سجل النتائج بالكامل">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>مسح السجل بالكامل</span>
+                </button>
+                <button onclick="window.print()" class="glass-button px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i>
+                    <span>طباعة التقرير</span>
+                </button>
+            </div>
+
+            <!-- Results Table Container -->
+            <div class="flex-grow overflow-y-auto rounded-2xl border border-white/10 bg-slate-900/70 p-2">
+                <table class="w-full text-right text-xs sm:text-sm">
+                    <thead>
+                        <tr class="border-b border-white/10 text-amber-300 font-bold">
+                            <th class="p-3">#</th>
+                            <th class="p-3">اسم الطالبة</th>
+                            <th class="p-3">الصف</th>
+                            <th class="p-3 text-center">الدرجة</th>
+                            <th class="p-3 text-center">النسبة</th>
+                            <th class="p-3 text-center">الصحيحة</th>
+                            <th class="p-3 text-center">الخاطئة</th>
+                            <th class="p-3 text-center">تاريخ ووقت الإكمال</th>
+                            <th class="p-3 text-center">حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teacher-results-tbody" class="divide-y divide-white/5 text-gray-200">
+                        <tr>
+                            <td colspan="9" class="text-center p-8 text-gray-400">جاري تحميل البيانات من قاعدة بيانات Firestore...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-3 text-xs text-purple-300/70 z-10">
+        تطبيق تعليمي تفاعلي لدرس العوامل الأولية • الرياضيات للصف السادس الابتدائي • إعداد المعلمة: <strong>جواهر السبيعي</strong> 🎓
+    </footer>
+
+    <!-- Firebase & Storage Integration Module Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, getDocs, deleteDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Dynamic helper to ensure share link and teacher dashboard always target the exact same appId
+        function getAppId() {
+            return (typeof __app_id !== 'undefined' && __app_id) ? __app_id : 'prime-factors-math-v6';
+        }
+
+        const COLLECTION_NAME = 'studentsResults';
+
+        // Unified collection reference generator
+        function getResultsColRef(db) {
+            return collection(db, 'artifacts', getAppId(), 'public', 'data', COLLECTION_NAME);
+        }
+
+        let firebaseConfig = null;
+        try {
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                firebaseConfig = typeof __firebase_config === 'string' ? JSON.parse(__firebase_config) : __firebase_config;
+            }
+        } catch (e) {
+            console.error("Error parsing __firebase_config:", e);
+        }
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let firebaseReadyPromise = null;
+
+        // Ensure Firebase initialization & authentication complete prior to DB operations
+        function ensureFirebaseReady() {
+            if (firebaseReadyPromise) return firebaseReadyPromise;
+            firebaseReadyPromise = (async () => {
+                window.allStudentResults = [];
+
+                if (!firebaseConfig || !firebaseConfig.apiKey) {
+                    console.warn("Firestore configuration missing.");
+                    return false;
+                }
+
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+
+                    // Authenticate before Firestore operations (Rule 3)
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        const userCred = await signInWithCustomToken(auth, __initial_auth_token);
+                        currentUser = userCred.user;
+                    } else {
+                        const userCred = await signInAnonymously(auth);
+                        currentUser = userCred.user;
+                    }
+
+                    subscribeToTeacherResults();
+                    return true;
+                } catch (err) {
+                    console.error("Firebase Auth / Init error:", err);
+                    return false;
+                }
+            })();
+            return firebaseReadyPromise;
+        }
+
+        // Save result strictly into shared public collection 'studentsResults' in Firestore
+        async function saveResultToFirestore(studentData) {
+            const isReady = await ensureFirebaseReady();
+            if (!isReady || !db || !auth.currentUser) {
+                console.error("Firestore DB connection not ready.");
+                return false;
+            }
+
+            const itemPayload = {
+                ...studentData,
+                timestamp: new Date().toLocaleString('ar-SA'),
+                createdAt: Date.now()
+            };
+
+            try {
+                // Write to unified path: /artifacts/{appId}/public/data/studentsResults
+                const colRef = getResultsColRef(db);
+                const docRef = await addDoc(colRef, itemPayload);
+
+                // Verification read: confirm that document is readable from Firestore before confirming success
+                if (docRef && docRef.id) {
+                    const docSnap = await getDoc(doc(db, 'artifacts', getAppId(), 'public', 'data', COLLECTION_NAME, docRef.id));
+                    if (docSnap.exists()) {
+                        await refreshTeacherResultsFromFirestore();
+                        return true;
+                    }
+                }
+                return false;
+            } catch (err) {
+                console.error("Error writing to Firestore:", err);
+                return false;
+            }
+        }
+
+        // Realtime subscription reading from shared collection 'studentsResults'
+        function subscribeToTeacherResults() {
+            if (!db || !auth.currentUser) return;
+            try {
+                const colRef = getResultsColRef(db);
+                onSnapshot(colRef, (snapshot) => {
+                    const results = [];
+                    snapshot.forEach(docSnap => {
+                        results.push({ id: docSnap.id, ...docSnap.data() });
+                    });
+                    
+                    // Sort memory results by score descending
+                    results.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+                    window.allStudentResults = results;
+                    if (window.renderTeacherResults) {
+                        window.renderTeacherResults(results);
+                    }
+                }, (error) => {
+                    console.error("Firestore snapshot error:", error);
+                    const statusEl = document.getElementById('dash-db-status');
+                    if (statusEl) {
+                        statusEl.className = "text-xs font-bold text-rose-400 flex items-center justify-center gap-1 mt-1";
+                        statusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> خطأ بالربط';
+                    }
+                });
+            } catch (e) {
+                console.error("Subscription setup error:", e);
+            }
+        }
+
+        // Manual refresh of results from Firestore shared collection
+        async function refreshTeacherResultsFromFirestore() {
+            const isReady = await ensureFirebaseReady();
+            if (!isReady || !db || !auth.currentUser) return;
+
+            try {
+                const colRef = getResultsColRef(db);
+                const snapshot = await getDocs(colRef);
+                const results = [];
+                snapshot.forEach(docSnap => {
+                    results.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                results.sort((a, b) => (b.score || 0) - (a.score || 0));
+                window.allStudentResults = results;
+                if (window.renderTeacherResults) window.renderTeacherResults(results);
+            } catch (e) {
+                console.error("Error refreshing Firestore results:", e);
+            }
+        }
+
+        // Clear all results from shared Firestore collection
+        async function clearAllFirestoreResults() {
+            if (!confirm("هل أنتِ متأكدة تماماً من مسح سجل جميع الطالبات بالكامل من قاعدة البيانات السحابية؟")) return;
+
+            const isReady = await ensureFirebaseReady();
+            if (!isReady || !db || !auth.currentUser) return;
+
+            try {
+                const colRef = getResultsColRef(db);
+                const snapshot = await getDocs(colRef);
+                const deletePromises = [];
+                snapshot.forEach(docSnap => {
+                    deletePromises.push(deleteDoc(doc(db, 'artifacts', getAppId(), 'public', 'data', COLLECTION_NAME, docSnap.id)));
+                });
+                await Promise.all(deletePromises);
+                window.allStudentResults = [];
+                if (window.renderTeacherResults) window.renderTeacherResults([]);
+            } catch (err) {
+                console.error("Error clearing documents from Firestore:", err);
+            }
+        }
+
+        // Delete single student document from Firestore
+        async function deleteSingleStudentResult(docId, index) {
+            if (!confirm("هل تريدين حذف هذا السجل المحدد من قاعدة البيانات؟")) return;
+
+            const isReady = await ensureFirebaseReady();
+            if (isReady && db && auth.currentUser && docId) {
+                try {
+                    await deleteDoc(doc(db, 'artifacts', getAppId(), 'public', 'data', COLLECTION_NAME, docId));
+                } catch (e) {
+                    console.error("Error deleting document from Firestore:", e);
+                }
+            }
+        }
+
+        window.saveResultToFirestore = saveResultToFirestore;
+        window.refreshTeacherResultsFromFirestore = refreshTeacherResultsFromFirestore;
+        window.clearAllFirestoreResults = clearAllFirestoreResults;
+        window.deleteSingleStudentResult = deleteSingleStudentResult;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            ensureFirebaseReady();
+        });
+    </script>
+
+    <script>
+        /* ----------------------------------------------------
+           1. AUDIO SYNTHESIZER (Web Audio API - Synthesized)
+           ---------------------------------------------------- */
+        let audioCtx = null;
+        let isMuted = false;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function toggleSound() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('sound-icon');
+            if (isMuted) {
+                icon.className = 'fa-solid fa-volume-xmark text-red-400';
+            } else {
+                icon.className = 'fa-solid fa-volume-high text-amber-300';
+                playCorrectSound();
+            }
+        }
+
+        function playCorrectSound() {
+            if (isMuted) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0, now + idx * 0.08);
+                    gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.35);
+                });
+            } catch (e) {}
+        }
+
+        function playWrongSound() {
+            if (isMuted) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.3);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } catch (e) {}
+        }
+
+        function playFanfareSound() {
+            if (isMuted) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const freqs = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                freqs.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.1);
+                    gain.gain.setValueAtTime(0.3, now + i * 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.1);
+                    osc.stop(now + i * 0.1 + 0.45);
+                });
+            } catch(e) {}
+        }
+
+        /* ----------------------------------------------------
+           2. VISUAL EFFECTS ENGINE (Confetti & Stars Canvas)
+           ---------------------------------------------------- */
+        const canvas = document.getElementById('fx-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationFrameId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 8 + 4;
+                this.vx = (Math.random() - 0.5) * 12;
+                this.vy = (Math.random() - 0.7) * 14;
+                this.gravity = 0.35;
+                this.drag = 0.96;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.vRot = (Math.random() - 0.5) * 0.2;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.shape = Math.random() > 0.4 ? 'rect' : 'star';
+            }
+
+            update() {
+                this.vx *= this.drag;
+                this.vy *= this.drag;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.rotation += this.vRot;
+                this.alpha -= this.decay;
+            }
+
+            draw(c) {
+                c.save();
+                c.translate(this.x, this.y);
+                c.rotate(this.rotation);
+                c.globalAlpha = Math.max(0, this.alpha);
+                c.fillStyle = this.color;
+
+                if (this.shape === 'rect') {
+                    c.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                } else {
+                    c.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        c.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * this.size,
+                                 -Math.sin((18 + i * 72) * Math.PI / 180) * this.size);
+                        c.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * (this.size / 2),
+                                 -Math.sin((54 + i * 72) * Math.PI / 180) * (this.size / 2));
+                    }
+                    c.closePath();
+                    c.fill();
+                }
+                c.restore();
+            }
+        }
+
+        function triggerConfettiBurst(originX, originY) {
+            const colors = ['#f59e0b', '#ec4899', '#3b82f6', '#10b981', '#8b5cf6', '#f43f5e', '#facc15'];
+            const count = 70;
+            const x = originX || window.innerWidth / 2;
+            const y = originY || window.innerHeight / 2;
+
+            for (let i = 0; i < count; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, color));
+            }
+
+            if (!animationFrameId) {
+                animateParticles();
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => p.alpha > 0);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw(ctx);
+            });
+
+            if (particles.length > 0) {
+                animationFrameId = requestAnimationFrame(animateParticles);
+            } else {
+                animationFrameId = null;
+            }
+        }
+
+        /* ----------------------------------------------------
+           3. MATHEMATICAL QUESTION BANK (6th Grade Curriculum)
+           ---------------------------------------------------- */
+        const questionBank = [
+            {
+                type: 'identify_prime',
+                question: "أي الأعداد التالية يُعد **عدداً أولياً**؟",
+                badge: "التمييز بين الأعداد",
+                options: [
+                    { text: "7", correct: true, exp: "صحيح! العدد 7 له عاملان فقط: 1 و 7." },
+                    { text: "9", correct: false, exp: "خطأ، 9 عدد غير أولي لأن عوامله هي: 1، 3، 9." },
+                    { text: "15", correct: false, exp: "خطأ، 15 عدد غير أولي لأن عوامله هي: 1، 3، 5، 15." },
+                    { text: "21", correct: false, exp: "خطأ، 21 عدد غير أولي لأن عوامله هي: 1، 3، 7، 21." }
+                ]
+            },
+            {
+                type: 'identify_composite',
+                question: "أي الأعداد التالية يُعد **عدداً غير أولي (مركباً)**؟",
+                badge: "التمييز بين الأعداد",
+                options: [
+                    { text: "2", correct: false, exp: "خطأ، العدد 2 هو أولي وهو العدد الزوجي الأولي الوحيد!" },
+                    { text: "13", correct: false, exp: "خطأ، 13 عدد أولي لا يقسم إلا على 1 ونفسه." },
+                    { text: "18", correct: true, exp: "ممتاز! 18 عدد غير أولي لأن له عدة عوامل (1، 2، 3، 6، 9، 18)." },
+                    { text: "23", correct: false, exp: "خطأ، 23 عدد أولي." }
+                ]
+            },
+            {
+                type: 'factorization',
+                question: "تحليل العدد **12** إلى عوامله الأولية هو:",
+                badge: "تحليل الأعداد",
+                options: [
+                    { text: "2 × 2 × 3", correct: true, exp: "رائع! 2 × 2 × 3 = 12، وجميع هذه الأعداد أولية." },
+                    { text: "2 × 6", correct: false, exp: "انتبه! العدد 6 ليس عدداً أولياً لذلك التحليل لم ينتهِ." },
+                    { text: "3 × 4", correct: false, exp: "انتبه! العدد 4 غير أولي، يجب تحليله إلى 2 × 2." },
+                    { text: "2 × 2 × 2", correct: false, exp: "خطأ، حاصل ضرب 2 × 2 × 2 يساوي 8 وليس 12." }
+                ]
+            },
+            {
+                type: 'exponents',
+                question: "اكتب تحليل العدد **36** إلى عوامله الأولية باستعمال **الأسس**:",
+                badge: "استعمال الأسس",
+                options: [
+                    { text: "2² × 3²", correct: true, exp: "إجابة عبقرية! 36 = 2 × 2 × 3 × 3 = 2² × 3²." },
+                    { text: "2 × 3³", correct: false, exp: "خطأ، 2 × 27 = 54." },
+                    { text: "4 × 9", correct: false, exp: "انتبه! الأعداد 4 و 9 ليست أعداداً أولية." },
+                    { text: "2³ × 3", correct: false, exp: "خطأ، 8 × 3 = 24 وليس 36." }
+                ]
+            },
+            {
+                type: 'factorization',
+                question: "ما العوامل الأولية للعدد **20**؟",
+                badge: "تحليل الأعداد",
+                options: [
+                    { text: "2² × 5", correct: true, exp: "أحسنت! 20 = 2 × 2 × 5 = 2² × 5." },
+                    { text: "4 × 5", correct: false, exp: "العدد 4 ليس أولياً، عوامله الأولية هي 2 × 2." },
+                    { text: "2 × 10", correct: false, exp: "العدد 10 غير أولي ويمكن تحليله لـ 2 × 5." },
+                    { text: "2³ × 5", correct: false, exp: "خطأ، 2³ × 5 = 8 × 5 = 40." }
+                ]
+            },
+            {
+                type: 'reverse_factor',
+                question: "العدد الذي تحليله إلى عوامله الأولية هو **2 × 3²** هو العدد:",
+                badge: "تركيب الأعداد",
+                options: [
+                    { text: "18", correct: true, exp: "صحيح جداً! 3² = 9، وبالتالي 2 × 9 = 18." },
+                    { text: "12", correct: false, exp: "تحليل 12 هو 2² × 3." },
+                    { text: "24", correct: false, exp: "تحليل 24 هو 2³ × 3." },
+                    { text: "36", correct: false, exp: "تحليل 36 هو 2² × 3²." }
+                ]
+            },
+            {
+                type: 'special_rule',
+                question: "أي العبارات التالية **صحيحة** فيما يتعلق بالعددين **0 و 1**؟",
+                badge: "قواعد هامة",
+                options: [
+                    { text: "ليسا أعداداً أولية ولا غير أولية", correct: true, exp: "بطلة! العدد 0 والعدد 1 حالة خاصة ليسا أوليين ولا مركبين." },
+                    { text: "كلاهما أعداد أولية", correct: false, exp: "خطأ، الأعداد الأولية تبدأ من العدد 2 ولها عاملان مختلفان." },
+                    { text: "العدد 1 عدد أولي والعدد 0 غير أولي", correct: false, exp: "غير صحيح، 1 له عامل واحد فقط وهو نفسه." },
+                    { text: "كلاهما أعداد غير أولية", correct: false, exp: "خطأ." }
+                ]
+            },
+            {
+                type: 'factorization',
+                question: "تحليل العدد **50** إلى عوامله الأولية بأسلوب الأسس هو:",
+                badge: "تحليل الأعداد",
+                options: [
+                    { text: "2 × 5²", correct: true, exp: "ممتاز! 5² = 25، وَ 2 × 25 = 50." },
+                    { text: "2² × 5", correct: false, exp: "خطأ، 4 × 5 = 20." },
+                    { text: "5 × 10", correct: false, exp: "العدد 10 غير أولي." },
+                    { text: "2³ × 5", correct: false, exp: "خطأ، 8 × 5 = 40." }
+                ]
+            },
+            {
+                type: 'identify_prime',
+                question: "العدد الأولي الزوجي **الوحيد** في عالم الرياضيات هو:",
+                badge: "خصائص الأعداد",
+                options: [
+                    { text: "2", correct: true, exp: "إجابة دقيقة! 2 هو العدد الأولي الزوجي الوحيد لأن كل الأعداد الزوجية الأخرى تقبل القسمة على 2." },
+                    { text: "4", correct: false, exp: "4 يقبل القسمة على 1، 2، 4 فهو مركب." },
+                    { text: "0", correct: false, exp: "العدد 0 ليس أولياً." },
+                    { text: "لا يوجد أعداد زوجية أولية", correct: false, exp: "خطأ، العدد 2 أولي!" }
+                ]
+            },
+            {
+                type: 'factorization',
+                question: "تحليل العدد **30** إلى عوامله الأولية هو:",
+                badge: "تحليل الأعداد",
+                options: [
+                    { text: "2 × 3 × 5", correct: true, exp: "رائع! 2 × 3 = 6، 6 × 5 = 30 والجميع أعداد أولية." },
+                    { text: "3 × 10", correct: false, exp: "العدد 10 ليس أولياً." },
+                    { text: "2 × 15", correct: false, exp: "العدد 15 ليس أولياً." },
+                    { text: "5 × 6", correct: false, exp: "العدد 6 ليس أولياً." }
+                ]
+            }
+        ];
+
+        /* ----------------------------------------------------
+           4. GAME STATE & MECHANICS
+           ---------------------------------------------------- */
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let correctCount = 0;
+        let isAnswered = false;
+        let studentName = "";
+        let studentClass = "";
+        const teacherPinCode = "1234"; // Default Passcode for Teacher Dashboard
+
+        function showStartScreen() {
+            document.getElementById('screen-start').classList.remove('hidden');
+            document.getElementById('screen-start').classList.add('flex');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+        }
+
+        function validateAndStartQuiz() {
+            const nameInput = document.getElementById('student-name-input').value.trim();
+            const classInput = document.getElementById('student-class-input').value.trim();
+            const errEl = document.getElementById('name-error-msg');
+
+            // Requirement 1 & 2: Mandatory Name before start
+            if (!nameInput) {
+                const inputEl = document.getElementById('student-name-input');
+                inputEl.focus();
+                inputEl.classList.add('border-rose-500', 'animate-shake');
+                errEl.classList.remove('hidden');
+                setTimeout(() => inputEl.classList.remove('animate-shake'), 500);
+                return;
+            }
+
+            errEl.classList.add('hidden');
+            studentName = nameInput;
+            studentClass = classInput || "السادس الابتدائي";
+            startGame('quiz');
+        }
+
+        function startGame(mode) {
+            getAudioContext();
+            
+            currentQuestions = [...questionBank].sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            correctCount = 0;
+
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            document.getElementById('screen-quiz').classList.add('flex');
+
+            updateQuizHeader();
+            renderQuestion();
+        }
+
+        function updateQuizHeader() {
+            document.getElementById('q-counter').innerText = `${currentIndex + 1} / ${currentQuestions.length}`;
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('streak-count').innerText = streak;
+
+            const progressPct = ((currentIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+        }
+
+        function renderQuestion() {
+            isAnswered = false;
+            const q = currentQuestions[currentIndex];
+
+            document.getElementById('question-badge').innerText = q.badge;
+            
+            let formattedQ = q.question.replace(/\*\*(.*?)\*\*/g, '<span class="text-amber-300 font-black underline decoration-purple-400 decoration-wavy">$1</span>');
+            document.getElementById('question-text').innerHTML = formattedQ;
+
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.add('hidden');
+
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = '';
+
+            const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'glass-button p-4 sm:p-5 rounded-2xl text-right font-bold text-base sm:text-lg text-white flex items-center justify-between border border-white/10 hover:border-purple-400/50 transition-all';
+                
+                let optText = opt.text.replace(/(\d+)\²/, '$1<sup>2</sup>').replace(/(\d+)\³/, '$1<sup>3</sup>');
+                
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs text-amber-300 border border-white/20">${idx + 1}</span>
+                        <span class="math-expr">${optText}</span>
+                    </div>
+                    <i class="fa-regular fa-circle text-gray-400 opt-icon"></i>
+                `;
+
+                btn.onclick = (e) => handleAnswerSelection(opt, btn, e);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function handleAnswerSelection(selectedOpt, btnElement, event) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const allButtons = document.querySelectorAll('#options-grid button');
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackDesc = document.getElementById('feedback-desc');
+
+            feedbackBox.classList.remove('hidden');
+
+            if (selectedOpt.correct) {
+                score += 10 + (streak * 2);
+                streak++;
+                correctCount++;
+                if (streak > maxStreak) maxStreak = streak;
+
+                playCorrectSound();
+
+                const rect = btnElement.getBoundingClientRect();
+                triggerConfettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+                btnElement.classList.remove('glass-button');
+                btnElement.classList.add('bg-gradient-to-r', 'from-emerald-600', 'to-teal-600', 'border-emerald-400', 'animate-pop-success');
+                btnElement.querySelector('.opt-icon').className = 'fa-solid fa-circle-check text-emerald-300 text-xl';
+
+                feedbackBox.className = 'p-4 rounded-2xl text-center mb-4 bg-emerald-500/20 border border-emerald-500/40 animate-pop-success';
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-face-laugh-beam text-2xl text-emerald-400"></i> <span class="text-emerald-300">إجابة صحيحة وممتازة! +${10 + ((streak - 1) * 2)} نقطة</span>`;
+                feedbackDesc.innerText = selectedOpt.exp;
+
+            } else {
+                streak = 0;
+                playWrongSound();
+
+                btnElement.classList.remove('glass-button');
+                btnElement.classList.add('bg-gradient-to-r', 'from-rose-600', 'to-red-600', 'border-rose-400', 'animate-shake');
+                btnElement.querySelector('.opt-icon').className = 'fa-solid fa-circle-xmark text-rose-300 text-xl';
+
+                allButtons.forEach(b => {
+                    if (b !== btnElement && b.innerText.includes(currentQuestions[currentIndex].options.find(o => o.correct).text)) {
+                        b.classList.add('bg-emerald-600/30', 'border-emerald-500/50');
+                    }
+                });
+
+                feedbackBox.className = 'p-4 rounded-2xl text-center mb-4 bg-rose-500/20 border border-rose-500/40';
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-face-frown text-2xl text-rose-400"></i> <span class="text-rose-300">محاولة قريبة! تعلمي من الخطأ:</span>`;
+                feedbackDesc.innerText = selectedOpt.exp;
+            }
+
+            allButtons.forEach(b => b.disabled = true);
+            updateQuizHeader();
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                updateQuizHeader();
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        async function finishQuiz() {
+            const totalQ = currentQuestions.length;
+            const wrongCount = totalQ - correctCount;
+            const percentage = Math.round((correctCount / totalQ) * 100);
+
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+            document.getElementById('screen-result').classList.add('flex');
+
+            document.getElementById('result-student-name').innerText = `الطالبة: ${studentName} (${studentClass})`;
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-percentage').innerText = `${percentage}%`;
+            document.getElementById('res-correct').innerText = correctCount;
+            document.getElementById('res-wrong').innerText = wrongCount;
+
+            const titleEl = document.getElementById('result-title');
+            const subTitleEl = document.getElementById('result-subtitle');
+
+            if (correctCount >= 8) {
+                titleEl.innerText = "أنتِ متميزة في العوامل الأولية! 👑🏆";
+                subTitleEl.innerText = "أداء خيالي ورائع جداً! تم حل جميع الأسئلة بذكاء وفهم عميق.";
+            } else if (correctCount >= 5) {
+                titleEl.innerText = "عمل رائع ومجهود ممتازة! 🌟";
+                subTitleEl.innerText = "أجبتِ على معظم الأسئلة ببراعة، راجعي الملاحظات وواصلي التفوق!";
+            } else {
+                titleEl.innerText = "محاولة طيبة، استمري في التدريب! 💪";
+                subTitleEl.innerText = "يمكنكِ مراجعة شجرة العوامل وإعادة الاختبار لتصبحي من أبطال الرياضيات!";
+            }
+
+            const resultPayload = {
+                studentName: studentName,
+                studentClass: studentClass,
+                score: score,
+                correctCount: correctCount,
+                wrongCount: wrongCount,
+                percentage: percentage,
+                totalQuestions: totalQ,
+                maxStreak: maxStreak
+            };
+
+            const statusText = document.getElementById('status-text');
+            const statusIcon = document.getElementById('status-icon');
+
+            statusIcon.className = "fa-solid fa-spinner fa-spin text-lg text-amber-300";
+            statusText.innerText = "جاري حفظ النتيجة في قاعدة البيانات...";
+
+            let saved = false;
+            if (window.saveResultToFirestore) {
+                saved = await window.saveResultToFirestore(resultPayload);
+            }
+
+            if (saved) {
+                statusIcon.className = "fa-solid fa-circle-check text-lg text-emerald-400";
+                statusText.innerText = "تم حفظ نتيجتك بنجاح";
+                playFanfareSound();
+                triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 3);
+            } else {
+                statusIcon.className = "fa-solid fa-triangle-exclamation text-lg text-rose-400";
+                statusText.innerText = "تعذر حفظ النتيجة، يرجى المحاولة مرة أخرى";
+            }
+        }
+
+        /* ----------------------------------------------------
+           5. FACTOR TREE EXPLORER ENGINE
+           ---------------------------------------------------- */
+        function openTreeExplorer() {
+            document.getElementById('modal-tree').classList.remove('hidden');
+            generateTreeFromInput();
+        }
+
+        function closeTreeExplorer() {
+            document.getElementById('modal-tree').classList.add('hidden');
+        }
+
+        function setTreeNum(num) {
+            document.getElementById('tree-input').value = num;
+            generateTreeFromInput();
+        }
+
+        function getPrimeFactors(n) {
+            const factors = [];
+            let d = 2;
+            let temp = n;
+            while (temp >= 2) {
+                if (temp % d === 0) {
+                    factors.push(d);
+                    temp = temp / d;
+                } else {
+                    d++;
+                }
+            }
+            return factors;
+        }
+
+        function generateTreeFromInput() {
+            const num = parseInt(document.getElementById('tree-input').value);
+            const container = document.getElementById('tree-output-display');
+            const summaryText = document.getElementById('tree-summary-text');
+            container.innerHTML = '';
+
+            if (isNaN(num) || num < 2 || num > 300) {
+                container.innerHTML = `<span class="text-rose-400 font-bold">الرجاء إدخال عدد كلي بين 2 و 300</span>`;
+                summaryText.innerText = '';
+                return;
+            }
+
+            const primes = getPrimeFactors(num);
+
+            if (primes.length === 1) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="tree-node bg-emerald-500 text-slate-950 shadow-lg glow-effect">${num}</div>
+                        <span class="text-emerald-300 font-bold text-lg mt-2">العدد ${num} عدد أولي! 🌟</span>
+                        <span class="text-xs text-gray-300">له عاملان فقط: 1 و ${num}.</span>
+                    </div>
+                `;
+                summaryText.innerText = `تحليل العدد ${num}: لا يتجزأ لأنه عدد أولي.`;
+                return;
+            }
+
+            let treeHTML = `<div class="flex flex-col items-center gap-4">`;
+            treeHTML += `<div class="tree-node bg-amber-400 text-slate-900 shadow-xl font-black text-xl">${num}</div>`;
+            treeHTML += `<div class="text-purple-300 text-sm"><i class="fa-solid fa-arrow-down"></i></div>`;
+
+            let current = num;
+
+            for (let i = 0; i < primes.length - 1; i++) {
+                const p = primes[i];
+                const rest = current / p;
+                
+                treeHTML += `
+                    <div class="flex items-center gap-6 my-1">
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs text-emerald-400 font-bold mb-1">عامل أولي</span>
+                            <div class="tree-node bg-emerald-500 text-slate-950 font-black shadow-md">${p}</div>
+                        </div>
+                        <span class="text-amber-300 font-black text-xl">×</span>
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs text-cyan-300 font-bold mb-1">${i === primes.length - 2 ? 'عامل أولي' : 'عدد مركب'}</span>
+                            <div class="tree-node ${i === primes.length - 2 ? 'bg-emerald-500 text-slate-950' : 'bg-cyan-600 text-white'} font-black shadow-md">${rest}</div>
+                        </div>
+                    </div>
+                `;
+                if (i < primes.length - 2) {
+                    treeHTML += `<div class="text-purple-300 text-xs my-1"><i class="fa-solid fa-arrow-down"></i></div>`;
+                }
+                current = rest;
+            }
+
+            treeHTML += `</div>`;
+            container.innerHTML = treeHTML;
+
+            const counts = {};
+            primes.forEach(p => counts[p] = (counts[p] || 0) + 1);
+            
+            const expParts = Object.keys(counts).map(p => {
+                const c = counts[p];
+                return c > 1 ? `${p}<sup>${c}</sup>` : `${p}`;
+            });
+
+            summaryText.innerHTML = `العوامل الأولية للعدد ${num}: <span class="math-expr text-white">${primes.join(' × ')}</span> أي <span class="math-expr text-amber-300">${expParts.join(' × ')}</span>`;
+        }
+
+        /* ----------------------------------------------------
+           6. GUIDE & PROTECTED TEACHER DASHBOARD CONTROLS
+           ---------------------------------------------------- */
+        function openGuideModal() {
+            document.getElementById('modal-guide').classList.remove('hidden');
+        }
+
+        function closeGuideModal() {
+            document.getElementById('modal-guide').classList.add('hidden');
+        }
+
+        // Requirements 6: PIN protected teacher access
+        function requestTeacherPinAccess() {
+            document.getElementById('modal-pin').classList.remove('hidden');
+            document.getElementById('teacher-pin-input').value = '';
+            document.getElementById('pin-error-msg').classList.add('hidden');
+            document.getElementById('teacher-pin-input').focus();
+        }
+
+        function closeTeacherPinAccess() {
+            document.getElementById('modal-pin').classList.add('hidden');
+        }
+
+        function verifyTeacherPin(e) {
+            e.preventDefault();
+            const inputPin = document.getElementById('teacher-pin-input').value.trim();
+            if (inputPin === teacherPinCode) {
+                document.getElementById('modal-pin').classList.add('hidden');
+                openTeacherDashboard();
+            } else {
+                document.getElementById('pin-error-msg').classList.remove('hidden');
+            }
+        }
+
+        function openTeacherDashboard() {
+            document.getElementById('modal-teacher').classList.remove('hidden');
+            const dataToRender = window.allStudentResults || [];
+            window.renderTeacherResults(dataToRender);
+        }
+
+        function closeTeacherDashboard() {
+            document.getElementById('modal-teacher').classList.add('hidden');
+        }
+
+        // Render table with fields sorted from Highest Score to Lowest Score
+        window.renderTeacherResults = function(resultsList) {
+            const tbody = document.getElementById('teacher-results-tbody');
+            if (!tbody) return;
+
+            if (!resultsList || resultsList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center p-8 text-gray-400">لا توجد نتائج مسجلة حتى الآن في قاعدة بيانات Firestore. ستظهر الإجابات هنا فور إتمام الطالبات للاختبار من أي جهاز!</td>
+                    </tr>
+                `;
+                document.getElementById('dash-total-students').innerText = "0";
+                document.getElementById('dash-avg-score').innerText = "0";
+                document.getElementById('dash-top-score').innerText = "0";
+                return;
+            }
+
+            // Ensure sorting by score descending
+            resultsList.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+            let totalScore = 0;
+            let topScore = 0;
+
+            let html = '';
+            resultsList.forEach((item, index) => {
+                const scoreNum = item.score || 0;
+                totalScore += scoreNum;
+                if (scoreNum > topScore) topScore = scoreNum;
+
+                const pct = item.percentage !== undefined ? item.percentage : Math.round(((item.correctCount || 0) / (item.totalQuestions || 10)) * 100);
+
+                html += `
+                    <tr class="hover:bg-white/5 transition">
+                        <td class="p-3 font-bold text-amber-300/70">${index + 1}</td>
+                        <td class="p-3 font-extrabold text-white">${item.studentName || 'طالبة'}</td>
+                        <td class="p-3 text-cyan-300">${item.studentClass || '-'}</td>
+                        <td class="p-3 text-center font-black text-amber-300">${scoreNum}</td>
+                        <td class="p-3 text-center font-bold text-cyan-400">${pct}%</td>
+                        <td class="p-3 text-center font-bold text-emerald-400">${item.correctCount || 0}</td>
+                        <td class="p-3 text-center font-bold text-rose-400">${item.wrongCount !== undefined ? item.wrongCount : ((item.totalQuestions || 10) - (item.correctCount || 0))}</td>
+                        <td class="p-3 text-center text-xs text-gray-300 dir-ltr">${item.timestamp || '-'}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="window.deleteSingleStudentResult('${item.id || ''}', ${index})" class="text-rose-400 hover:text-rose-200 text-sm p-1" title="حذف الطالبة">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+            document.getElementById('dash-total-students').innerText = resultsList.length;
+            document.getElementById('dash-avg-score').innerText = Math.round(totalScore / resultsList.length);
+            document.getElementById('dash-top-score').innerText = topScore;
+        };
+
+        function filterTeacherResults() {
+            const query = document.getElementById('dash-search').value.toLowerCase();
+            const source = window.allStudentResults || [];
+
+            const filtered = source.filter(item => {
+                const name = (item.studentName || '').toLowerCase();
+                const cls = (item.studentClass || '').toLowerCase();
+                return name.includes(query) || cls.includes(query);
+            });
+
+            window.renderTeacherResults(filtered);
+        }
+    </script>
+</body>
+</html>
