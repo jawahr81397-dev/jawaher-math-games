@@ -58,7 +58,8 @@ h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns:
+    repeat(auto-fit, minmax(250px, 1fr));
   gap: 18px;
 }
 
@@ -140,7 +141,7 @@ a {
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 540px) {
+@media(max-width:540px) {
   .item .btn {
     width: 100%;
   }
@@ -165,11 +166,35 @@ a {
 
 <script>
 
-/* محتويات البوابة */
-
 const content = {
 
-  grade5: [],
+  grade5: [
+    {
+      title: '🔐 غرفة العمليات الجبرية',
+      description: 'مهمات المعادلات الجبرية وضبط الصف',
+      url: 'algebra_mission_grade5.html'
+    },
+    {
+      title: '🗝️ كنز القسمة المفقود',
+      description: 'افتحي أقفال الكنز بحل مسائل القسمة',
+      url: 'treasure_grade5.html'
+    },
+    {
+      title: '🎡 عجلة تحدي الضرب',
+      description: 'عجلة تفاعلية وأسئلة ضرب ونقاط',
+      url: 'wheel_grade5.html'
+    },
+    {
+      title: '🎈 سباق المناطيد',
+      description: 'منافسة المجموعات في سماء الرياضيات',
+      url: 'balloon_grade5.html'
+    },
+    {
+      title: '🚪 الأبواب الغامضة',
+      description: 'اختاري الباب واكتشفي السؤال أو المفاجأة',
+      url: 'doors_grade5.html'
+    }
+  ],
 
   grade6: [
     {
@@ -179,16 +204,32 @@ const content = {
     },
     {
       title: '🚀 سباق المجرّة – تبسيط الكسور الاعتيادية',
-      description: 'سباق تفاعلي بين أربع مجموعات • الصف السادس',
+      description: 'سباق تفاعلي بين أربع مجموعات',
       url: 'galaxy_race_math_game 3.html'
+    },
+    {
+      title: '💎 العوامل الأولية',
+      description: 'نشاط تفاعلي في العوامل الأولية',
+      url: 'firestore.html'
+    },
+    {
+      title: '🧩 تحدي الثنائيات – عباقرة الكسور',
+      description: 'منافسة أربعة ثنائيات في الكسور الاعتيادية',
+      url: 'dual_fraction_challenge_game_fixed.html'
     }
   ],
 
   summaries5: [],
-  summaries6: [],
-  challenges: [],
 
-  /* الشهادات والتكريمات */
+  summaries6: [],
+
+  challenges: [
+    {
+      title: '🎬 تحدي المضاعف المشترك الأصغر',
+      description: 'تحدٍ مصور للصف السادس',
+      url: 'تحدي المضاعف المشترك الاصغر.MP4'
+    }
+  ],
 
   certificates: [
     {
@@ -213,8 +254,6 @@ const content = {
     }
   ],
 
-  /* التحفيزات */
-
   motivation: [
     {
       title: '💌 بريد السعادة',
@@ -237,8 +276,6 @@ const content = {
       url: 'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
     }
   ],
-
-  /* نجمات التميز */
 
   stars: [
     {
@@ -263,12 +300,17 @@ const content = {
     }
   ],
 
-  activities: [],
+  activities: [
+    {
+      title: '💌 هناك رسالة تنتظركِ – القاسم المشترك الأكبر',
+      description: 'نشاط تعليمي تفاعلي تشويقي، يحتوي على باركود قابل للضغط ورسالة تحفيزية مرتبطة بالدرس',
+      url: 'interactive_qr(1).html'
+    }
+  ],
+
   practice: []
 
 };
-
-/* أسماء الأقسام */
 
 const categories = {
 
@@ -285,13 +327,13 @@ const categories = {
   },
 
   summaries5: {
-    title: '📚 ملخص للدروس – خامس',
+    title: '📚 ملخصات الصف الخامس',
     icon: '📘',
     description: 'ملخصات وملفات الصف الخامس'
   },
 
   summaries6: {
-    title: '📚 ملخص للدروس – سادس',
+    title: '📚 ملخصات الصف السادس',
     icon: '📗',
     description: 'ملخصات وملفات الصف السادس'
   },
@@ -305,7 +347,7 @@ const categories = {
   certificates: {
     title: '🏅 الشهادات والتكريمات',
     icon: '🏅',
-    description: 'شهادات الشكر والتقدير ونجمة الشهر'
+    description: 'شهادات الشكر والتقدير'
   },
 
   motivation: {
@@ -321,9 +363,9 @@ const categories = {
   },
 
   activities: {
-    title: '🎉 الأنشطة والمناسبات',
+    title: '🎉 الأنشطة التعليمية التفاعلية',
     icon: '🎉',
-    description: 'إذاعات ومبادرات وفعاليات مدرسية'
+    description: 'أنشطة ومبادرات تربط الرياضيات بالتشويق'
   },
 
   practice: {
@@ -355,12 +397,11 @@ function link(label, url) {
 
   if (url.startsWith('#')) {
     a.href = url;
-  } else if (/^https?:\/\//i.test(url)) {
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
   } else {
-    a.href = encodeURI(url);
+    a.href = /^https?:\/\//i.test(url)
+      ? url
+      : encodeURI(url);
+
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
   }
@@ -381,9 +422,8 @@ function card(icon, title, description, button, url) {
   return c;
 }
 
-/* الصفحة الرئيسية */
-
 function home() {
+
   app.replaceChildren();
 
   const grid = element('div', 'grid');
@@ -393,7 +433,7 @@ function home() {
     card(
       '🎯',
       'ألعاب الصف الخامس',
-      'ألعاب وتحديات تفاعلية',
+      'خمس ألعاب وتحديات تفاعلية',
       'افتحي ألعاب خامس',
       '#grade5'
     ),
@@ -401,7 +441,7 @@ function home() {
     card(
       '🚀',
       'ألعاب الصف السادس',
-      'قطار التحدي • سباق المجرّة',
+      'قطار التحدي • سباق المجرة • العوامل الأولية • تحدي الثنائيات',
       'افتحي ألعاب سادس',
       '#grade6'
     ),
@@ -409,7 +449,7 @@ function home() {
     card(
       '🏆',
       'عبقريات نافس',
-      'تحديات نافس • نقاط • منافسة شهرية',
+      'تحديات نافس ونقاط المنافسة الشهرية',
       'دخول عبقريات نافس',
       'nafes.html'
     ),
@@ -433,7 +473,7 @@ function home() {
     card(
       '⭐',
       'التحدي الأسبوعي',
-      'تحديات رياضية ممتعة',
+      'تحدي المضاعف المشترك الأصغر',
       'افتحي التحديات',
       '#challenges'
     ),
@@ -448,8 +488,8 @@ function home() {
 
     card(
       '🎉',
-      'الأنشطة والمناسبات',
-      'إذاعات • مبادرات • مناسبات مدرسية',
+      'الأنشطة التعليمية التفاعلية',
+      'هناك رسالة تنتظركِ • القاسم المشترك الأكبر',
       'افتحي الأنشطة',
       '#activities'
     ),
@@ -468,11 +508,11 @@ function home() {
     element('h2', '', 'أقسام بوابة الرياضيات'),
     grid
   );
+
 }
 
-/* لوحة التميز الرئيسية */
-
 function excellenceHome() {
+
   app.replaceChildren();
 
   const grid = element('div', 'grid');
@@ -508,14 +548,14 @@ function excellenceHome() {
   app.append(
     link('↩ العودة للبوابة', '#home'),
     element('h2', '', '🎖️ لوحة التميز والتكريمات'),
-    element('p', 'muted', 'اختاري القسم الذي تريدين استعراضه'),
+    element('p', 'muted', 'اختاري القسم المطلوب'),
     grid
   );
+
 }
 
-/* عرض محتويات كل قسم */
-
 function section(key) {
+
   const info = categories[key];
 
   if (!info) {
@@ -525,9 +565,10 @@ function section(key) {
 
   app.replaceChildren();
 
-  const backUrl = ['certificates', 'motivation', 'stars'].includes(key)
-    ? '#excellence'
-    : '#home';
+  const backUrl =
+    ['certificates', 'motivation', 'stars'].includes(key)
+      ? '#excellence'
+      : '#home';
 
   app.append(
     link('↩ رجوع', backUrl),
@@ -537,7 +578,8 @@ function section(key) {
 
   const items = content[key] || [];
 
-  if (items.length === 0) {
+  if (!items.length) {
+
     const box = element('article', 'card');
 
     box.append(
@@ -549,11 +591,13 @@ function section(key) {
 
     app.append(box);
     return;
+
   }
 
   const list = element('div', 'items');
 
   items.forEach(item => {
+
     const box = element('article', 'card item');
     const details = element('div');
 
@@ -573,15 +617,18 @@ function section(key) {
     );
 
     list.append(box);
+
   });
 
   app.append(list);
+
 }
 
-/* التنقل بين الأقسام */
-
 function render() {
-  const key = decodeURIComponent(location.hash.slice(1));
+
+  const key = decodeURIComponent(
+    location.hash.slice(1)
+  );
 
   if (!key || key === 'home') {
     home();
@@ -592,6 +639,7 @@ function render() {
   }
 
   window.scrollTo(0, 0);
+
 }
 
 window.addEventListener('hashchange', render);
