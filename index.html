@@ -3,21 +3,18 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>بوابة الرياضيات | جواهر السبيعي</title>
 
 <style>
 :root {
   --green: #174d3b;
-  --dark: #103b2e;
   --gold: #caa74e;
   --bg: #f3f7f3;
   --ink: #193d30;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -40,9 +37,7 @@ header h1 {
   margin: 5px 0;
 }
 
-header p {
-  color: #f3dfa8;
-}
+header p { color: #f3dfa8; }
 
 main {
   max-width: 1050px;
@@ -59,8 +54,7 @@ h2 {
 
 .grid {
   display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 18px;
 }
 
@@ -72,18 +66,11 @@ h2 {
   box-shadow: 0 5px 20px #153d2810;
 }
 
-.card h3 {
-  margin: 8px 0;
-}
+.card h3 { margin: 8px 0; }
 
-.card p,
-.muted {
-  color: #64756a;
-}
+.card p, .muted { color: #64756a; }
 
-.icon {
-  font-size: 40px;
-}
+.icon { font-size: 40px; }
 
 .btn {
   display: inline-block;
@@ -98,9 +85,7 @@ h2 {
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #104332;
-}
+.btn:hover { background: #104332; }
 
 .items {
   display: grid;
@@ -115,13 +100,9 @@ h2 {
   gap: 16px;
 }
 
-.item h3 {
-  margin: 0;
-}
+.item h3 { margin: 0; }
 
-.item small {
-  color: #66786d;
-}
+.item small { color: #66786d; }
 
 .tag {
   display: inline-block;
@@ -138,18 +119,11 @@ footer {
   color: #557262;
 }
 
-a {
-  overflow-wrap: anywhere;
-}
+a { overflow-wrap: anywhere; }
 
 @media (max-width: 540px) {
-  .item .btn {
-    width: 100%;
-  }
-
-  header h1 {
-    font-size: 29px;
-  }
+  .item .btn { width: 100%; }
+  header h1 { font-size: 29px; }
 }
 </style>
 </head>
@@ -226,9 +200,33 @@ const content = {
     }
   ],
 
-  // المراجعة وتعزيز مهارات التفكير العليا
-  review5: [],
-  review6: [],
+  // حقيبة جواهر للصف الخامس
+  review5: [
+    {
+      title: '💎 حقيبة جواهر – التحديات التفاعلية (خامس)',
+      description: 'محطات لتنمية التفكير الرياضي مع تصحيح فوري',
+      url: 'jawaher_thinking_grade5.html'
+    },
+    {
+      title: '📄 حقيبة جواهر – أوراق العمل (خامس)',
+      description: 'تدريبات قابلة للطباعة مباشرة من المتصفح',
+      url: 'jawaher_thinking_grade5_worksheets.html'
+    }
+  ],
+
+  // حقيبة جواهر للصف السادس
+  review6: [
+    {
+      title: '💎 حقيبة جواهر – مختبر التفكير الرياضي (سادس)',
+      description: 'أسئلة متنوعة وتحديات مع تفسير الإجابات',
+      url: 'jawaher_thinking_grade6.html'
+    },
+    {
+      title: '📄 حقيبة جواهر – أوراق العمل (سادس)',
+      description: 'أوراق تدريب قابلة للطباعة مباشرة من المتصفح',
+      url: 'jawaher_thinking_grade6_worksheets.html'
+    }
+  ],
 
   // التحدي الأسبوعي
   challenges: [
@@ -315,7 +313,7 @@ const content = {
   activities: [
     {
       title: '💌 هناك رسالة تنتظركِ – القاسم المشترك الأكبر',
-      description: 'نشاط تعليمي تفاعلي تشويقي مرتبط بالدرس، يتضمن باركودًا قابلًا للضغط ورسالة تحفيزية',
+      description: 'نشاط تفاعلي مرتبط بالدرس ورسالة تحفيزية',
       url: 'interactive_qr.html'
     }
   ],
@@ -327,11 +325,10 @@ const content = {
   practice: [
     {
       title: '🇸🇦 رحلة المعادلات في ربوع وطني – مهمة أدائية',
-      description: 'مهمة أدائية تربط المعادلات بالرياضيات والهوية الوطنية',
+      description: 'مهمة تربط المعادلات بالرياضيات والهوية الوطنية',
       url: 'saudi_equations_task.mp4'
     }
   ]
-
 };
 
 const categories = {
@@ -351,13 +348,13 @@ const categories = {
   review5: {
     title: '📘 المراجعة وتعزيز مهارات التفكير العليا – الصف الخامس',
     icon: '📘',
-    description: 'مراجعة المهارات وتنمية التفكير والتحليل وحل المشكلات'
+    description: 'حقيبة جواهر: تحديات تفاعلية وأوراق عمل'
   },
 
   review6: {
     title: '📗 المراجعة وتعزيز مهارات التفكير العليا – الصف السادس',
     icon: '📗',
-    description: 'مراجعة المهارات وتنمية التفكير والتحليل وحل المشكلات'
+    description: 'حقيبة جواهر: مختبر التفكير الرياضي وأوراق عمل'
   },
 
   challenges: {
@@ -387,13 +384,13 @@ const categories = {
   activities: {
     title: '💌 الأنشطة التعليمية التفاعلية',
     icon: '💌',
-    description: 'أنشطة تفاعلية مرتبطة بالدروس وتنمية المهارات'
+    description: 'أنشطة مرتبطة بالدروس وتنمية المهارات'
   },
 
   schoolActivities: {
     title: '🎨🎙️ الأنشطة والإذاعات المدرسية',
     icon: '🎙️',
-    description: 'إذاعات الرياضيات والمبادرات والفعاليات والمناسبات المدرسية'
+    description: 'إذاعات الرياضيات والمبادرات والفعاليات المدرسية'
   },
 
   practice: {
@@ -401,22 +398,14 @@ const categories = {
     icon: '✏️',
     description: 'المهام الأدائية والتدريبات والاختبارات'
   }
-
 };
 
 const app = document.getElementById('app');
 
 function element(tag, cls, text) {
   const e = document.createElement(tag);
-
-  if (cls) {
-    e.className = cls;
-  }
-
-  if (text !== undefined) {
-    e.textContent = text;
-  }
-
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
   return e;
 }
 
@@ -451,13 +440,11 @@ function card(icon, title, description, button, url) {
 }
 
 function home() {
-
   app.replaceChildren();
 
   const grid = element('div', 'grid');
 
   grid.append(
-
     card(
       '🎯',
       'ألعاب الصف الخامس',
@@ -485,16 +472,16 @@ function home() {
     card(
       '📘',
       'المراجعة وتعزيز مهارات التفكير العليا – خامس',
-      'مراجعة المهارات وتنمية التفكير وحل المشكلات',
-      'افتحي القسم',
+      'حقيبة جواهر: تحديات تفاعلية وأوراق عمل للطباعة',
+      'افتحي حقيبة خامس',
       '#review5'
     ),
 
     card(
       '📗',
       'المراجعة وتعزيز مهارات التفكير العليا – سادس',
-      'مراجعة المهارات وتنمية التفكير وحل المشكلات',
-      'افتحي القسم',
+      'حقيبة جواهر: مختبر التفكير وأوراق عمل للطباعة',
+      'افتحي حقيبة سادس',
       '#review6'
     ),
 
@@ -537,24 +524,20 @@ function home() {
       'افتحي القسم',
       '#practice'
     )
-
   );
 
   app.append(
     element('h2', '', 'أقسام بوابة الرياضيات'),
     grid
   );
-
 }
 
 function excellenceHome() {
-
   app.replaceChildren();
 
   const grid = element('div', 'grid');
 
   grid.append(
-
     card(
       '🏅',
       'الشهادات والتكريمات',
@@ -578,7 +561,6 @@ function excellenceHome() {
       'افتحي النجمات',
       '#stars'
     )
-
   );
 
   app.append(
@@ -587,11 +569,9 @@ function excellenceHome() {
     element('p', 'muted', 'اختاري القسم المطلوب'),
     grid
   );
-
 }
 
 function section(key) {
-
   const info = categories[key];
 
   if (!info) {
@@ -615,7 +595,6 @@ function section(key) {
   const items = content[key] || [];
 
   if (!items.length) {
-
     const box = element('article', 'card');
 
     box.append(
@@ -627,13 +606,11 @@ function section(key) {
 
     app.append(box);
     return;
-
   }
 
   const list = element('div', 'items');
 
   items.forEach(item => {
-
     const box = element('article', 'card item');
     const details = element('div');
 
@@ -653,18 +630,13 @@ function section(key) {
     );
 
     list.append(box);
-
   });
 
   app.append(list);
-
 }
 
 function render() {
-
-  const key = decodeURIComponent(
-    location.hash.slice(1)
-  );
+  const key = decodeURIComponent(location.hash.slice(1));
 
   if (!key || key === 'home') {
     home();
@@ -675,11 +647,9 @@ function render() {
   }
 
   window.scrollTo(0, 0);
-
 }
 
 window.addEventListener('hashchange', render);
-
 render();
 
 </script>
