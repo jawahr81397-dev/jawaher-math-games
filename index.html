@@ -3,150 +3,397 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>بوابة الرياضيات | جواهر السبيعي</title>
 
 <style>
+:root{
+  --green:#164b39;
+  --gold:#cba951;
+  --bg:#f3f7f3;
+  --ink:#193d30;
+}
+*{box-sizing:border-box}
 body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#f4f7f4;
-    color:#153b2f;
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.8;
 }
 header{
-    background:linear-gradient(125deg,#123c30,#226c53);
-    color:white;
-    text-align:center;
-    padding:52px 16px;
+  background:linear-gradient(125deg,#123c30,#226c53);
+  color:white;
+  text-align:center;
+  padding:42px 14px;
+  border-bottom:5px solid var(--gold);
 }
-h1{font-size:clamp(27px,5vw,44px);margin:12px}
-header p{color:#e7d49a}
-.wrap{max-width:950px;margin:35px auto;padding:0 18px}
-section{margin:35px 0}
-h2{border-right:5px solid #c9a95d;padding-right:12px}
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:18px;
+header h1{font-size:36px;margin:6px}
+header p{color:#f0dfa9}
+main{
+  max-width:1000px;
+  margin:30px auto;
+  padding:0 17px;
+  min-height:45vh;
+}
+h2{
+  border-right:5px solid var(--gold);
+  padding-right:12px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:18px;
 }
 .card{
-    background:white;
-    padding:26px;
-    border-radius:18px;
-    box-shadow:0 5px 22px #143d2b15;
+  background:white;
+  border:1px solid #e0e8df;
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 5px 20px #153d2810;
 }
-.emoji{font-size:48px}
+.icon{font-size:42px}
+.card p{color:#60736a}
 .btn{
-    display:inline-block;
-    background:#185b44;
-    color:white;
-    padding:12px 22px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
+  display:inline-block;
+  border:0;
+  border-radius:11px;
+  padding:11px 18px;
+  background:#185b44;
+  color:white;
+  font:700 16px Tahoma,Arial;
+  text-decoration:none;
+  cursor:pointer;
 }
-.muted{color:#64766d}
-footer{text-align:center;padding:28px;color:#486758}
+.btn.alt{
+  background:white;
+  color:var(--green);
+  border:2px solid #bdcfbf;
+}
+.tag{
+  display:inline-block;
+  color:#6c571e;
+  background:#fff8e0;
+  border:1px solid #ecd99c;
+  border-radius:20px;
+  padding:4px 13px;
+}
+.items{display:grid;gap:14px}
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.item h3{margin:0}
+.item small{color:#60736a}
+.muted{color:#60736a}
+footer{
+  text-align:center;
+  color:#4a6958;
+  padding:25px;
+}
+a{overflow-wrap:anywhere}
+@media(max-width:540px){
+  .item .btn{width:100%;text-align:center}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div style="font-size:52px">✦ 📐 ✦</div>
+<div style="font-size:45px">✦ 📐 ✦</div>
 <h1>بوابة الرياضيات</h1>
 <p>نتعلم • نتحدى • نبدع</p>
 <strong>المعلمة/ جواهر السبيعي</strong>
 </header>
 
-<main class="wrap">
-
-<section>
-<h2>🎮 ألعاب الصف الخامس</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">🎯</div>
-<h3>ألعاب الصف الخامس</h3>
-<p class="muted">ألعاب وتحديات جديدة قريبًا.</p>
-</article>
-</div>
-</section>
-
-<section>
-<h2>🎮 ألعاب الصف السادس</h2>
-<div class="cards">
-
-<article class="card">
-<div class="emoji">🚂</div>
-<h3>قطار التحدي الرياضي</h3>
-<p>الكسور العشرية • أربع محطات • أسئلة تفاعلية</p>
-<a class="btn" href="train.html">ابدئي التحدي</a>
-</article>
-
-</div>
-</section>
-
-<section>
-<h2>🏆 عبقريات نافس</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">🏆</div>
-<h3>عبقريات نافس</h3>
-<p>تحديات نافس • نقاط • منافسة شهرية</p>
-<a class="btn" href="nafes.html">دخول عبقريات نافس</a>
-</article>
-</div>
-</section>
-
-<section>
-<h2>📝 تدريبات واختبارات</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">✏️</div>
-<h3>تدريبات واختبارات</h3>
-<p class="muted">تدريبات تفاعلية واختبارات قصيرة ستُضاف هنا.</p>
-</article>
-</div>
-</section>
-
-<section>
-<h2>📚 ملخصات ومراجعات</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">📚</div>
-<h3>ملخصات ومراجعات</h3>
-<p class="muted">ملخصات الدروس والمراجعات للصفين الخامس والسادس.</p>
-</article>
-</div>
-</section>
-
-<section>
-<h2>⭐ التحدي الأسبوعي</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">⭐</div>
-<h3>تحدي الأسبوع</h3>
-<p class="muted">تحدٍ رياضي جديد كل أسبوع.</p>
-</article>
-</div>
-</section>
-
-<section>
-<h2>🎖️ المتميزات</h2>
-<div class="cards">
-<article class="card">
-<div class="emoji">👑</div>
-<h3>لوحة المتميزات</h3>
-<p class="muted">مساحة للاحتفاء بنجمات الرياضيات وإنجازاتهن.</p>
-</article>
-</div>
-</section>
-
-</main>
+<main id="app"></main>
 
 <footer>
 إعداد المعلمة/ جواهر السبيعي
 </footer>
+
+<script>
+
+/*
+هنا نضيف الألعاب والملفات والروابط مستقبلًا.
+
+مثال:
+{title:'ملخص القسمة',url:'summary.pdf'}
+
+ملفات PDF والصور والفيديوهات يمكن رفعها
+إلى GitHub ثم إضافة رابطها هنا.
+*/
+
+const content={
+
+  grade5:[],
+
+  grade6:[
+    {
+      title:'🚂 قطار التحدي الرياضي',
+      description:'الكسور العشرية • أربع محطات',
+      url:'train.html'
+    }
+  ],
+
+  summaries5:[],
+  summaries6:[],
+  challenges:[],
+  excellence:[],
+  practice:[]
+
+};
+
+const categories={
+
+  grade5:{
+    title:'🎮 ألعاب الصف الخامس',
+    icon:'🎯',
+    description:'الألعاب التفاعلية للصف الخامس'
+  },
+
+  grade6:{
+    title:'🎮 ألعاب الصف السادس',
+    icon:'🚂',
+    description:'الألعاب التفاعلية للصف السادس'
+  },
+
+  summaries5:{
+    title:'📚 ملخص للدروس – خامس',
+    icon:'📘',
+    description:'ملخصات وملفات وروابط الصف الخامس'
+  },
+
+  summaries6:{
+    title:'📚 ملخص للدروس – سادس',
+    icon:'📗',
+    description:'ملخصات وملفات وروابط الصف السادس'
+  },
+
+  challenges:{
+    title:'⭐ التحدي الأسبوعي',
+    icon:'⭐',
+    description:'تحديات وملفات وروابط تفاعلية'
+  },
+
+  excellence:{
+    title:'🎖️ لوحة التميز',
+    icon:'🏅',
+    description:'شهادات وصور وفيديوهات وروابط'
+  },
+
+  practice:{
+    title:'📝 التدريبات والاختبارات',
+    icon:'✏️',
+    description:'أسئلة وتدريبات وملفات وروابط'
+  }
+
+};
+
+const app=document.getElementById('app');
+
+function element(tag,cls,text){
+  const e=document.createElement(tag);
+  if(cls)e.className=cls;
+  if(text!==undefined)e.textContent=text;
+  return e;
+}
+
+function link(label,url){
+  const a=element('a','btn',label);
+  a.href=url;
+
+  if(/^https?:\/\//i.test(url)){
+    a.target='_blank';
+    a.rel='noopener noreferrer';
+  }
+
+  return a;
+}
+
+function card(icon,title,description,button,url){
+  const c=element('article','card');
+
+  c.append(
+    element('div','icon',icon),
+    element('h3','',title),
+    element('p','',description),
+    link(button,url)
+  );
+
+  return c;
+}
+
+function home(){
+
+  app.replaceChildren();
+
+  const grid=element('div','grid');
+
+  grid.append(
+
+    card(
+      '🎯',
+      'ألعاب الصف الخامس',
+      'ألعاب وتحديات تفاعلية',
+      'افتحي ألعاب خامس',
+      '#grade5'
+    ),
+
+    card(
+      '🚂',
+      'ألعاب الصف السادس',
+      'قطار التحدي وألعاب جديدة',
+      'افتحي ألعاب سادس',
+      '#grade6'
+    ),
+
+    card(
+      '🏆',
+      'عبقريات نافس',
+      'تحديات نافس • نقاط • منافسة شهرية',
+      'دخول عبقريات نافس',
+      'nafes.html'
+    ),
+
+    card(
+      '📚',
+      'ملخص للدروس',
+      'ملخصات PDF وصور وروابط',
+      'ملخصات خامس',
+      '#summaries5'
+    ),
+
+    card(
+      '📗',
+      'ملخصات الصف السادس',
+      'ملخصات وملفات وروابط',
+      'ملخصات سادس',
+      '#summaries6'
+    ),
+
+    card(
+      '⭐',
+      'التحدي الأسبوعي',
+      'ملفات وروابط وتحديات متجددة',
+      'افتحي التحديات',
+      '#challenges'
+    ),
+
+    card(
+      '🎖️',
+      'لوحة التميز',
+      'إنجازات وشهادات وتكريمات',
+      'افتحي اللوحة',
+      '#excellence'
+    ),
+
+    card(
+      '📝',
+      'التدريبات والاختبارات',
+      'أسئلة وملفات وتدريبات تفاعلية',
+      'افتحي التدريبات',
+      '#practice'
+    )
+
+  );
+
+  app.append(
+    element('h2','','أقسام بوابة الرياضيات'),
+    grid
+  );
+
+}
+
+function section(key){
+
+  const info=categories[key];
+
+  if(!info){
+    home();
+    return;
+  }
+
+  app.replaceChildren();
+
+  app.append(
+    link('↩ العودة للبوابة','#home'),
+    element('h2','',info.title),
+    element('p','muted',info.description)
+  );
+
+  const items=content[key]||[];
+
+  if(items.length===0){
+
+    const box=element('article','card');
+
+    box.append(
+      element('div','icon',info.icon),
+      element('h3','','لا يوجد محتوى منشور حاليًا'),
+      element('p','muted','سيظهر المحتوى هنا بمجرد إضافته.'),
+      element('span','tag','قريبًا')
+    );
+
+    app.append(box);
+    return;
+  }
+
+  const list=element('div','items');
+
+  items.forEach(item=>{
+
+    const box=element('article','card item');
+
+    const details=element('div');
+
+    details.append(
+      element('h3','',item.title)
+    );
+
+    if(item.description){
+      details.append(
+        element('small','',item.description)
+      );
+    }
+
+    box.append(
+      details,
+      link('فتح المحتوى ↗',item.url)
+    );
+
+    list.append(box);
+
+  });
+
+  app.append(list);
+
+}
+
+function render(){
+
+  const key=decodeURIComponent(
+    location.hash.slice(1)
+  );
+
+  if(!key||key==='home'){
+    home();
+  }else{
+    section(key);
+  }
+
+  window.scrollTo(0,0);
+
+}
+
+window.addEventListener('hashchange',render);
+
+render();
+
+</script>
 
 </body>
 </html>
