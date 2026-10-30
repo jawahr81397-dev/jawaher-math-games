@@ -4,547 +4,740 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>بوابة جواهر للرياضيات</title>
+<meta name="theme-color" content="#071923">
+<title>جوهرة ماث | JawharaMath</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --green:#174d3b;
-  --gold:#caa74e;
-  --bg:#f3f7f3;
-  --ink:#193d30;
+  --bg:#071923;
+  --card:#10313d;
+  --cyan:#7ae4f2;
+  --gold:#edce90;
+  --white:#eaf8fb;
+  --muted:#b1cdd5;
 }
 * {box-sizing:border-box}
+html {scroll-behavior:smooth}
 body {
   margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:Tahoma,Arial,sans-serif;
-  line-height:1.8;
+  font-family:Cairo,sans-serif;
+  background:radial-gradient(ellipse at top,#164954,#091e29 48%,#06151f);
+  color:var(--white);
+  min-height:100vh;
+}
+a {color:inherit;text-decoration:none}
+button,input {font:inherit}
+button {cursor:pointer}
+.container {max-width:1160px;margin:auto;padding:0 20px}
+.stars {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:
+    radial-gradient(#a8edff88 1px,transparent 1px),
+    radial-gradient(#e9c88877 1px,transparent 1px);
+  background-size:117px 131px,173px 189px;
+  opacity:.4;
 }
 header {
-  text-align:center;
-  background:linear-gradient(125deg,#123c30,#226c53);
-  color:white;
-  padding:42px 15px;
-  border-bottom:5px solid var(--gold);
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#071923e8;
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #7ae4f233;
 }
-header h1 {font-size:34px;margin:5px 0}
-header p {color:#f3dfa8}
-main {
-  max-width:1050px;
-  margin:30px auto;
-  padding:0 16px;
-  min-height:55vh;
-}
-h2 {
-  border-right:5px solid var(--gold);
-  padding-right:12px;
-  margin-top:25px;
-}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:18px;
-}
-.card {
-  background:white;
-  border:1px solid #dfe8df;
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 5px 20px #153d2810;
-}
-.card h3 {margin:8px 0}
-.card p,.muted {color:#64756a}
-.icon {font-size:40px}
-.btn {
-  display:inline-block;
-  background:#185b44;
-  color:white;
-  padding:11px 18px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:bold;
-  text-align:center;
-}
-.btn:hover {background:#104332}
-.items {display:grid;gap:16px}
-.item {
+.nav {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  flex-wrap:wrap;
-  gap:16px;
+  gap:12px;
+  padding-top:14px;
+  padding-bottom:14px;
 }
-.item h3 {margin:0}
-.item small {color:#66786d}
-.tag {
+.brand {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.brand-icon {
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  background:#103744;
+  border:1px solid var(--gold);
+  border-radius:16px;
+  color:var(--cyan);
+  font-size:30px;
+}
+.brand strong {
+  display:block;
+  color:var(--gold);
+  font:700 19px Alexandria;
+}
+.brand small {
+  color:var(--cyan);
+  letter-spacing:2px;
+  font-size:10px;
+}
+.navlinks {display:flex;gap:20px;font-size:13px}
+.navlinks a:hover {color:var(--gold)}
+.motion {
+  background:#153640;
+  border:1px solid #d9c08866;
+  color:var(--gold);
+  border-radius:12px;
+  padding:9px 12px;
+}
+.hero {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:25px;
+  min-height:510px;
+  padding:45px 0;
+}
+.eyebrow {
+  color:var(--cyan);
+  font-size:12px;
+  letter-spacing:2px;
+}
+.hero h1 {
+  font:800 clamp(38px,6vw,68px) Alexandria;
+  color:var(--gold);
+  margin:20px 0 12px;
+}
+.hero h2 {
+  font:600 clamp(17px,2.5vw,24px) Alexandria;
+  line-height:1.8;
+}
+.hero p {
+  color:var(--muted);
+  line-height:2;
+}
+.buttons {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+.btn {
   display:inline-block;
-  padding:5px 15px;
-  border-radius:25px;
-  background:#fff8df;
-  border:1px solid #ecd99c;
-  color:#6c571e;
+  padding:13px 20px;
+  border-radius:14px;
+  font-weight:700;
+}
+.btn-gold {
+  color:#0b2830;
+  background:linear-gradient(135deg,#e4c17e,#fff0c4);
+}
+.btn-cyan {
+  color:var(--cyan);
+  border:1px solid var(--cyan);
+  background:#123441;
+}
+.art {
+  height:370px;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.glow {
+  position:absolute;
+  width:330px;
+  height:330px;
+  max-width:95%;
+  border-radius:50%;
+  background:radial-gradient(circle,#52cfe855,transparent 68%);
+  animation:pulse 5s infinite;
+}
+.orbit {
+  position:absolute;
+  width:330px;
+  height:150px;
+  max-width:95%;
+  border:2px solid #e5c88799;
+  border-radius:50%;
+  transform:rotate(-25deg);
+  animation:spin 20s linear infinite;
+}
+.orbit.second {
+  width:300px;
+  height:190px;
+  border-color:#7ce7f299;
+  animation-direction:reverse;
+}
+.gem {
+  width:min(285px,82%);
+  filter:drop-shadow(0 0 25px #5ed8f088);
+  animation:float 5s ease-in-out infinite;
+}
+.symbol {
+  position:absolute;
+  font:700 24px Alexandria;
+  color:var(--gold);
+}
+.s1 {top:12%;right:12%}
+.s2 {top:20%;left:7%;color:var(--cyan)}
+.s3 {bottom:15%;right:13%;color:var(--cyan)}
+.s4 {bottom:17%;left:10%}
+@keyframes float {
+  50% {transform:translateY(-14px)}
+}
+@keyframes pulse {
+  50% {transform:scale(1.13)}
+}
+@keyframes spin {
+  to {transform:rotate(335deg)}
+}
+.searchbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  background:#0c2a36;
+  border:1px solid #537a80;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:45px;
+}
+.searchbar strong {color:var(--gold)}
+.searchbar input {
+  width:min(100%,320px);
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid #56828c;
+  background:#081e29;
+  color:white;
+  outline:none;
+}
+.searchbar input:focus {border-color:var(--cyan)}
+section {scroll-margin-top:100px}
+h2.section-title {
+  color:var(--gold);
+  font:700 clamp(23px,3vw,32px) Alexandria;
+  margin-bottom:10px;
+}
+.subtitle {color:var(--muted);margin-bottom:25px}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+}
+.tile {
+  display:block;
+  position:relative;
+  overflow:hidden;
+  min-height:205px;
+  padding:25px;
+  border:1px solid #47717a;
+  background:linear-gradient(145deg,#16414b,#0e2a37);
+  border-radius:23px;
+  transition:.3s;
+}
+.tile:hover {
+  transform:translateY(-6px);
+  border-color:var(--gold);
+  box-shadow:0 15px 40px #0006;
+}
+.tile .number {
+  position:absolute;
+  top:18px;
+  left:20px;
+  color:#e6c98a99;
+  font-size:12px;
+}
+.tile .icon {
+  display:grid;
+  place-items:center;
+  width:58px;
+  height:58px;
+  background:#103744;
+  border:1px solid #83dfe066;
+  border-radius:18px;
+  font-size:29px;
+  margin-bottom:20px;
+}
+.tile h3 {
+  color:#f1d79e;
+  font:700 18px Alexandria;
+  line-height:1.6;
+  margin:0 0 10px;
+}
+.tile p {
+  color:#b9d5dd;
+  font-size:13px;
+  line-height:1.9;
+  margin:0;
+}
+.tile .go {
+  display:inline-block;
+  margin-top:15px;
+  color:var(--cyan);
+  font-size:12px;
+}
+.library {padding-top:65px}
+.groups {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
+}
+.group {
+  background:#0c2935;
+  border:1px solid #345f69;
+  border-radius:21px;
+  padding:22px;
+}
+.group h3 {
+  color:var(--gold);
+  font:700 17px Alexandria;
+  line-height:1.7;
+}
+.links {display:grid;gap:9px}
+.links a {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  background:#123541;
+  border:1px solid transparent;
+  border-radius:12px;
+  font-size:13px;
+}
+.links a:hover {
+  border-color:var(--cyan);
+}
+.links a span {color:var(--cyan)}
+.empty {
+  display:none;
+  padding:20px;
+  color:var(--gold);
 }
 footer {
   text-align:center;
-  padding:25px;
-  color:#557262;
+  border-top:1px solid #38616b;
+  margin-top:65px;
+  padding:30px 15px;
+  color:var(--muted);
 }
-a {overflow-wrap:anywhere}
-@media(max-width:540px){
-  .item .btn {width:100%}
-  header h1 {font-size:29px}
+footer strong {color:var(--gold)}
+footer small {display:block;margin-top:10px}
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  animation:none!important;
+  transition:none!important;
+}
+@media(max-width:800px) {
+  .hero {
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .art {grid-row:1;height:300px}
+  .hero p {margin-inline:auto}
+  .buttons {justify-content:center}
+  .navlinks {display:none}
+  .orbit {width:260px;height:120px}
+  .orbit.second {width:245px;height:150px}
+  .gem {width:230px}
+  .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:550px) {
+  .grid,.groups {grid-template-columns:1fr}
+  .tile {min-height:175px}
+  .hero h1 {font-size:40px}
+  .brand strong {font-size:16px}
+  .motion {font-size:11px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation:none!important;
+    scroll-behavior:auto!important;
+  }
 }
 </style>
 </head>
+
 <body>
+<div class="stars"></div>
 
 <header>
-  <div style="font-size:44px">✦ 📐 ✦</div>
-  <h1>بوابة جواهر للرياضيات</h1>
-  <p>نتعلم • نتحدى • نبدع</p>
-  <strong>المعلمة/ جواهر السبيعي</strong>
+  <div class="container nav">
+    <a href="#top" class="brand">
+      <div class="brand-icon">◇</div>
+      <div>
+        <strong>جوهرة ماث</strong>
+        <small>JAWHARA MATH</small>
+      </div>
+    </a>
+    <nav class="navlinks">
+      <a href="#worlds">العوالم</a>
+      <a href="#library">مكتبة الألعاب</a>
+      <a href="#about">عن المنصة</a>
+    </nav>
+    <button id="motion" class="motion">
+      إيقاف الحركة
+    </button>
+  </div>
 </header>
 
-<main id="app"></main>
+<main class="container" id="top">
 
-<footer>إعداد وتطوير المعلمة/ جواهر السبيعي</footer>
+<div class="hero">
+  <div>
+    <div class="eyebrow">
+      ✦ MATH • INNOVATION • DISCOVERY
+    </div>
+    <h1>جوهرة ماث</h1>
+    <h2>حيث تتحول الأرقام إلى اكتشافات</h2>
+    <p>
+      منصة تعليمية تفاعلية تجمع الألعاب
+      والتحديات والمهارات الرياضية في
+      تجربة مبتكرة وممتعة لطالبات
+      المرحلة الابتدائية.
+    </p>
+    <div class="buttons">
+      <a class="btn btn-gold" href="#worlds">
+        اكتشفي عوالم الجوهرة ←
+      </a>
+      <a class="btn btn-cyan" href="#library">
+        مكتبة الألعاب ◇
+      </a>
+    </div>
+  </div>
+
+  <div class="art">
+    <div class="glow"></div>
+    <div class="orbit"></div>
+    <div class="orbit second"></div>
+    <span class="symbol s1">π</span>
+    <span class="symbol s2">x²</span>
+    <span class="symbol s3">∑</span>
+    <span class="symbol s4">÷</span>
+
+    <svg class="gem" viewBox="0 0 300 300"
+         role="img" aria-label="جوهرة سماوية">
+      <defs>
+        <linearGradient id="diamond"
+          x1="0" y1="0" x2="1" y2="1">
+          <stop stop-color="#e6fdff"/>
+          <stop offset=".28" stop-color="#74e6f1"/>
+          <stop offset=".6" stop-color="#18869f"/>
+          <stop offset="1" stop-color="#0a344e"/>
+        </linearGradient>
+        <linearGradient id="gold"
+          x1="0" y1="0" x2="1" y2="0">
+          <stop stop-color="#b68b4d"/>
+          <stop offset=".5" stop-color="#ffedbc"/>
+          <stop offset="1" stop-color="#c3985c"/>
+        </linearGradient>
+      </defs>
+      <path d="M45 115 L90 62 L210 62
+               L255 115 L150 260 Z"
+            fill="url(#diamond)"
+            stroke="url(#gold)"
+            stroke-width="6"/>
+      <path d="M45 115 H255
+               M90 62 L112 115 L150 260
+               L188 115 L210 62
+               M112 115 H188"
+            stroke="#d6faff"
+            stroke-width="3"
+            fill="none"/>
+      <path d="M112 115 L150 260 L188 115 Z"
+            fill="#e6ffff"
+            opacity=".25"/>
+      <path d="M150 32 V56 M138 44 H162"
+            stroke="#ffe4a1"
+            stroke-width="3"/>
+    </svg>
+  </div>
+</div>
+
+<div class="searchbar">
+  <div>
+    <strong>✧ مركز الابتكار الرياضي</strong>
+    <div style="color:var(--muted);font-size:13px">
+      ألعاب • مراجعات • تحديات • إنجازات
+    </div>
+  </div>
+  <input id="search" type="search"
+         placeholder="ابحثي عن لعبة أو مهارة...">
+</div>
+
+<section id="worlds">
+  <h2 class="section-title">عوالم الجوهرة ✧</h2>
+  <p class="subtitle">
+    اختاري وجهتك وابدئي رحلة الرياضيات.
+  </p>
+
+  <div class="grid">
+    <a class="tile" href="#grade5">
+      <span class="number">01</span>
+      <div class="icon">🎮</div>
+      <h3>مغامرات الخامس</h3>
+      <p>ألعاب وأنشطة متنوعة للصف الخامس.</p>
+      <span class="go">استكشفي العالم ←</span>
+    </a>
+
+    <a class="tile" href="#grade6">
+      <span class="number">02</span>
+      <div class="icon">🚀</div>
+      <h3>تحديات السادس</h3>
+      <p>مهام ومنافسات للصف السادس.</p>
+      <span class="go">استكشفي العالم ←</span>
+    </a>
+
+    <a class="tile" href="nafes.html">
+      <span class="number">03</span>
+      <div class="icon">🧠</div>
+      <h3>عبقريات نافس</h3>
+      <p>أسئلة لتنمية التفكير الرياضي.</p>
+      <span class="go">ادخلي نافس ←</span>
+    </a>
+
+    <a class="tile" href="#review">
+      <span class="number">04</span>
+      <div class="icon">📐</div>
+      <h3>محطة الإتقان</h3>
+      <p>مراجعات وأوراق عمل وتعزيز المهارات.</p>
+      <span class="go">استعرضي المحتوى ←</span>
+    </a>
+
+    <a class="tile" href="#activities">
+      <span class="number">05</span>
+      <div class="icon">💡</div>
+      <h3>مختبر الابتكار</h3>
+      <p>تجارب وأنشطة تعليمية تفاعلية.</p>
+      <span class="go">استكشفي الأنشطة ←</span>
+    </a>
+
+    <a class="tile" href="#excellence">
+      <span class="number">06</span>
+      <div class="icon">🏆</div>
+      <h3>قاعة التميز</h3>
+      <p>تكريمات وتحفيز وإنجازات تعليمية.</p>
+      <span class="go">شاهدي الإنجازات ←</span>
+    </a>
+
+    <a class="tile" href="#challenges">
+      <div class="icon">⚡</div>
+      <h3>تحدي الأسبوع</h3>
+      <p>تحديات رياضية ممتعة.</p>
+    </a>
+
+    <a class="tile" href="#practice">
+      <div class="icon">📝</div>
+      <h3>مركز التقييم</h3>
+      <p>اختبارات وتدريبات ومهام أدائية.</p>
+    </a>
+
+    <a class="tile" href="#school">
+      <div class="icon">🎙️</div>
+      <h3>استوديو الإبداع</h3>
+      <p>إذاعات وأنشطة مدرسية.</p>
+    </a>
+  </div>
+</section>
+
+<section class="library" id="library">
+  <h2 class="section-title">مكتبة الجوهرة</h2>
+  <p class="subtitle">
+    ألعابك وأنشطتك مرتبة حسب الصف والقسم.
+  </p>
+
+  <div class="groups">
+
+    <div class="group" id="grade5">
+      <h3>🎮 ألعاب الصف الخامس</h3>
+      <div class="links">
+        <a href="algebra_mission_grade5.html">
+          المهمة الجبرية <span>↗</span>
+        </a>
+        <a href="treasure_grade5.html">
+          كنز الرياضيات <span>↗</span>
+        </a>
+        <a href="wheel_grade5.html">
+          عجلة الرياضيات <span>↗</span>
+        </a>
+        <a href="balloon_grade5.html">
+          تحدي البالونات <span>↗</span>
+        </a>
+        <a href="doors_grade5.html">
+          الأبواب الرياضية <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="grade6">
+      <h3>🚀 ألعاب الصف السادس</h3>
+      <div class="links">
+        <a href="train.html">
+          قطار الرياضيات <span>↗</span>
+        </a>
+        <a href="galaxy_race_math_game%203.html">
+          سباق المجرة <span>↗</span>
+        </a>
+        <a href="firestore.html">
+          التحدي التفاعلي <span>↗</span>
+        </a>
+        <a href="dual_fraction_challenge_game_fixed.html">
+          تحدي الكسور <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="review">
+      <h3>📚 محطة الإتقان والمراجعة</h3>
+      <div class="links">
+        <a href="jawaher_thinking_grade5.html">
+          حقيبة التفكير الرياضي – خامس
+          <span>↗</span>
+        </a>
+        <a href="jawaher_thinking_grade5_worksheets.html">
+          أوراق التفكير – خامس
+          <span>↗</span>
+        </a>
+        <a href="jawaher_thinking_grade6.html">
+          حقيبة التفكير الرياضي – سادس
+          <span>↗</span>
+        </a>
+        <a href="jawaher_thinking_grade6_worksheets.html">
+          أوراق التفكير – سادس
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="activities">
+      <h3>💡 مختبر الابتكار</h3>
+      <div class="links">
+        <a href="interactive_qr.html">
+          هناك رسالة تنتظركِ <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="excellence">
+      <h3>🏆 قاعة التميز</h3>
+      <div class="links">
+        <a href="نجمة اليوم.html">
+          نجمة اليوم <span>↗</span>
+        </a>
+        <a href="hursday_stars.html">
+          نجوم الخميس <span>↗</span>
+        </a>
+        <a href="division_heroes.html">
+          بطلات القسمة <span>↗</span>
+        </a>
+        <a href="thank_you_certificates.pdf.pdf">
+          شهادات الشكر <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="challenges">
+      <h3>⚡ التحديات الأسبوعية</h3>
+      <div class="links">
+        <a href="lcm_challenge.mp4.MP4">
+          تحدي المضاعف المشترك الأصغر
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="practice">
+      <h3>📝 مركز التقييم</h3>
+      <div class="links">
+        <a href="saudi_equations_task.mp4">
+          مهمة المعادلات الأدائية
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group" id="school">
+      <h3>🎙️ استوديو الإبداع</h3>
+      <p style="color:var(--muted)">
+        مساحة لإضافة الإذاعات والأنشطة
+        المدرسية لاحقًا.
+      </p>
+    </div>
+
+  </div>
+
+  <p id="empty" class="empty">
+    ما لقينا نتيجة. جربي كلمة ثانية.
+  </p>
+</section>
+
+<footer id="about">
+  <strong>جوهرة ماث | JawharaMath</strong>
+  <div>من الاكتشاف إلى الإتقان</div>
+  <small>
+    إعداد وتطوير المعلمة/ جواهر السبيعي
+  </small>
+</footer>
+
+</main>
 
 <script>
-const content = {
-  grade5: [
-    {
-      title:'🔐 غرفة العمليات الجبرية',
-      description:'مهمات المعادلات الجبرية',
-      url:'algebra_mission_grade5.html'
-    },
-    {
-      title:'🗝️ كنز القسمة المفقود',
-      description:'افتحي أقفال الكنز بحل مسائل القسمة',
-      url:'treasure_grade5.html'
-    },
-    {
-      title:'🎡 عجلة تحدي الضرب',
-      description:'عجلة تفاعلية وأسئلة ضرب ونقاط',
-      url:'wheel_grade5.html'
-    },
-    {
-      title:'🎈 سباق المناطيد',
-      description:'منافسة المجموعات في سماء الرياضيات',
-      url:'balloon_grade5.html'
-    },
-    {
-      title:'🚪 الأبواب الغامضة',
-      description:'اختاري الباب واكتشفي السؤال',
-      url:'doors_grade5.html'
-    }
-  ],
+const motion = document.getElementById("motion");
 
-  grade6: [
-    {
-      title:'🚂 قطار التحدي الرياضي',
-      description:'الكسور العشرية وأربع محطات',
-      url:'train.html'
-    },
-    {
-      title:'🚀 سباق المجرّة',
-      description:'تبسيط الكسور الاعتيادية',
-      url:'galaxy_race_math_game 3.html'
-    },
-    {
-      title:'💎 العوامل الأولية',
-      description:'نشاط تفاعلي في العوامل الأولية',
-      url:'firestore.html'
-    },
-    {
-      title:'🧩 تحدي الثنائيات',
-      description:'منافسة في الكسور الاعتيادية',
-      url:'dual_fraction_challenge_game_fixed.html'
-    },
-    {
-      title:'🔬 مختبر جواهر السري – الإصدار الجديد',
-      description:'مختبر تفاعلي لتبسيط الكسور الاعتيادية',
-      url:'jawaher_fraction_lab_v2.html'
-    }
-  ],
+motion.addEventListener("click", function() {
+  const stopped =
+    document.body.classList.toggle("reduced");
 
-  review5: [
-    {
-      title:'💎 حقيبة جواهر – خامس',
-      description:'تحديات التفكير الرياضي التفاعلية',
-      url:'jawaher_thinking_grade5.html'
-    },
-    {
-      title:'📄 أوراق عمل حقيبة جواهر – خامس',
-      description:'تدريبات قابلة للطباعة',
-      url:'jawaher_thinking_grade5_worksheets.html'
-    }
-  ],
+  motion.textContent = stopped
+    ? "تشغيل الحركة ✧"
+    : "إيقاف الحركة ◌";
+});
 
-  review6: [
-    {
-      title:'💎 حقيبة جواهر – سادس',
-      description:'مختبر التفكير الرياضي',
-      url:'jawaher_thinking_grade6.html'
-    },
-    {
-      title:'📄 أوراق عمل حقيبة جواهر – سادس',
-      description:'أوراق تدريب قابلة للطباعة',
-      url:'jawaher_thinking_grade6_worksheets.html'
-    }
-  ],
+const search = document.getElementById("search");
+const groups = document.querySelectorAll(".group");
+const empty = document.getElementById("empty");
 
-  challenges: [
-    {
-      title:'🎬 تحدي المضاعف المشترك الأصغر',
-      description:'تحدٍّ مصور للصف السادس',
-      url:'lcm_challenge.mp4.MP4'
-    }
-  ],
+search.addEventListener("input", function() {
+  const query = search.value.trim().toLowerCase();
+  let visibleGroups = 0;
 
-  certificates: [
-    {
-      title:'🎖️ شهادات شكر',
-      description:'شهادات التقدير والإنجاز',
-      url:'thank_you_certificates.pdf.pdf'
-    },
-    {
-      title:'👩‍🏫 تكريم المعلمة الصغيرة',
-      description:'شهادة تقدير',
-      url:'تكريم المعلمة الصغيرة.jpg'
-    },
-    {
-      title:'👑 شهادة نجمة الشهر',
-      description:'شهادة شكر نجمة الشهر',
-      url:'شهادة شكر نجمة الشهر.PNG'
-    },
-    {
-      title:'🎬 نجمة الشهر – سادس',
-      description:'تكريم سنا الحويشان',
-      url:'نجمة الشهر صف سادس سنا الحويشان.MOV'
-    }
-  ],
+  groups.forEach(group => {
+    const heading = group.querySelector("h3")
+      .textContent.toLowerCase();
 
-  motivation: [
-    {
-      title:'💌 بريد السعادة',
-      description:'مبادرة تحفيزية',
-      url:'بريد السعادة.HEIC'
-    },
-    {
-      title:'🌟 المتميزات في القسمة – خامس',
-      description:'تكريم المتميزات',
-      url:'الطالبات المميزات في القسمة الصف الخامس .pdf'
-    },
-    {
-      title:'💚 تحفيز طالبات سادس',
-      description:'قسمة الكسور العشرية',
-      url:'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC'
-    },
-    {
-      title:'✨ تحفيز في حصة القسمة',
-      description:'القسمة على عدد من رقمين',
-      url:'تحفيز في الحصة القسمة على عدد من رقمين .jpg'
-    }
-  ],
+    const links = group.querySelectorAll(".links a");
+    let found = 0;
 
-  stars: [
-    {
-      title:'⭐ نجمة اليوم',
-      description:'إعلان نجمة اليوم',
-      url:'نجمة اليوم.html'
-    },
-    {
-      title:'🎭 نجمات الخميس',
-      description:'مسرح الحضور والتميز',
-      url:'hursday_stars.html'
-    },
-    {
-      title:'⭐ نجمة الأسبوع',
-      description:'تكريم جنان بوخضر',
-      url:'نجمة الاسبوع جنان بوخضر .PNG'
-    },
-    {
-      title:'🏆 بطلات القسمة',
-      description:'تكريم بطلات القسمة',
-      url:'division_heroes.html'
-    }
-  ],
+    links.forEach(link => {
+      const match =
+        !query ||
+        heading.includes(query) ||
+        link.textContent.toLowerCase().includes(query);
 
-  activities: [
-    {
-      title:'💌 هناك رسالة تنتظركِ',
-      description:'نشاط القاسم المشترك الأكبر',
-      url:'interactive_qr.html'
-    },
-    {
-      title:'📖 كتاب جواهر السحري – حكاية الأعمدة البيانية',
-      description:'مشهد ثلاثي الأبعاد لدرس تمثيل البيانات بالأعمدة',
-      url:'Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4'
-    }
-  ],
+      link.style.display = match ? "" : "none";
+      if (match) found++;
+    });
 
-  schoolActivities: [],
+    const show =
+      !query ||
+      found > 0 ||
+      (!links.length &&
+       group.textContent.toLowerCase().includes(query));
 
-  practice: [
-    {
-      title:'🇸🇦 رحلة المعادلات في ربوع وطني',
-      description:'مهمة أدائية في الرياضيات',
-      url:'saudi_equations_task.mp4'
-    }
-  ]
-};
-
-const categories = {
-  grade5:{
-    title:'🎮 ألعاب الصف الخامس',
-    icon:'🎯',
-    description:'ألعاب الرياضيات التفاعلية للصف الخامس'
-  },
-  grade6:{
-    title:'🎮 ألعاب الصف السادس',
-    icon:'🚀',
-    description:'ألعاب الرياضيات التفاعلية للصف السادس'
-  },
-  review5:{
-    title:'📘 المراجعة وتعزيز مهارات التفكير العليا – خامس',
-    icon:'📘',
-    description:'حقيبة جواهر وأوراق العمل'
-  },
-  review6:{
-    title:'📗 المراجعة وتعزيز مهارات التفكير العليا – سادس',
-    icon:'📗',
-    description:'حقيبة جواهر وأوراق العمل'
-  },
-  challenges:{
-    title:'⭐ التحدي الأسبوعي',
-    icon:'⭐',
-    description:'تحديات رياضية متجددة'
-  },
-  certificates:{
-    title:'🏅 الشهادات والتكريمات',
-    icon:'🏅',
-    description:'شهادات الشكر والتقدير'
-  },
-  motivation:{
-    title:'💌 التحفيزات',
-    icon:'💌',
-    description:'بريد السعادة وتحفيز الطالبات'
-  },
-  stars:{
-    title:'🌟 نجمات التميز',
-    icon:'🌟',
-    description:'نجمة اليوم ونجمات الخميس وبطلات القسمة'
-  },
-  activities:{
-    title:'💌 الأنشطة التعليمية التفاعلية',
-    icon:'💌',
-    description:'أنشطة مرتبطة بالدروس'
-  },
-  schoolActivities:{
-    title:'🎨🎙️ الأنشطة والإذاعات المدرسية',
-    icon:'🎙️',
-    description:'الإذاعات والمبادرات والفعاليات'
-  },
-  practice:{
-    title:'📝 التدريبات والاختبارات والمهام الأدائية',
-    icon:'✏️',
-    description:'المهام والتدريبات والاختبارات'
-  }
-};
-
-const app = document.getElementById('app');
-
-function element(tag, cls, text) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (text !== undefined) e.textContent = text;
-  return e;
-}
-
-function link(label, url) {
-  const a = element('a','btn',label);
-
-  if (url.startsWith('#')) {
-    a.href = url;
-  } else {
-    a.href = /^https?:\/\//i.test(url)
-      ? url
-      : encodeURI(url);
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-  }
-
-  return a;
-}
-
-function card(icon,title,description,button,url) {
-  const c = element('article','card');
-  c.append(
-    element('div','icon',icon),
-    element('h3','',title),
-    element('p','',description),
-    link(button,url)
-  );
-  return c;
-}
-
-function home() {
-  app.replaceChildren();
-  const grid = element('div','grid');
-
-  grid.append(
-    card('🎯','ألعاب الصف الخامس',
-      'ألعاب وتحديات تفاعلية',
-      'افتحي ألعاب خامس','#grade5'),
-
-    card('🚀','ألعاب الصف السادس',
-      'قطار التحدي • سباق المجرة • مختبر جواهر السري الجديد',
-      'افتحي ألعاب سادس','#grade6'),
-
-    card('🏆','عبقريات نافس',
-      'تحديات نافس والمنافسة الشهرية',
-      'دخول عبقريات نافس','nafes.html'),
-
-    card('📘','المراجعة وتعزيز مهارات التفكير العليا – خامس',
-      'حقيبة جواهر وأوراق العمل',
-      'افتحي حقيبة خامس','#review5'),
-
-    card('📗','المراجعة وتعزيز مهارات التفكير العليا – سادس',
-      'حقيبة جواهر وأوراق العمل',
-      'افتحي حقيبة سادس','#review6'),
-
-    card('⭐','التحدي الأسبوعي',
-      'تحديات رياضية متجددة',
-      'افتحي التحديات','#challenges'),
-
-    card('🎖️','لوحة التميز والتكريمات',
-      'الشهادات • التحفيزات • نجمات التميز',
-      'افتحي لوحة التميز','#excellence'),
-
-    card('💌','الأنشطة التعليمية التفاعلية',
-      'هناك رسالة تنتظركِ • الكتاب السحري',
-      'افتحي الأنشطة','#activities'),
-
-    card('🎨🎙️','الأنشطة والإذاعات المدرسية',
-      'الإذاعات والمبادرات والفعاليات',
-      'افتحي القسم','#schoolActivities'),
-
-    card('📝','التدريبات والاختبارات والمهام الأدائية',
-      'المهام الأدائية والتدريبات',
-      'افتحي القسم','#practice')
-  );
-
-  app.append(
-    element('h2','','أقسام بوابة الرياضيات'),
-    grid
-  );
-}
-
-function excellenceHome() {
-  app.replaceChildren();
-  const grid = element('div','grid');
-
-  grid.append(
-    card('🏅','الشهادات والتكريمات',
-      'شهادات الشكر والتقدير',
-      'افتحي الشهادات','#certificates'),
-
-    card('💌','التحفيزات',
-      'بريد السعادة وتحفيز الطالبات',
-      'افتحي التحفيزات','#motivation'),
-
-    card('🌟','نجمات التميز',
-      'نجمة اليوم ونجمات الخميس وبطلات القسمة',
-      'افتحي النجمات','#stars')
-  );
-
-  app.append(
-    link('↩ العودة للبوابة','#home'),
-    element('h2','','🎖️ لوحة التميز والتكريمات'),
-    element('p','muted','اختاري القسم المطلوب'),
-    grid
-  );
-}
-
-function section(key) {
-  const info = categories[key];
-
-  if (!info) {
-    home();
-    return;
-  }
-
-  app.replaceChildren();
-
-  const backUrl =
-    ['certificates','motivation','stars'].includes(key)
-    ? '#excellence' : '#home';
-
-  app.append(
-    link('↩ رجوع',backUrl),
-    element('h2','',info.title),
-    element('p','muted',info.description)
-  );
-
-  const items = content[key] || [];
-
-  if (!items.length) {
-    const box = element('article','card');
-
-    box.append(
-      element('div','icon',info.icon),
-      element('h3','','لا يوجد محتوى منشور حاليًا'),
-      element('p','muted','سيظهر المحتوى هنا عند إضافته.'),
-      element('span','tag','قريبًا')
-    );
-
-    app.append(box);
-    return;
-  }
-
-  const list = element('div','items');
-
-  items.forEach(item => {
-    const box = element('article','card item');
-    const details = element('div');
-
-    details.append(
-      element('h3','',item.title)
-    );
-
-    if (item.description) {
-      details.append(
-        element('small','',item.description)
-      );
-    }
-
-    box.append(
-      details,
-      link('فتح المحتوى ↗',item.url)
-    );
-
-    list.append(box);
+    group.style.display = show ? "" : "none";
+    if (show) visibleGroups++;
   });
 
-  app.append(list);
-}
-
-function render() {
-  const key = decodeURIComponent(location.hash.slice(1));
-
-  if (!key || key === 'home') {
-    home();
-  } else if (key === 'excellence') {
-    excellenceHome();
-  } else {
-    section(key);
-  }
-
-  window.scrollTo(0,0);
-}
-
-window.addEventListener('hashchange',render);
-render();
+  empty.style.display =
+    visibleGroups ? "none" : "block";
+});
 </script>
+
 </body>
 </html>
