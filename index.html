@@ -3,276 +3,616 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#061521">
+
 <title>جوهرة ماث | Jawhara Math</title>
-<link rel="icon" href="jawhara-logo.jpg">
+
+<link rel="icon" type="image/png" href="jawhara-logo.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet">
+
 <style>
-:root{
+:root {
   --bg:#061521;
-  --panel:#0c2738;
+  --panel:#0d293a;
   --gold:#edc87d;
   --cyan:#83e8f5;
-  --white:#f1faff;
-  --muted:#b4ccd5;
+  --white:#f0f9ff;
+  --muted:#b5cdd6;
+  --emerald:#0b5047;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
   margin:0;
-  color:var(--white);
-  font-family:Cairo,Tahoma,sans-serif;
-  background:
-    radial-gradient(ellipse at 18% 4%,#123b54,transparent 40%),
-    radial-gradient(ellipse at 90% 38%,#10483d,transparent 42%),
-    var(--bg);
   min-height:100vh;
+  color:var(--white);
+  font-family:Cairo,Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 5%,#123b54,transparent 42%),
+    radial-gradient(ellipse at 90% 35%,#10483d,transparent 43%),
+    var(--bg);
 }
-a{color:inherit;text-decoration:none}
-button,input{font:inherit}
-button{cursor:pointer}
-.wrap{width:min(1140px,calc(100% - 32px));margin:auto}
-.topbar{
-  position:sticky;top:0;z-index:20;
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.wrap {
+  width:min(1140px,calc(100% - 32px));
+  margin:auto;
+}
+
+/* شريط التنقل */
+
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:20;
   background:#061521ed;
   backdrop-filter:blur(16px);
   border-bottom:1px solid #ffffff24;
 }
-.nav{
-  min-height:74px;display:flex;align-items:center;
-  justify-content:space-between;gap:12px;
+
+.nav {
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
-.brand{
-  display:flex;align-items:center;gap:10px;
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
   color:var(--gold);
   font:800 17px Alexandria,sans-serif;
 }
-.brand img{
-  width:48px;height:48px;object-fit:cover;
-  border-radius:50%;border:1px solid var(--gold);
+
+.brand img {
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 9px #83e8f570);
   animation:float 5s ease-in-out infinite;
 }
-.navlinks{display:flex;flex-wrap:wrap;gap:8px}
-.navlinks a,.navlinks button{
-  color:#fff;background:#ffffff0c;
+
+.navlinks {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.navlinks a,
+.navlinks button {
+  color:white;
+  background:#ffffff0c;
   border:1px solid #ffffff30;
-  border-radius:30px;padding:9px 13px;
+  border-radius:30px;
+  padding:9px 13px;
   font-size:13px;
 }
-.hero{
-  display:grid;grid-template-columns:1.1fr .9fr;
-  align-items:center;gap:30px;padding:55px 0 40px;
+
+/* واجهة الترحيب */
+
+.hero {
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:30px;
+  padding:55px 0 40px;
 }
-.hero h1{
+
+.hero h1 {
   font:800 clamp(39px,6vw,72px) Alexandria,sans-serif;
-  color:var(--gold);margin:16px 0;
+  color:var(--gold);
+  margin:16px 0;
+  text-shadow:0 0 28px #edc87d30;
 }
-.hero p{color:var(--muted);font-size:18px;line-height:2}
-.eyebrow{
-  display:inline-block;color:var(--gold);
+
+.hero p {
+  color:var(--muted);
+  font-size:18px;
+  line-height:2;
+}
+
+.eyebrow {
+  display:inline-block;
+  color:var(--gold);
   border:1px solid #edc87d70;
-  border-radius:30px;padding:8px 16px;
+  border-radius:30px;
+  padding:8px 16px;
 }
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
-.btn{
-  display:inline-block;border:1px solid var(--gold);
-  border-radius:15px;padding:12px 20px;
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+
+.btn {
+  display:inline-block;
+  border:1px solid var(--gold);
+  border-radius:15px;
+  padding:12px 20px;
   background:linear-gradient(135deg,#e3b56d,#fff0bd);
-  color:#102434;font-weight:800;
+  color:#102434;
+  font-weight:800;
+  cursor:pointer;
 }
-.btn.secondary{
-  color:white;background:#ffffff0b;
+
+.btn.secondary {
+  color:white;
+  background:#ffffff0b;
   border-color:#ffffff50;
 }
-.hero-art{
-  position:relative;min-height:400px;
-  display:grid;place-items:center;
+
+/* الشعار المتحرك */
+
+.hero-art {
+  position:relative;
+  min-height:400px;
+  display:grid;
+  place-items:center;
+  isolation:isolate;
 }
-.halo{
-  position:absolute;width:85%;aspect-ratio:1;
-  border:1px solid var(--gold);border-radius:50%;
+
+.hero-art::before {
+  content:"";
+  position:absolute;
+  width:80%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,#1d90ad55,transparent 68%);
+  filter:blur(22px);
+  animation:pulse 5s ease-in-out infinite;
+}
+
+.halo {
+  position:absolute;
+  width:85%;
+  aspect-ratio:1;
+  border:1px solid var(--gold);
+  border-radius:50%;
   animation:spin 24s linear infinite;
 }
-.halo::after{
-  content:"✦";position:absolute;top:-17px;left:50%;
-  font-size:30px;color:var(--gold);
+
+.halo::after {
+  content:"✦";
+  position:absolute;
+  top:-17px;
+  left:50%;
+  font-size:30px;
+  color:var(--gold);
 }
-.halo.two{
-  width:98%;border-color:var(--cyan);
+
+.halo.two {
+  width:98%;
+  border-color:var(--cyan);
   animation:orbit 16s linear infinite;
 }
-.hero-logo{
-  position:relative;width:78%;max-width:350px;
-  border-radius:50%;
-  box-shadow:0 0 65px #83e8f548;
+
+.hero-logo {
+  position:relative;
+  z-index:2;
+  width:95%;
+  max-width:390px;
+  height:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 22px #83e8f56b)
+    drop-shadow(0 0 40px #edc87d30);
   animation:float 5s ease-in-out infinite;
 }
-.math-symbol{
-  position:absolute;font-size:35px;color:var(--cyan);
+
+.math-symbol {
+  position:absolute;
+  z-index:3;
+  font-size:35px;
+  color:var(--cyan);
   text-shadow:0 0 16px var(--cyan);
+  pointer-events:none;
 }
-.m1{top:8%;right:8%}
-.m2{bottom:15%;left:5%;color:var(--gold)}
-.m3{top:12%;left:9%}
-.m4{bottom:9%;right:9%}
-.heading{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:15px;flex-wrap:wrap;
+
+.m1 {top:8%;right:8%}
+.m2 {bottom:15%;left:5%;color:var(--gold)}
+.m3 {top:12%;left:9%}
+.m4 {bottom:9%;right:9%}
+
+/* الأقسام */
+
+.heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
   margin:22px 0;
 }
-.heading h2{
+
+.heading h2 {
   font:700 clamp(24px,3vw,35px) Alexandria,sans-serif;
   margin:0;
 }
-.heading p{color:var(--muted)}
-.search{
+
+.heading p {
+  color:var(--muted);
+}
+
+.search {
   width:min(100%,370px);
-  background:#ffffff0c;color:white;
+  background:#ffffff0c;
+  color:white;
   border:1px solid #ffffff35;
-  border-radius:14px;padding:13px;
+  border-radius:14px;
+  padding:13px;
 }
-.search::placeholder{color:#b0c9d2}
-.grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:17px;margin-bottom:50px;
+
+.search::placeholder {
+  color:#b0c9d2;
 }
-.tile{
-  display:flex;flex-direction:column;
-  min-height:195px;padding:23px;
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+  margin-bottom:50px;
+}
+
+.tile {
+  display:flex;
+  flex-direction:column;
+  min-height:195px;
+  padding:23px;
   border:1px solid #edc87d50;
   border-radius:23px;
   background:linear-gradient(145deg,#153747,#0a2030);
-  transition:transform .25s,border-color .25s,box-shadow .25s;
+  transition:
+    transform .25s,
+    border-color .25s,
+    box-shadow .25s;
 }
-.tile:hover,.tile:focus-visible{
+
+.tile:hover,
+.tile:focus-visible {
   transform:translateY(-5px);
   border-color:var(--gold);
   box-shadow:0 12px 35px #0005;
 }
-.tile.featured{
+
+.tile.featured {
   background:linear-gradient(145deg,#104c43,#0b2939);
   border-color:var(--gold);
   box-shadow:0 0 25px #edc87d25;
 }
-.tile .ico{font-size:32px}
-.tile h3{
+
+.tile .ico {
+  font-size:32px;
+}
+
+.tile h3 {
   font:700 18px Alexandria,sans-serif;
-  line-height:1.7;margin:13px 0 7px;
+  line-height:1.7;
+  margin:13px 0 7px;
 }
-.tile p{
-  color:var(--muted);font-size:14px;
-  line-height:1.8;margin:0 0 12px;
+
+.tile p {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+  margin:0 0 12px;
 }
-.tile .go{color:var(--gold);font-weight:800;margin-top:auto}
-.panel{
+
+.tile .go {
+  color:var(--gold);
+  font-weight:800;
+  margin-top:auto;
+}
+
+.panel {
   border:1px solid #ffffff29;
-  background:#0b2636;border-radius:25px;
-  padding:23px;margin:30px 0 45px;
+  background:#0b2636;
+  border-radius:25px;
+  padding:23px;
+  margin:30px 0 45px;
 }
-.back{
-  display:inline-block;color:var(--gold);
-  font-weight:700;margin-bottom:20px;
+
+.back {
+  display:inline-block;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:20px;
 }
-.item-list{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+
+.item-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:13px;
 }
-.item{
-  display:flex;align-items:center;gap:13px;
-  padding:17px;border-radius:16px;
-  background:#ffffff09;border:1px solid #ffffff20;
+
+.item {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:17px;
+  border-radius:16px;
+  background:#ffffff09;
+  border:1px solid #ffffff20;
 }
-.item:hover{border-color:var(--gold)}
-.item .emoji{font-size:27px}
-.item strong{display:block}
-.item small{display:block;color:var(--muted)}
-.empty{text-align:center;color:var(--muted);padding:25px}
-.footer{
-  text-align:center;border-top:1px solid #ffffff25;
-  padding:30px;color:var(--muted);
+
+.item:hover {
+  border-color:var(--gold);
 }
-.footer strong{color:var(--gold)}
-.intro{
-  position:fixed;inset:0;z-index:100;
-  background:radial-gradient(circle at 50% 42%,#174761,#061521 65%);
-  display:grid;place-items:center;text-align:center;
-  padding:20px;transition:opacity .85s,visibility .85s;
+
+.item .emoji {
+  font-size:27px;
 }
-.intro.hide{opacity:0;visibility:hidden;pointer-events:none}
-.intro[hidden]{display:none!important}
-.intro-content{position:relative;width:min(100%,520px)}
-.intro-logo{
-  position:relative;display:block;
-  width:min(65vw,310px);margin:auto;
+
+.item strong {
+  display:block;
+}
+
+.item small {
+  display:block;
+  color:var(--muted);
+}
+
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+}
+
+.footer {
+  text-align:center;
+  border-top:1px solid #ffffff25;
+  padding:30px;
+  color:var(--muted);
+}
+
+.footer strong {
+  color:var(--gold);
+}
+
+/* الافتتاحية السينمائية */
+
+.intro {
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:
+    radial-gradient(circle at 50% 42%,#174761,#061521 65%);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:20px;
+  transition:opacity .85s,visibility .85s;
+}
+
+.intro.hide {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro[hidden] {
+  display:none!important;
+}
+
+.intro-content {
+  position:relative;
+  width:min(100%,550px);
+}
+
+.intro-logo {
+  position:relative;
+  z-index:2;
+  display:block;
+  width:min(85vw,420px);
+  height:auto;
+  margin:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 25px #77e4ef80)
+    drop-shadow(0 0 50px #edc87d40);
+  animation:
+    appear 1s ease both,
+    float 5s ease-in-out 1s infinite;
+}
+
+.intro-ring {
+  position:absolute;
+  top:5%;
+  left:15%;
+  width:70%;
+  aspect-ratio:1;
+  border:2px solid #e5bd7380;
   border-radius:50%;
-  box-shadow:0 0 90px #77e4ef55;
-  animation:appear 1s ease both,float 5s ease-in-out 1s infinite;
-}
-.intro-ring{
-  position:absolute;top:5%;left:15%;
-  width:70%;aspect-ratio:1;
-  border:2px solid #e5bd7380;border-radius:50%;
   animation:spin 12s linear infinite;
 }
-.intro h2{
+
+.intro h2 {
   font:800 clamp(26px,5vw,43px) Alexandria,sans-serif;
   color:var(--gold);
 }
-.intro p{color:#c4eaf2}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes orbit{
-  from{transform:rotate(65deg) scaleY(.55)}
-  to{transform:rotate(425deg) scaleY(.55)}
+
+.intro p {
+  color:#c4eaf2;
 }
-@keyframes float{50%{transform:translateY(-13px)}}
-@keyframes appear{
-  from{opacity:0;transform:translateY(25px) scale(.92)}
-  to{opacity:1;transform:none}
+
+/* الحركات */
+
+@keyframes spin {
+  to {transform:rotate(360deg)}
 }
-@media(max-width:850px){
-  .hero{grid-template-columns:1fr;text-align:center}
-  .hero-art{grid-row:1;min-height:330px}
-  .actions{justify-content:center}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+@keyframes orbit {
+  from {transform:rotate(65deg) scaleY(.55)}
+  to {transform:rotate(425deg) scaleY(.55)}
 }
-@media(max-width:570px){
-  .grid,.item-list{grid-template-columns:1fr}
-  .brand{font-size:13px}
-  .brand img{width:38px;height:38px}
-  .navlinks a,.navlinks button{font-size:11px;padding:7px}
-  .hero-art{min-height:280px}
-  .hero h1{font-size:38px}
-  .tile{min-height:160px}
+
+@keyframes float {
+  50% {transform:translateY(-13px)}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
+
+@keyframes appear {
+  from {
+    opacity:0;
+    transform:translateY(25px) scale(.92);
+  }
+  to {
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity:.55;
+    transform:scale(1.12);
+  }
+}
+
+/* الجوال */
+
+@media(max-width:850px) {
+  .hero {
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-art {
+    grid-row:1;
+    min-height:330px;
+  }
+
+  .actions {
+    justify-content:center;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:570px) {
+  .grid,
+  .item-list {
+    grid-template-columns:1fr;
+  }
+
+  .brand {
+    font-size:13px;
+  }
+
+  .brand img {
+    width:43px;
+    height:43px;
+  }
+
+  .navlinks a,
+  .navlinks button {
+    font-size:11px;
+    padding:7px;
+  }
+
+  .hero-art {
+    min-height:290px;
+  }
+
+  .hero h1 {
+    font-size:38px;
+  }
+
+  .tile {
+    min-height:160px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,
+  *::before,
+  *::after {
+    animation:none!important;
+    transition:none!important;
+  }
 }
 </style>
 </head>
+
 <body>
+
+<!-- افتتاحية الشعار -->
 
 <div class="intro" id="intro">
   <div class="intro-content">
+
     <div class="intro-ring"></div>
-    <img class="intro-logo" src="jawhara-logo.jpg" alt="شعار جوهرة ماث">
+
+    <img
+      class="intro-logo"
+      src="jawhara-logo.png"
+      alt="شعار جوهرة ماث الرسمي">
+
     <h2>مرحبًا بكِ في جوهرة ماث</h2>
+
     <p>حيث تتحول الأرقام إلى اكتشافات</p>
-    <button class="btn" id="skipIntro">✦ دخول المنصة</button>
+
+    <button class="btn" id="skipIntro">
+      ✦ دخول المنصة
+    </button>
+
   </div>
 </div>
 
+<!-- الشريط العلوي -->
+
 <header class="topbar">
   <nav class="wrap nav">
+
     <a class="brand" href="#home">
-      <img src="jawhara-logo.jpg" alt="شعار جوهرة ماث">
+      <img
+        src="jawhara-logo.png"
+        alt="شعار جوهرة ماث">
+
       <span>جوهرة ماث</span>
     </a>
+
     <div class="navlinks">
-      <a href="#home">الرئيسية</a>
-      <a href="nafes.html">🏆 عبقريات نافس</a>
-      <button id="replay">✨ عرض الشعار</button>
+
+      <a href="#home">
+        الرئيسية
+      </a>
+
+      <a href="nafes.html">
+        🏆 عبقريات نافس
+      </a>
+
+      <button id="replay" type="button">
+        ✨ عرض الشعار
+      </button>
+
     </div>
+
   </nav>
 </header>
 
@@ -282,279 +622,691 @@ button{cursor:pointer}
 
 <footer class="footer">
   💎 جوهرة ماث — حيث تتحول الأرقام إلى اكتشافات
-  <br><strong>المعلمة/ جواهر السبيعي</strong>
+  <br>
+  <strong>المعلمة/ جواهر السبيعي</strong>
 </footer>
 
 <script>
-const sections=[
-  {id:'grade5',icon:'🎯',title:'ألعاب الصف الخامس',desc:'مغامرات القسمة والضرب والأنماط الجبرية'},
-  {id:'grade6',icon:'🚀',title:'ألعاب الصف السادس',desc:'الكسور والعوامل الأولية وتحديات التفكير'},
-  {id:'nafes',icon:'🏆',title:'أكاديمية عبقريات نافس',desc:'بوابة الطالبات ولوحة المعلمة ونقاط التحديات',href:'nafes.html',featured:true},
-  {id:'review5',icon:'📘',title:'المراجعة ومهارات التفكير العليا – خامس',desc:'حقيبة جواهر وأوراق العمل'},
-  {id:'review6',icon:'📗',title:'المراجعة ومهارات التفكير العليا – سادس',desc:'حقيبة جواهر وأوراق العمل'},
-  {id:'challenges',icon:'⭐',title:'التحدي الأسبوعي',desc:'تحديات رياضية ممتعة ومتجددة'},
-  {id:'excellence',icon:'🎖️',title:'لوحة التميز والتكريمات',desc:'الشهادات والتحفيز ونجمات الصف'},
-  {id:'activities',icon:'💌',title:'الأنشطة التعليمية التفاعلية',desc:'رسائل مفاجئة وقصص رياضية'},
-  {id:'schoolActivities',icon:'🎨',title:'الأنشطة والإذاعات المدرسية',desc:'مساحة للأنشطة والفعاليات المدرسية'},
-  {id:'practice',icon:'📝',title:'التدريبات والاختبارات والمهام الأدائية',desc:'تطبيقات ومهام ترتبط بالرياضيات'}
+
+/* الأقسام الرئيسية */
+
+const sections = [
+  {
+    id:'grade5',
+    icon:'🎯',
+    title:'ألعاب الصف الخامس',
+    desc:'مغامرات القسمة والضرب والأنماط الجبرية'
+  },
+  {
+    id:'grade6',
+    icon:'🚀',
+    title:'ألعاب الصف السادس',
+    desc:'الكسور والعوامل الأولية وتحديات التفكير'
+  },
+  {
+    id:'nafes',
+    icon:'🏆',
+    title:'أكاديمية عبقريات نافس',
+    desc:'بوابة الطالبات ولوحة المعلمة ونقاط التحديات',
+    href:'nafes.html',
+    featured:true
+  },
+  {
+    id:'review5',
+    icon:'📘',
+    title:'المراجعة ومهارات التفكير العليا – خامس',
+    desc:'حقيبة جواهر وأوراق العمل'
+  },
+  {
+    id:'review6',
+    icon:'📗',
+    title:'المراجعة ومهارات التفكير العليا – سادس',
+    desc:'حقيبة جواهر وأوراق العمل'
+  },
+  {
+    id:'challenges',
+    icon:'⭐',
+    title:'التحدي الأسبوعي',
+    desc:'تحديات رياضية ممتعة ومتجددة'
+  },
+  {
+    id:'excellence',
+    icon:'🎖️',
+    title:'لوحة التميز والتكريمات',
+    desc:'الشهادات والتحفيز ونجمات الصف'
+  },
+  {
+    id:'activities',
+    icon:'💌',
+    title:'الأنشطة التعليمية التفاعلية',
+    desc:'رسائل مفاجئة وقصص رياضية'
+  },
+  {
+    id:'schoolActivities',
+    icon:'🎨',
+    title:'الأنشطة والإذاعات المدرسية',
+    desc:'مساحة للأنشطة والفعاليات المدرسية'
+  },
+  {
+    id:'practice',
+    icon:'📝',
+    title:'التدريبات والاختبارات والمهام الأدائية',
+    desc:'تطبيقات ومهام ترتبط بالرياضيات'
+  }
 ];
 
-const categories={
-  certificates:{title:'الشهادات والتكريم',icon:'🎖️'},
-  motivation:{title:'التحفيز والتشجيع',icon:'💚'},
-  stars:{title:'نجمات الرياضيات',icon:'⭐'}
+/* أقسام التميز */
+
+const categories = {
+  certificates:{
+    title:'الشهادات والتكريم',
+    icon:'🎖️'
+  },
+  motivation:{
+    title:'التحفيز والتشجيع',
+    icon:'💚'
+  },
+  stars:{
+    title:'نجمات الرياضيات',
+    icon:'⭐'
+  }
 };
 
-const content={
+/* جميع روابط المحتوى */
+
+const content = {
+
   grade5:[
-    ['algebra_mission_grade5.html','🔐','غرفة العمليات الجبرية','مهمات المعادلات الجبرية'],
-    ['treasure_grade5.html','🗝️','كنز القسمة المفقود','افتحي أقفال الكنز بحل مسائل القسمة'],
-    ['wheel_grade5.html','🎡','عجلة تحدي الضرب','عجلة تفاعلية وأسئلة ضرب ونقاط'],
-    ['balloon_grade5.html','🎈','سباق المناطيد','منافسة المجموعات في سماء الرياضيات'],
-    ['doors_grade5.html','🚪','الأبواب الغامضة','اختاري الباب واكتشفي السؤال']
+    [
+      'algebra_mission_grade5.html',
+      '🔐',
+      'غرفة العمليات الجبرية',
+      'مهمات المعادلات الجبرية'
+    ],
+    [
+      'treasure_grade5.html',
+      '🗝️',
+      'كنز القسمة المفقود',
+      'افتحي أقفال الكنز بحل مسائل القسمة'
+    ],
+    [
+      'wheel_grade5.html',
+      '🎡',
+      'عجلة تحدي الضرب',
+      'عجلة تفاعلية وأسئلة ضرب ونقاط'
+    ],
+    [
+      'balloon_grade5.html',
+      '🎈',
+      'سباق المناطيد',
+      'منافسة المجموعات في سماء الرياضيات'
+    ],
+    [
+      'doors_grade5.html',
+      '🚪',
+      'الأبواب الغامضة',
+      'اختاري الباب واكتشفي السؤال'
+    ]
   ],
+
   grade6:[
-    ['train.html','🚂','قطار التحدي الرياضي','الكسور العشرية وأربع محطات'],
-    ['galaxy_race_math_game 3.html','🚀','سباق المجرّة','تبسيط الكسور الاعتيادية'],
-    ['firestore.html','💎','العوامل الأولية','نشاط تفاعلي في العوامل الأولية'],
-    ['dual_fraction_challenge_game_fixed.html','🧩','تحدي الثنائيات','منافسة في الكسور الاعتيادية'],
-    ['jawaher_fraction_lab_v2.html','🔬','مختبر جواهر السري – الإصدار الجديد','مختبر تفاعلي لتبسيط الكسور الاعتيادية']
+    [
+      'train.html',
+      '🚂',
+      'قطار التحدي الرياضي',
+      'الكسور العشرية وأربع محطات'
+    ],
+    [
+      'galaxy_race_math_game 3.html',
+      '🚀',
+      'سباق المجرّة',
+      'تبسيط الكسور الاعتيادية'
+    ],
+    [
+      'firestore.html',
+      '💎',
+      'العوامل الأولية',
+      'نشاط تفاعلي في العوامل الأولية'
+    ],
+    [
+      'dual_fraction_challenge_game_fixed.html',
+      '🧩',
+      'تحدي الثنائيات',
+      'منافسة في الكسور الاعتيادية'
+    ],
+    [
+      'jawaher_fraction_lab_v2.html',
+      '🔬',
+      'مختبر جواهر السري – الإصدار الجديد',
+      'مختبر تفاعلي لتبسيط الكسور الاعتيادية'
+    ]
   ],
+
   review5:[
-    ['jawaher_thinking_grade5.html','💎','حقيبة جواهر – خامس','مراجعة وتعزيز التفكير الرياضي'],
-    ['jawaher_thinking_grade5_worksheets.html','📄','أوراق عمل حقيبة جواهر – خامس','أوراق عمل وممارسة']
+    [
+      'jawaher_thinking_grade5.html',
+      '💎',
+      'حقيبة جواهر – خامس',
+      'مراجعة وتعزيز التفكير الرياضي'
+    ],
+    [
+      'jawaher_thinking_grade5_worksheets.html',
+      '📄',
+      'أوراق عمل حقيبة جواهر – خامس',
+      'أوراق عمل وممارسة'
+    ]
   ],
+
   review6:[
-    ['jawaher_thinking_grade6.html','💎','حقيبة جواهر – سادس','مراجعة وتعزيز التفكير الرياضي'],
-    ['jawaher_thinking_grade6_worksheets.html','📄','أوراق عمل حقيبة جواهر – سادس','أوراق عمل وممارسة']
+    [
+      'jawaher_thinking_grade6.html',
+      '💎',
+      'حقيبة جواهر – سادس',
+      'مراجعة وتعزيز التفكير الرياضي'
+    ],
+    [
+      'jawaher_thinking_grade6_worksheets.html',
+      '📄',
+      'أوراق عمل حقيبة جواهر – سادس',
+      'أوراق عمل وممارسة'
+    ]
   ],
+
   challenges:[
-    ['lcm_challenge.mp4.MP4','🎬','تحدي المضاعف المشترك الأصغر','تحدٍّ مصور']
+    [
+      'lcm_challenge.mp4.MP4',
+      '🎬',
+      'تحدي المضاعف المشترك الأصغر',
+      'تحدٍّ مصور'
+    ]
   ],
+
   certificates:[
-    ['thank_you_certificates.pdf.pdf','🎖️','شهادات شكر','شهادات التميز'],
-    ['تكريم المعلمة الصغيرة.jpg','👩‍🏫','تكريم المعلمة الصغيرة','تكريم'],
-    ['شهادة شكر نجمة الشهر.PNG','👑','شهادة نجمة الشهر','شهادة تكريم'],
-    ['نجمة الشهر صف سادس سنا الحويشان.MOV','🎬','نجمة الشهر – سادس','فيديو التكريم']
+    [
+      'thank_you_certificates.pdf.pdf',
+      '🎖️',
+      'شهادات شكر',
+      'شهادات التميز'
+    ],
+    [
+      'تكريم المعلمة الصغيرة.jpg',
+      '👩‍🏫',
+      'تكريم المعلمة الصغيرة',
+      'تكريم'
+    ],
+    [
+      'شهادة شكر نجمة الشهر.PNG',
+      '👑',
+      'شهادة نجمة الشهر',
+      'شهادة تكريم'
+    ],
+    [
+      'نجمة الشهر صف سادس سنا الحويشان.MOV',
+      '🎬',
+      'نجمة الشهر – سادس',
+      'فيديو التكريم'
+    ]
   ],
+
   motivation:[
-    ['بريد السعادة.HEIC','💌','بريد السعادة','رسائل تحفيزية'],
-    ['الطالبات المميزات في القسمة الصف الخامس .pdf','🌟','المتميزات في القسمة – خامس','تكريم القسمة'],
-    ['تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC','💚','تحفيز طالبات سادس','تحفيز القسمة العشرية'],
-    ['تحفيز في الحصة القسمة على عدد من رقمين .jpg','✨','تحفيز في حصة القسمة','نشاط تحفيزي']
+    [
+      'بريد السعادة.HEIC',
+      '💌',
+      'بريد السعادة',
+      'رسائل تحفيزية'
+    ],
+    [
+      'الطالبات المميزات في القسمة الصف الخامس .pdf',
+      '🌟',
+      'المتميزات في القسمة – خامس',
+      'تكريم القسمة'
+    ],
+    [
+      'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC',
+      '💚',
+      'تحفيز طالبات سادس',
+      'تحفيز القسمة العشرية'
+    ],
+    [
+      'تحفيز في الحصة القسمة على عدد من رقمين .jpg',
+      '✨',
+      'تحفيز في حصة القسمة',
+      'نشاط تحفيزي'
+    ]
   ],
+
   stars:[
-    ['نجمة اليوم.html','⭐','نجمة اليوم','نجمة الرياضيات'],
-    ['hursday_stars.html','🎭','نجمات الخميس','لوحة نجمات الخميس'],
-    ['نجمة الاسبوع جنان بوخضر .PNG','⭐','نجمة الأسبوع','تكريم نجمة الأسبوع'],
-    ['division_heroes.html','🏆','بطلات القسمة','بطلات القسمة']
+    [
+      'نجمة اليوم.html',
+      '⭐',
+      'نجمة اليوم',
+      'نجمة الرياضيات'
+    ],
+    [
+      'hursday_stars.html',
+      '🎭',
+      'نجمات الخميس',
+      'لوحة نجمات الخميس'
+    ],
+    [
+      'نجمة الاسبوع جنان بوخضر .PNG',
+      '⭐',
+      'نجمة الأسبوع',
+      'تكريم نجمة الأسبوع'
+    ],
+    [
+      'division_heroes.html',
+      '🏆',
+      'بطلات القسمة',
+      'بطلات القسمة'
+    ]
   ],
+
   activities:[
-    ['interactive_qr.html','💌','هناك رسالة تنتظركِ','رسائل تفاعلية'],
-    ['Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4','📖','كتاب جواهر السحري – حكاية الأعمدة البيانية','حكاية تعليمية مصورة']
+    [
+      'interactive_qr.html',
+      '💌',
+      'هناك رسالة تنتظركِ',
+      'رسائل تفاعلية'
+    ],
+    [
+      'Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4',
+      '📖',
+      'كتاب جواهر السحري – حكاية الأعمدة البيانية',
+      'حكاية تعليمية مصورة'
+    ]
   ],
+
   schoolActivities:[],
+
   practice:[
-    ['saudi_equations_task.mp4','🇸🇦','رحلة المعادلات في ربوع وطني','مهمة أدائية وطنية']
+    [
+      'saudi_equations_task.mp4',
+      '🇸🇦',
+      'رحلة المعادلات في ربوع وطني',
+      'مهمة أدائية وطنية'
+    ]
   ]
 };
 
-const app=document.getElementById('app');
+/* إنشاء عناصر الصفحة */
 
-function el(tag,cls,text){
-  const n=document.createElement(tag);
-  if(cls)n.className=cls;
-  if(text!==undefined)n.textContent=text;
+const app = document.getElementById('app');
+
+function el(tag,cls,text) {
+  const n = document.createElement(tag);
+
+  if(cls) {
+    n.className = cls;
+  }
+
+  if(text !== undefined) {
+    n.textContent = text;
+  }
+
   return n;
 }
 
-function hero(){
-  const h=el('section','hero');
-  const copy=el('div');
+/* واجهة الموقع */
+
+function hero() {
+
+  const h = el('section','hero');
+  const copy = el('div');
 
   copy.append(
     el('span','eyebrow','✦ عالم الأرقام يبدأ من هنا'),
     el('h1','','جوهرة ماث'),
-    el('p','','حيث تتحول الأرقام إلى اكتشافات! انطلقي في مغامرات الرياضيات، واكتشفي ألعابًا وتحديات ومهارات جديدة.')
+    el(
+      'p',
+      '',
+      'حيث تتحول الأرقام إلى اكتشافات! انطلقي في مغامرات الرياضيات، واكتشفي ألعابًا وتحديات ومهارات جديدة.'
+    )
   );
 
-  const actions=el('div','actions');
-  const a=el('a','btn','✨ اكتشفي الألعاب');
-  a.href='#sections';
-  const b=el('a','btn secondary','🏆 ادخلي عبقريات نافس');
-  b.href='nafes.html';
+  const actions = el('div','actions');
+
+  const a = el('a','btn','✨ اكتشفي الألعاب');
+  a.href = '#sections';
+
+  const b = el('a','btn secondary','🏆 ادخلي عبقريات نافس');
+  b.href = 'nafes.html';
+
   actions.append(a,b);
   copy.append(actions);
 
-  const art=el('div','hero-art');
-  art.append(el('div','halo'),el('div','halo two'));
+  const art = el('div','hero-art');
 
-  const img=el('img','hero-logo');
-  img.src='jawhara-logo.jpg';
-  img.alt='شعار جوهرة ماث الرسمي';
+  art.append(
+    el('div','halo'),
+    el('div','halo two')
+  );
+
+  const img = el('img','hero-logo');
+
+  img.src = 'jawhara-logo.png';
+  img.alt = 'شعار جوهرة ماث الرسمي';
+
   art.append(img);
 
-  [['m1','π'],['m2','Σ'],['m3','x²'],['m4','÷']].forEach(([c,t])=>{
-    art.append(el('span','math-symbol '+c,t));
+  [
+    ['m1','π'],
+    ['m2','Σ'],
+    ['m3','x²'],
+    ['m4','÷']
+  ].forEach(([c,t]) => {
+    art.append(
+      el('span','math-symbol '+c,t)
+    );
   });
 
   h.append(copy,art);
+
   return h;
 }
 
-function makeTile(s){
-  const a=el('a','tile'+(s.featured?' featured':''));
-  a.href=s.href||'#'+s.id;
+/* بطاقة القسم */
+
+function makeTile(s) {
+
+  const a = el(
+    'a',
+    'tile'+(s.featured?' featured':'')
+  );
+
+  a.href = s.href || '#'+s.id;
+
   a.append(
     el('span','ico',s.icon),
     el('h3','',s.title),
     el('p','',s.desc),
-    el('span','go',s.href?'دخول الأكاديمية ←':'استكشفي القسم ←')
+    el(
+      'span',
+      'go',
+      s.href
+        ? 'دخول الأكاديمية ←'
+        : 'استكشفي القسم ←'
+    )
   );
+
   return a;
 }
 
-function home(){
+/* الصفحة الرئيسية */
+
+function home() {
+
   app.replaceChildren(hero());
 
-  const area=el('section');
-  area.id='sections';
+  const area = el('section');
+  area.id = 'sections';
 
-  const head=el('div','heading');
-  const t=el('div');
+  const head = el('div','heading');
+  const t = el('div');
+
   t.append(
     el('h2','','بوابات جوهرة ماث'),
     el('p','','اختاري القسم وابدئي مغامرتكِ')
   );
+
   head.append(t);
 
-  const search=el('input','search');
-  search.type='search';
-  search.placeholder='ابحثي عن قسم أو لعبة…';
-  search.setAttribute('aria-label','البحث عن قسم أو لعبة');
+  const search = el('input','search');
+
+  search.type = 'search';
+  search.placeholder = 'ابحثي عن قسم أو لعبة…';
+
+  search.setAttribute(
+    'aria-label',
+    'البحث عن قسم أو لعبة'
+  );
+
   head.append(search);
   area.append(head);
 
-  const grid=el('div','grid');
+  const grid = el('div','grid');
+
   area.append(grid);
   app.append(area);
 
-  function draw(){
-    const q=search.value.trim().toLowerCase();
+  function draw() {
+
+    const q = search.value.trim().toLowerCase();
+
     grid.replaceChildren();
 
-    const filtered=sections.filter(s=>{
-      const sub=s.id==='excellence'
-        ?[...content.certificates,...content.motivation,...content.stars]
-        :content[s.id]||[];
+    const filtered = sections.filter(s => {
 
-      return [s.title,s.desc,...sub.flat()]
-        .join(' ').toLowerCase().includes(q);
+      const sub = s.id === 'excellence'
+        ? [
+            ...content.certificates,
+            ...content.motivation,
+            ...content.stars
+          ]
+        : content[s.id] || [];
+
+      return [
+        s.title,
+        s.desc,
+        ...sub.flat()
+      ]
+      .join(' ')
+      .toLowerCase()
+      .includes(q);
+
     });
 
-    filtered.forEach(s=>grid.append(makeTile(s)));
+    filtered.forEach(s => {
+      grid.append(makeTile(s));
+    });
 
-    if(!filtered.length){
-      grid.append(el('p','empty','لا توجد نتائج مطابقة.'));
+    if(!filtered.length) {
+      grid.append(
+        el('p','empty','لا توجد نتائج مطابقة.')
+      );
     }
   }
 
   search.addEventListener('input',draw);
+
   draw();
 }
 
-function itemCard(item){
-  const [href,icon,title,desc]=item;
-  const a=el('a','item');
-  a.href=href;
+/* بطاقة لعبة أو نشاط */
 
-  const e=el('span','emoji',icon);
-  const txt=el('span');
-  txt.append(el('strong','',title),el('small','',desc));
+function itemCard(item) {
+
+  const [href,icon,title,desc] = item;
+
+  const a = el('a','item');
+
+  a.href = href;
+
+  const e = el('span','emoji',icon);
+
+  const txt = el('span');
+
+  txt.append(
+    el('strong','',title),
+    el('small','',desc)
+  );
+
   a.append(e,txt);
 
   return a;
 }
 
-function section(id){
-  const info=sections.find(s=>s.id===id)||categories[id];
-  if(!info){home();return}
+/* صفحة القسم */
+
+function section(id) {
+
+  const info =
+    sections.find(s => s.id === id)
+    || categories[id];
+
+  if(!info) {
+    home();
+    return;
+  }
 
   app.replaceChildren();
 
-  const box=el('section','panel');
-  const back=el('a','back','← العودة إلى الرئيسية');
-  back.href='#home';
+  const box = el('section','panel');
+
+  const back = el(
+    'a',
+    'back',
+    '← العودة إلى الرئيسية'
+  );
+
+  back.href = '#home';
+
   box.append(back);
 
-  const heading=el('div','heading');
-  heading.append(el('h2','',(info.icon||'💎')+' '+info.title));
+  const heading = el('div','heading');
+
+  heading.append(
+    el(
+      'h2',
+      '',
+      (info.icon || '💎')+' '+info.title
+    )
+  );
+
   box.append(heading);
 
-  if(id==='excellence'){
-    const grid=el('div','grid');
+  if(id === 'excellence') {
 
-    Object.entries(categories).forEach(([key,v])=>{
-      grid.append(makeTile({...v,id:key,desc:'شاهدي محتوى '+v.title}));
-    });
+    const grid = el('div','grid');
+
+    Object.entries(categories).forEach(
+      ([key,v]) => {
+
+        grid.append(
+          makeTile({
+            ...v,
+            id:key,
+            desc:'شاهدي محتوى '+v.title
+          })
+        );
+
+      }
+    );
 
     box.append(grid);
-  }else{
-    const list=el('div','item-list');
-    (content[id]||[]).forEach(item=>list.append(itemCard(item)));
 
-    if(!list.children.length){
-      box.append(el('p','empty','هذا القسم جاهز لإضافة الأنشطة قريبًا.'));
-    }else{
+  } else {
+
+    const list = el('div','item-list');
+
+    (content[id] || []).forEach(item => {
+      list.append(itemCard(item));
+    });
+
+    if(!list.children.length) {
+
+      box.append(
+        el(
+          'p',
+          'empty',
+          'هذا القسم جاهز لإضافة الأنشطة قريبًا.'
+        )
+      );
+
+    } else {
+
       box.append(list);
+
     }
   }
 
   app.append(box);
 }
 
-function render(){
-  const hash=decodeURIComponent(location.hash.slice(1))||'home';
+/* التنقل */
 
-  if(hash==='home'){
+function render() {
+
+  const hash = decodeURIComponent(
+    location.hash.slice(1)
+  ) || 'home';
+
+  if(hash === 'home' || hash === 'sections') {
     home();
-  }else{
-    section(hash);
-  }
 
-  window.scrollTo(0,0);
+    if(hash === 'sections') {
+      requestAnimationFrame(() => {
+        document.getElementById('sections')
+          ?.scrollIntoView();
+      });
+    }
+
+  } else {
+    section(hash);
+    window.scrollTo(0,0);
+  }
 }
 
-window.addEventListener('hashchange',render);
+window.addEventListener(
+  'hashchange',
+  render
+);
+
 render();
 
-const intro=document.getElementById('intro');
+/* التحكم بالافتتاحية */
+
+const intro = document.getElementById('intro');
+
 let introTimer;
 let hideTimer;
 
-function closeIntro(){
+function closeIntro() {
+
   clearTimeout(introTimer);
   clearTimeout(hideTimer);
+
   intro.classList.add('hide');
-  hideTimer=setTimeout(()=>{intro.hidden=true},900);
+
+  hideTimer = setTimeout(() => {
+    intro.hidden = true;
+  },900);
+
 }
 
-function playIntro(){
+function playIntro() {
+
   clearTimeout(introTimer);
   clearTimeout(hideTimer);
-  intro.hidden=false;
+
+  intro.hidden = false;
+
   intro.classList.remove('hide');
-  introTimer=setTimeout(closeIntro,5500);
+
+  introTimer = setTimeout(
+    closeIntro,
+    5500
+  );
+
 }
 
-document.getElementById('skipIntro').onclick=closeIntro;
-document.getElementById('replay').onclick=playIntro;
+document.getElementById('skipIntro')
+  .onclick = closeIntro;
 
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  intro.hidden=true;
-}else{
+document.getElementById('replay')
+  .onclick = playIntro;
+
+if(
+  window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches
+) {
+  intro.hidden = true;
+} else {
   playIntro();
 }
+
 </script>
+
 </body>
 </html>
