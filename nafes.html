@@ -1,148 +1,197 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عبقريات نافس | السادس</title><style>
-:root{--g:#06483d;--gold:#c59b4d;--bg:#f8f3e7}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--g);font:16px Tahoma,Arial,sans-serif}header{padding:28px 14px;text-align:center;color:#fff4d5;background:linear-gradient(120deg,#04392f,#08705b);border-bottom:7px solid var(--gold)}header h1{font-size:clamp(35px,7vw,64px);margin:6px}header p{margin:5px}main{max-width:860px;margin:auto;padding:16px}.card{background:#fffefa;border:1.5px solid #ddc58e;border-radius:20px;padding:22px;margin:14px 0;box-shadow:0 4px 16px #123e3610}button{background:var(--g);color:white;border:0;border-radius:11px;padding:12px 19px;font-weight:bold;font-size:16px;cursor:pointer}button.alt{background:#e8d5aa;color:#143f36}button:disabled{opacity:.55}input,textarea,select{font:inherit;border:1px solid #bcb7a8;border-radius:9px;padding:12px;width:100%;margin:6px 0 13px;background:white}label{font-weight:bold}h2{margin:6px 0 16px}h3{margin:8px 0}.tabs{display:flex;gap:10px;justify-content:center;margin:15px 0}.tabs button{flex:1;max-width:250px}.hidden{display:none!important}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:15px 0}.choice{border:1px solid #c6a55c;background:#fff9ed;padding:15px;border-radius:12px;text-align:right;color:var(--g);width:100%}.choice:disabled{opacity:.8}.muted{color:#626e67;font-size:14px}.notice{padding:12px;border-radius:10px;background:#edf5ef;margin:12px 0}.error{background:#fff0ec;color:#8e3026}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.row>*{flex:1}table{border-collapse:collapse;width:100%}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:right}footer{text-align:center;padding:20px}.gold{color:#e0bb70}.small{font-size:13px}.question{border-top:1px solid #e4d3ae;padding-top:14px;margin-top:14px}#studentName{font-weight:bold}code{direction:ltr;display:inline-block}
-</style></head><body><header><div>وزارة التعليم · الصف السادس الابتدائي</div><h1>🏆 عبقريات نافس</h1><p>الرياضيات | فكّري • حلّلي • توصّلي للحل</p></header><main><div id="setup" class="card hidden"><h2>إعداد الربط</h2><p>أدخلي عنوان مشروع Supabase ومفتاح <b>Publishable / anon</b> فقط. لا تدخلي مفتاح service_role أو secret.</p><label>Project URL</label><input id="url" placeholder="https://xxxxx.supabase.co" dir="ltr"><label>Publishable / anon key</label><input id="key" dir="ltr" placeholder="sb_publishable_... أو eyJ..."><button id="saveConfig">حفظ الربط على هذا الجهاز</button><p class="muted">إعداد الربط وحده لا يكفي؛ يجب تشغيل setup.sql في مشروع Supabase أولًا.</p></div><div class="tabs"><button id="studentTab">🎓 صفحة الطالبة</button><button id="teacherTab" class="alt">👩‍🏫 لوحة المعلمة</button></div><section id="student"><div id="studentLogin" class="card"><h2>دخول الطالبة</h2><p>اكتبي رمزك الخاص الذي استلمتيه من المعلمة.</p><input id="studentCode" placeholder="رمز الطالبة" autocomplete="off" dir="ltr"><button id="loginStudent">دخول</button></div><div id="studentArea" class="hidden"><div class="card"><div class="row"><span>مرحبًا، <span id="studentName"></span> 🌟</span><button id="studentLogout" class="alt">خروج</button></div><div id="questions"></div></div></div></section><section id="teacher" class="hidden"><div id="teacherLogin" class="card"><h2>دخول المعلمة</h2><p>استخدمي البريد وكلمة المرور لحساب المعلمة الذي أُنشئ في Supabase Auth.</p><label>البريد الإلكتروني</label><input id="email" type="email" dir="ltr"><label>كلمة المرور</label><input id="password" type="password" dir="ltr"><button id="loginTeacher">دخول المعلمة</button><p><button id="forgotPassword" class="alt" type="button">نسيت كلمة المرور؟</button></p></div><div id="recoveryArea" class="card hidden"><h2>تعيين كلمة مرور جديدة</h2><label>كلمة المرور الجديدة (٨ أحرف على الأقل)</label><input id="recoveryPassword" type="password" autocomplete="new-password"><label>تأكيد كلمة المرور</label><input id="recoveryConfirm" type="password" autocomplete="new-password"><button id="saveRecoveryPassword">حفظ كلمة المرور الجديدة</button></div><div id="teacherArea" class="hidden"><div class="card"><h3>تغيير كلمة مرور المعلمة</h3><label>كلمة المرور الجديدة (٨ أحرف على الأقل)</label><input id="newTeacherPassword" type="password" autocomplete="new-password"><button id="changeTeacherPassword">حفظ كلمة المرور الجديدة</button></div><div class="card"><div class="row"><h2>لوحة إدارة عبقريات نافس</h2><button class="alt" id="teacherLogout">خروج</button></div><h3>إضافة سؤال درس</h3><label>اسم الدرس</label><input id="lesson" placeholder="قسمة كسر عشري على عدد كلي"><label>السؤال</label><textarea id="qtext" rows="3"></textarea><div class="row"><div><label>أ</label><input id="a"></div><div><label>ب</label><input id="b"></div></div><div class="row"><div><label>ج</label><input id="c"></div><div><label>د</label><input id="d"></div></div><label>الإجابة الصحيحة</label><select id="correct"><option value="a">أ</option><option value="b">ب</option><option value="c">ج</option><option value="d">د</option></select><button id="addQuestion">نشر السؤال</button></div><div class="card"><h3>إضافة طالبة</h3><input id="newStudent" placeholder="اسم الطالبة"><button id="addStudent">إنشاء رمز دخول</button><div id="newCode" class="notice hidden"></div><p class="muted">يظهر رمز الطالبة مرة واحدة عند الإنشاء. احفظيه في مكان آمن وسلّميه لها بشكل خاص.</p></div><div class="card"><h3>أسئلة الدروس</h3><div id="teacherQuestions"></div></div><div class="card" id="analyticsPanel"><h2>📊 التحليل الإحصائي | عبقريات نافس</h2><p class="muted">نسخة تجريبية للمعلمة فقط. لا تعدّل إجابات الطالبات ولا إعدادات الموقع.</p><div class="row"><div class="notice"><strong id="analyticsCount">— / ٢٤</strong><div>المشاركات في الشهر المحدد</div></div><div class="notice"><strong id="analyticsRate">—</strong><div>نسبة المشاركة</div></div></div><button type="button" id="analyticsRefresh">تحديث عدد المشاركات</button><p class="muted" id="analyticsMessage">يُحتسب عدد المشاركات من الطالبات اللواتي لديهن إجابة واحدة على الأقل في الشهر المحدد.</p><h3>تحليل كل مهارة على حدة</h3><label for="skillSelect">اختاري المهارة / الدرس</label><select id="skillSelect"><option value="">اختاري المهارة</option></select><h3 id="skillChartTitle">نسبة الإجابات الصحيحة للمهارة</h3><p class="muted">العمود يعرض النسبة الإجمالية الحقيقية للمهارة للشهر المحدد.</p><div id="analyticsBars"></div><h3>المهارات الأكثر صعوبة</h3><p class="muted">يُحدّد انخفاض الإتقان بعد توفر مشاركات كافية. التحليل الحالي إجمالي لكل مهارة.</p><div class="notice">🔒 تفاصيل ترتيب الطالبات تبقى في لوحة المعلمة فقط.</div></div><div class="card"><h3>نتائج الشهر</h3><label>الشهر الميلادي (بتوقيت السعودية)</label><input type="month" id="month"><button id="loadScores">عرض النقاط</button><div id="scores"></div></div></div></section><div id="status" aria-live="polite"></div></main><footer>معلمة المادة / جواهر السبيعي 💚</footer><script>
-const $=id=>document.getElementById(id),store=localStorage;let config=null,studentToken=store.getItem('nafes_student_token')||'',teacherToken=store.getItem('nafes_teacher_token')||'';
-function status(msg,error=false){$('status').textContent=msg;$('status').className='notice'+(error?' error':'');}function show(id,on){$(id).classList.toggle('hidden',!on)}function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-const PUBLIC_CONFIG={url:'https://ylsnogtohohmzlxpihks.supabase.co',key:'sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q'};function getConfig(){return PUBLIC_CONFIG;}function updateConfig(){config=getConfig();show('setup',false)}updateConfig();$('saveConfig').onclick=()=>{const url=$('url').value.trim().replace(/\/$/,'');const key=$('key').value.trim();if(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url)||!key||/service_role|sb_secret_/i.test(key)){status('تحققي من عنوان المشروع والمفتاح العام فقط.',true);return}store.setItem('nafes_config',JSON.stringify({url,key}));updateConfig();status('تم حفظ إعداد الربط على هذا الجهاز.');};
-async function request(path,data,token){if(!config)throw Error('أكملي إعداد الربط أولًا');const headers={'apikey':config.key,'Content-Type':'application/json'};if(token)headers.Authorization='Bearer '+token;else headers.Authorization='Bearer '+config.key;const res=await fetch(config.url+path,{method:'POST',headers,body:JSON.stringify(data)});const raw=await res.text();let body={};try{body=raw?JSON.parse(raw):{}}catch{body={message:raw}}if(!res.ok)throw Error(body.error_description||body.msg||body.message||body.error||('خطأ في الاتصال ('+res.status+')'));return body;}
-async function rpc(name,args={},teacher=false){return request('/rest/v1/rpc/'+name,args,teacher?teacherToken:null)}
-function tab(which){show('student',which==='student');show('teacher',which==='teacher');$('studentTab').className=which==='student'?'':'alt';$('teacherTab').className=which==='teacher'?'':'alt';} $('studentTab').onclick=()=>tab('student');$('teacherTab').onclick=()=>{tab('teacher');if(teacherToken&&typeof loadTeacher==='function')loadTeacher().catch(()=>{});};
-$('loginStudent').onclick=async()=>{try{const x=await rpc('nafes_v2_login',{p_code:$('studentCode').value});studentToken=x.token;store.setItem('nafes_student_token',studentToken);$('studentName').textContent=x.name;show('studentLogin',false);show('studentArea',true);await loadStudent();status('تم الدخول بنجاح');}catch(e){status(e.message,true)}};
-$('studentLogout').onclick=()=>{studentToken='';store.removeItem('nafes_student_token');show('studentLogin',true);show('studentArea',false)};
-async function loadStudent(){try{const qs=await rpc('nafes_v2_questions_for_student',{p_token:studentToken});$('questions').replaceChildren();if(!qs.length){$('questions').textContent='لا توجد أسئلة منشورة حاليًا.';return}qs.forEach((q,i)=>{const box=document.createElement('div');box.className='question';const h=document.createElement('h3');h.textContent=`السؤال ${i+1} · ${q.lesson_title}`;const p=document.createElement('p');p.textContent=q.question_text;box.append(h,p);if(q.chosen_choice){const n=document.createElement('div');n.className='notice';n.textContent=`تم إرسال إجابتك (${({a:'أ',b:'ب',c:'ج',d:'د'})[q.chosen_choice]}) — ${q.is_correct?'⭐ نقطة واحدة':'لا توجد نقطة'}`;box.append(n)}else{const choices=document.createElement('div');choices.className='choices';[['a','أ'],['b','ب'],['c','ج'],['d','د']].forEach(([v,letter])=>{const b=document.createElement('button');b.className='choice';b.textContent=`◯ ${letter} — ${q['choice_'+v]}`;b.onclick=async()=>{if(!confirm('هل تريدين اعتماد إجابتك؟ لا يمكن تغييرها بعد الإرسال.'))return;choices.querySelectorAll('button').forEach(x=>x.disabled=true);try{const r=await rpc('nafes_v2_submit',{p_token:studentToken,p_question_id:q.id,p_choice:v});status(r.is_correct?'أحسنتِ! حصلتِ على نقطة ⭐':'تم حفظ إجابتك. حاولي في الدرس القادم 💚');await loadStudent()}catch(e){status(e.message,true);choices.querySelectorAll('button').forEach(x=>x.disabled=false)}};choices.append(b)});box.append(choices)}$('questions').append(box)})}catch(e){status(e.message,true);if(/جلسة|session/i.test(e.message))$('studentLogout').click()}}
-$('loginTeacher').onclick=async()=>{const email=$('email').value.trim(),password=$('password').value;if(!email||!password){status('اكتبي البريد وكلمة المرور.',true);return}try{const x=await request('/auth/v1/token?grant_type=password',{email,password});teacherToken=x.access_token;store.setItem('nafes_teacher_token',teacherToken);await loadTeacher();status('تم دخول المعلمة بنجاح 🌟');}catch(e){let m=e.message||'تعذر تسجيل الدخول';if(/invalid login credentials/i.test(m))m='البريد أو كلمة المرور غير صحيحة.';status(m,true)}};
-$('teacherLogout').onclick=()=>{teacherToken='';store.removeItem('nafes_teacher_token');show('teacherArea',false);show('teacherLogin',true)};
-let recoveryAccessToken='';
-$('forgotPassword').onclick=async()=>{
- const email=$('email').value.trim();
- if(!email){status('اكتبي بريد المعلمة أولًا.',true);return}
- if(!config){status('أكملي إعداد الربط مع Supabase أولًا.',true);return}
- const btn=$('forgotPassword');btn.disabled=true;
- try{
-  await request('/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+location.pathname),{email});
-  status('إذا كان البريد مسجلًا، ستصلك رسالة استعادة. افتحي أحدث رسالة.');
- }catch(e){status(e.message,true)}finally{btn.disabled=false}
-};
-async function handleAuthCallback(){
- const hash=new URLSearchParams(location.hash.replace(/^#/,''));
- const query=new URLSearchParams(location.search);
- const error=hash.get('error_description')||query.get('error_description');
- const access=hash.get('access_token'),refresh=hash.get('refresh_token');
- const type=hash.get('type')||query.get('type');
- const code=query.get('code');
- if(!access&&!code&&!error)return;
- history.replaceState(null,'',location.pathname);tab('teacher');
- if(error){status(error,true);return}
- try{
-  if(!config)throw Error('يلزم إعداد ربط Supabase على هذا المتصفح قبل فتح رابط الاستعادة.');
-  let token=access;
-  if(code){
-   const result=await request('/auth/v1/token?grant_type=pkce',{auth_code:code,code_verifier:sessionStorage.getItem('nafes_pkce_verifier')||''});
-   token=result.access_token;
-  }
-  const response=await fetch(config.url+'/auth/v1/user',{headers:{apikey:config.key,Authorization:'Bearer '+token}});
-  if(!response.ok)throw Error('رابط الاستعادة غير صالح أو انتهت صلاحيته. اطلبي رابطًا جديدًا.');
-  if(type==='recovery'||access){
-   recoveryAccessToken=token;show('teacherLogin',false);show('teacherArea',false);show('recoveryArea',true);
-   status('تم التحقق من رابط الاستعادة. اختاري كلمة مرور جديدة.');return;
-  }
-  teacherToken=token;store.setItem('nafes_teacher_token',token);
-  if(refresh)store.setItem('nafes_teacher_refresh_token',refresh);
-  await loadTeacher();status('تم دخول المعلمة باستخدام رابط البريد.');
- }catch(e){status(e.message,true)}
-}
-$('saveRecoveryPassword').onclick=async()=>{
- const password=$('recoveryPassword').value;
- if(password.length<8){status('اختاري كلمة مرور من ٨ أحرف على الأقل.',true);return}
- if(password!==$('recoveryConfirm').value){status('كلمتا المرور غير متطابقتين.',true);return}
- if(!recoveryAccessToken){status('افتحي رابط استعادة جديدًا من بريدك.',true);return}
- const btn=$('saveRecoveryPassword');btn.disabled=true;
- try{
-  const res=await fetch(config.url+'/auth/v1/user',{method:'PUT',headers:{apikey:config.key,Authorization:'Bearer '+recoveryAccessToken,'Content-Type':'application/json'},body:JSON.stringify({password})});
-  const body=await res.json().catch(()=>({}));
-  if(!res.ok)throw Error(body.msg||body.message||body.error_description||'تعذر تغيير كلمة المرور');
-  recoveryAccessToken='';$('recoveryPassword').value='';$('recoveryConfirm').value='';
-  show('recoveryArea',false);show('teacherLogin',true);$('password').value='';
-  status('تم تغيير كلمة المرور بنجاح! ادخلي الآن بالبريد وكلمة المرور الجديدة.');
- }catch(e){status(e.message,true)}finally{btn.disabled=false}
-};
-$('changeTeacherPassword').onclick=async()=>{
- const password=$('newTeacherPassword').value;
- if(password.length<8){status('اختاري كلمة مرور من ٨ أحرف على الأقل.',true);return}
- try{
-  const res=await fetch(config.url+'/auth/v1/user',{method:'PUT',headers:{apikey:config.key,Authorization:'Bearer '+teacherToken,'Content-Type':'application/json'},body:JSON.stringify({password})});
-  const body=await res.json().catch(()=>({}));
-  if(!res.ok)throw Error(body.msg||body.message||body.error_description||'تعذر تغيير كلمة المرور');
-  $('newTeacherPassword').value='';status('تم تغيير كلمة المرور بنجاح. احفظيها في مكان آمن.');
- }catch(e){status(e.message,true)}
-};
-let teacherQuestionCache=[];async function loadTeacher(){const qs=await rpc('nafes_v2_teacher_questions',{},true);teacherQuestionCache=Array.isArray(qs)?qs:[];show('teacherLogin',false);show('teacherArea',true);$('teacherQuestions').replaceChildren();qs.forEach(q=>{const d=document.createElement('div');d.className='question';const p=document.createElement('p');p.textContent=q.lesson_title+' — '+q.question_text+' ('+(q.published?'منشور':'موقوف')+')';const b=document.createElement('button');b.className='alt';b.textContent=q.published?'إيقاف النشر':'نشر';b.onclick=async()=>{try{await rpc('nafes_v2_publish',{p_id:q.id,p_publish:!q.published},true);await loadTeacher()}catch(e){status(e.message,true)}};d.append(p,b);$('teacherQuestions').append(d)});if(!qs.length)$('teacherQuestions').textContent='لا توجد أسئلة بعد.'}
-$('addQuestion').onclick=async()=>{try{await rpc('nafes_v2_add_question',{p_lesson:$('lesson').value,p_question:$('qtext').value,p_a:$('a').value,p_b:$('b').value,p_c:$('c').value,p_d:$('d').value,p_correct:$('correct').value,p_publish:true},true);status('تم نشر السؤال بنجاح');await loadTeacher()}catch(e){status(e.message,true)}};
-$('addStudent').onclick=async()=>{try{const r=await rpc('nafes_v2_add_student',{p_name:$('newStudent').value},true);$('newCode').replaceChildren();const title=document.createElement('p');title.textContent='رمز '+r.name+' (انسخيه الآن):';const code=document.createElement('code');code.textContent=r.code;const b=document.createElement('button');b.textContent='نسخ الرمز';b.onclick=()=>navigator.clipboard.writeText(r.code);$('newCode').append(title,code,document.createElement('br'),b);show('newCode',true);status('تم إنشاء رمز الطالبة');}catch(e){status(e.message,true)}};
-const dt=new Date();$('month').value=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit'}).format(dt).slice(0,7);$('loadScores').onclick=async()=>{try{const rows=await rpc('nafes_v2_scores',{p_month:$('month').value},true);const t=document.createElement('table');t.innerHTML='<thead><tr><th>الطالبة</th><th>النقاط</th><th>الإجابات</th></tr></thead>';const tb=document.createElement('tbody');rows.forEach(r=>{const tr=document.createElement('tr');[r.full_name,r.points,r.answered].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.append(td)});tb.append(tr)});t.append(tb);$('scores').replaceChildren(t)}catch(e){status(e.message,true)}};
-if(studentToken){show('studentLogin',false);show('studentArea',true);$('studentName').textContent='طالبتنا';if(config)loadStudent()}if(location.hash.includes('access_token=')||location.hash.includes('error=')||new URLSearchParams(location.search).has('code')){handleAuthCallback()}else if(teacherToken&&config)loadTeacher().catch(()=>{$('teacherLogout').click()});
 
-// تحليل الأسئلة: قائمة المهارات من الأسئلة الفعلية، والنتائج من وظيفة التحليل.
+<!-- تصميم عبقريات نافس الملكي -->
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --g:#073e38;
+  --gold:#eac47d;
+  --bg:#041d25;
+}
+body{
+  color:#f7f1e6;
+  font-family:Cairo,Tahoma,sans-serif;
+  background:
+    radial-gradient(ellipse at 10% 0%,#1a665c,transparent 45%),
+    radial-gradient(ellipse at 95% 70%,#12404f,transparent 50%),
+    #041d25;
+}
+header{
+  position:relative;
+  overflow:hidden;
+  padding:35px 16px 40px;
+  background:linear-gradient(145deg,#062d2d,#0b5145,#071d30);
+  border-bottom:3px solid var(--gold);
+  box-shadow:0 15px 45px #0005;
+}
+header h1{
+  font-family:Alexandria,Tahoma,sans-serif;
+  color:var(--gold);
+  font-size:clamp(30px,6vw,56px);
+  text-shadow:0 0 25px #eac47d44;
+}
+header p{color:#e4d6b7}
+header>div:first-child{color:#cde8e2}
+.royal-logo-wrap{
+  width:min(68vw,260px);
+  aspect-ratio:1;
+  margin:25px auto;
+  position:relative;
+  display:grid;
+  place-items:center;
+  isolation:isolate;
+}
+.royal-ring{
+  position:absolute;
+  width:95%;
+  aspect-ratio:1;
+  border:1.5px solid var(--gold);
+  border-radius:50%;
+  animation:royalSpin 20s linear infinite;
+}
+.royal-ring::after{
+  content:"✦";
+  position:absolute;
+  top:-17px;
+  color:var(--gold);
+  font-size:27px;
+}
+.royal-ring.second{
+  width:110%;
+  height:65%;
+  border-color:#8de6ee;
+  animation:royalOrbit 13s linear infinite;
+}
+.royal-logo{
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 0 19px #83e8f575);
+  animation:royalFloat 5s ease-in-out infinite;
+}
+.card{
+  color:#f7f1e6;
+  background:linear-gradient(145deg,#10483f,#092d38);
+  border:1px solid #eac47d80;
+  border-radius:24px;
+  box-shadow:0 12px 35px #0004;
+}
+.card h2,.card h3{
+  color:var(--gold);
+}
+.muted{color:#c7dcd9}
+button{
+  background:linear-gradient(125deg,#d7ab60,#ffe5a8);
+  color:#153a34;
+  border:1px solid #f6db9e;
+  border-radius:13px;
+  transition:transform .2s,filter .2s;
+}
+button:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.07);
+}
+button.alt{
+  background:#ffffff13;
+  color:#fff3d6;
+  border:1px solid #eac47d75;
+}
+input,textarea,select{
+  color:#143c35;
+  background:#fffdf7;
+  border:1px solid #c9b88f;
+  border-radius:12px;
+}
+.choice{
+  background:#fff9e9;
+  color:#16483d;
+  border:1px solid #d4ae66;
+  border-radius:15px;
+}
+.notice{
+  color:#19493f;
+  background:#e9f5ec;
+  border:1px solid #c8ddce;
+}
+.notice.error{
+  color:#8e3026;
+  background:#fff0ec;
+}
+.question{
+  border-top:1px solid #d9bb7e70;
+  padding:20px 0;
+}
+table{
+  color:#f7f1e6;
+  display:block;
+  overflow-x:auto;
+}
+th,td{border-bottom:1px solid #eac47d44}
+#analyticsBars{
+  overflow-x:auto;
+}
+footer{
+  color:var(--gold);
+  border-top:1px solid #eac47d50;
+  padding:30px 15px;
+}
+@keyframes royalSpin{
+  to{transform:rotate(360deg)}
+}
+@keyframes royalOrbit{
+  from{transform:rotate(-25deg)}
+  to{transform:rotate(335deg)}
+}
+@keyframes royalFloat{
+  50%{transform:translateY(-12px)}
+}
+@media(max-width:600px){
+  main{padding:12px}
+  .card{padding:17px}
+  .tabs button{font-size:14px;padding:12px 8px}
+  .row>*{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .royal-ring,.royal-logo{
+    animation:none!important;
+  }
+}
+</style>
+
+<script>
 (function(){
- const select=$('skillSelect'), chart=$('analyticsBars');
- const count=$('analyticsCount'), rate=$('analyticsRate'), msg=$('analyticsMessage');
- let skills=[];
- function nameOf(s){return String(s.lesson_title||s.name||s.lesson||'').trim()}
- function draw(){
-  chart.replaceChildren();
-  const skill=skills.find(s=>nameOf(s)===select.value);
-  if(!skill){$('skillChartTitle').textContent='اختاري المهارة لعرض تحليلها';return}
-  const name=nameOf(skill), questions=Array.isArray(skill.questions)?skill.questions:[];
-  $('skillChartTitle').textContent='نسبة الإجابات الصحيحة لكل سؤال — '+name;
-  const intro=document.createElement('p');intro.className='muted';
-  const answered=Number(skill.total_answers||0),correct=Number(skill.correct_answers||0);
-  intro.textContent='عدد الأسئلة: '+(skill.total_questions||questions.length)+' | الإجابات: '+answered+' | الصحيحة: '+correct+' | نسبة المهارة: '+(skill.percent==null?'لا توجد إجابات':skill.percent+'٪');
-  chart.append(intro);
-  if(!questions.length){const note=document.createElement('p');note.className='muted';note.textContent='الأسئلة موجودة، لكن تفاصيل تحليل كل سؤال غير متاحة حاليًا.';chart.append(note);return}
-  const scroll=document.createElement('div');scroll.style.cssText='overflow-x:auto;padding:8px 0';
-  const graph=document.createElement('div');graph.style.cssText='display:flex;align-items:flex-end;gap:16px;min-height:245px;min-width:max-content;border-bottom:2px solid #c59b4d;padding:12px 8px 0';
-  questions.forEach((q,i)=>{
-   const cell=document.createElement('div');cell.style.cssText='width:125px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px';
-   const val=document.createElement('strong');val.textContent=q.percent==null?'لا إجابات':Number(q.percent)+'٪';
-   const bar=document.createElement('div');bar.style.cssText='width:76px;height:'+(q.percent==null?4:Math.max(4,Number(q.percent)*1.65))+'px;background:linear-gradient(0deg,#08705b,#c59b4d);border-radius:9px 9px 0 0';
-   const label=document.createElement('span');label.style.cssText='font-size:13px;text-align:center';label.textContent='السؤال '+(i+1)+' · '+Number(q.answered||0)+' إجابة';
-   cell.append(val,bar,label);graph.append(cell);
-  });
-  scroll.append(graph);chart.append(scroll);
-  questions.forEach((q,i)=>{const item=document.createElement('p');item.className='muted';item.style.cssText='border-bottom:1px solid #e4d3ae;padding-bottom:8px';item.textContent='السؤال '+(i+1)+': '+(q.question_text||'')+' — '+Number(q.correct||0)+' صحيحة من '+Number(q.answered||0)+' إجابة';chart.append(item)});
-  const note=document.createElement('p');note.className='muted';note.textContent='السؤال بلا إجابات لا يُحسب صفرًا في الإتقان.';chart.append(note);
- }
- select.addEventListener('change',draw);
- async function refresh(){
-  if(!teacherToken){msg.textContent='سجّلي الدخول كمعلمة أولًا.';return}
-  try{
-   // نستخدم نفس وظيفة عرض الأسئلة في لوحة المعلمة، حتى لا تعتمد القائمة على شكل نتيجة التحليل.
-   const rawQuestions=await rpc('nafes_v2_teacher_questions',{},true);
-   const questionRows=Array.isArray(rawQuestions)?rawQuestions:teacherQuestionCache;
-   let result=null,analyticsError='';
-   try{result=await rpc('nafes_v2_question_analytics',{p_month:$('month').value},true)}
-   catch(e){analyticsError=e.message}
-   const analyticsSkills=Array.isArray(result?.skills)?result.skills:[];
-   const grouped=new Map();
-   for(const q of questionRows){const n=nameOf(q);if(!n)continue;if(!grouped.has(n))grouped.set(n,[]);grouped.get(n).push(q)}
-   const names=new Set([...grouped.keys(),...analyticsSkills.map(nameOf).filter(Boolean)]);
-   skills=[...names].sort((a,b)=>a.localeCompare(b,'ar')).map(n=>{
-    const stats=analyticsSkills.find(x=>nameOf(x)===n);
-    if(stats){return {...stats,lesson_title:n}}
-    const qs=grouped.get(n)||[];
-    return {lesson_title:n,total_questions:qs.length,total_answers:0,correct_answers:0,percent:null,questions:qs.map(q=>({question_text:q.question_text,answered:0,correct:0,percent:null}))};
-   });
-   const previous=select.value;select.replaceChildren(new Option('اختاري المهارة',''));
-   for(const skill of skills){const n=nameOf(skill);select.add(new Option(n,n))}
-   select.value=names.has(previous)?previous:(skills[0]?nameOf(skills[0]):'');
-   if(result){const total=Number(result.total_students??24),participants=Number(result.participating_students??0);count.textContent=participants+' / '+total;rate.textContent=total?(100*participants/total).toFixed(1)+'٪':'—'}
-   msg.textContent=skills.length?'تم تحميل '+skills.length+' مهارات.'+(analyticsError?' تفاصيل الإجابات غير متاحة: '+analyticsError:''):'لم تظهر مهارات في الأسئلة. تحققي من قائمة «أسئلة الدروس».';
-   draw();
-  }catch(e){msg.textContent='تعذر تحميل المهارات: '+e.message}
- }
- $('analyticsRefresh').onclick=refresh;
- $('month').addEventListener('change',refresh);
- const original=loadTeacher;
- loadTeacher=async function(){await original();await refresh()};
+  const header=document.querySelector('header');
+  if(!header || header.querySelector('.royal-logo-wrap'))return;
+
+  const wrap=document.createElement('div');
+  wrap.className='royal-logo-wrap';
+
+  const ring1=document.createElement('div');
+  ring1.className='royal-ring';
+
+  const ring2=document.createElement('div');
+  ring2.className='royal-ring second';
+
+  const logo=document.createElement('img');
+  logo.className='royal-logo';
+  logo.src='https://jawaher-math-games.vercel.app/jawhara-logo.png';
+  logo.alt='شعار جوهرة ماث';
+  logo.onerror=function(){
+    this.style.display='none';
+    const fallback=document.createElement('span');
+    fallback.textContent='💎';
+    fallback.style.fontSize='90px';
+    wrap.append(fallback);
+  };
+
+  wrap.append(ring1,ring2,logo);
+  const title=header.querySelector('h1');
+  if(title){
+    header.insertBefore(wrap,title);
+  }else{
+    header.append(wrap);
+  }
 })();
-</script></body></html>
+</script>
