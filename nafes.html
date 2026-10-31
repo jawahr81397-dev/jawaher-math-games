@@ -1,197 +1,966 @@
 
-<!-- تصميم عبقريات نافس الملكي -->
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عبقريات نافس | الرياضيات</title>
 <style>
 :root{
-  --g:#073e38;
-  --gold:#eac47d;
-  --bg:#041d25;
+  --green:#174d3b;
+  --gold:#caa74e;
+  --bg:#f3f7f3;
+  --ink:#193d30;
 }
+*{box-sizing:border-box}
 body{
-  color:#f7f1e6;
-  font-family:Cairo,Tahoma,sans-serif;
-  background:
-    radial-gradient(ellipse at 10% 0%,#1a665c,transparent 45%),
-    radial-gradient(ellipse at 95% 70%,#12404f,transparent 50%),
-    #041d25;
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:16px Tahoma,Arial,sans-serif;
+  line-height:1.8;
 }
 header{
-  position:relative;
-  overflow:hidden;
-  padding:35px 16px 40px;
-  background:linear-gradient(145deg,#062d2d,#0b5145,#071d30);
-  border-bottom:3px solid var(--gold);
-  box-shadow:0 15px 45px #0005;
+  background:linear-gradient(125deg,#123c30,#226c53);
+  color:white;
+  text-align:center;
+  padding:35px 15px;
+  border-bottom:5px solid var(--gold);
 }
-header h1{
-  font-family:Alexandria,Tahoma,sans-serif;
-  color:var(--gold);
-  font-size:clamp(30px,6vw,56px);
-  text-shadow:0 0 25px #eac47d44;
-}
-header p{color:#e4d6b7}
-header>div:first-child{color:#cde8e2}
-.royal-logo-wrap{
-  width:min(68vw,260px);
-  aspect-ratio:1;
-  margin:25px auto;
-  position:relative;
-  display:grid;
-  place-items:center;
-  isolation:isolate;
-}
-.royal-ring{
-  position:absolute;
-  width:95%;
-  aspect-ratio:1;
-  border:1.5px solid var(--gold);
-  border-radius:50%;
-  animation:royalSpin 20s linear infinite;
-}
-.royal-ring::after{
-  content:"✦";
-  position:absolute;
-  top:-17px;
-  color:var(--gold);
-  font-size:27px;
-}
-.royal-ring.second{
-  width:110%;
-  height:65%;
-  border-color:#8de6ee;
-  animation:royalOrbit 13s linear infinite;
-}
-.royal-logo{
-  position:relative;
-  z-index:2;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  filter:drop-shadow(0 0 19px #83e8f575);
-  animation:royalFloat 5s ease-in-out infinite;
-}
+header h1{margin:8px 0;font-size:32px}
+header p{color:#f3dfa8}
+main{max-width:950px;margin:25px auto;padding:0 15px}
 .card{
-  color:#f7f1e6;
-  background:linear-gradient(145deg,#10483f,#092d38);
-  border:1px solid #eac47d80;
-  border-radius:24px;
-  box-shadow:0 12px 35px #0004;
+  background:white;
+  border:1px solid #dfe8df;
+  border-radius:18px;
+  padding:23px;
+  margin:16px 0;
+  box-shadow:0 5px 20px #153d2810;
 }
-.card h2,.card h3{
-  color:var(--gold);
-}
-.muted{color:#c7dcd9}
+h2,h3{color:var(--green)}
 button{
-  background:linear-gradient(125deg,#d7ab60,#ffe5a8);
-  color:#153a34;
-  border:1px solid #f6db9e;
-  border-radius:13px;
-  transition:transform .2s,filter .2s;
+  background:var(--green);
+  color:white;
+  border:0;
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  font:700 15px Tahoma,Arial;
+  margin:4px 0;
 }
-button:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.07);
-}
-button.alt{
-  background:#ffffff13;
-  color:#fff3d6;
-  border:1px solid #eac47d75;
-}
+button.alt{background:#e9eee9;color:var(--green)}
+button:disabled{opacity:.55;cursor:default}
 input,textarea,select{
-  color:#143c35;
-  background:#fffdf7;
-  border:1px solid #c9b88f;
-  border-radius:12px;
+  width:100%;
+  display:block;
+  padding:12px;
+  margin:8px 0 15px;
+  border:1px solid #cad7cd;
+  border-radius:10px;
+  background:white;
+  color:#193d30;
+  font:inherit;
 }
+label{font-weight:bold}
+.tabs{display:flex;gap:10px}
+.tabs button{flex:1}
+.hidden{display:none!important}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1;min-width:0}
+.question{padding:18px 0;border-bottom:1px solid #e2e8e2}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .choice{
-  background:#fff9e9;
-  color:#16483d;
-  border:1px solid #d4ae66;
-  border-radius:15px;
+  background:#f7faf7;
+  color:var(--green);
+  border:1px solid #cbd9cf;
+  text-align:right;
 }
 .notice{
-  color:#19493f;
+  padding:12px;
+  border-radius:10px;
   background:#e9f5ec;
-  border:1px solid #c8ddce;
+  margin:12px 0;
 }
-.notice.error{
-  color:#8e3026;
-  background:#fff0ec;
-}
-.question{
-  border-top:1px solid #d9bb7e70;
-  padding:20px 0;
-}
-table{
-  color:#f7f1e6;
-  display:block;
-  overflow-x:auto;
-}
-th,td{border-bottom:1px solid #eac47d44}
-#analyticsBars{
-  overflow-x:auto;
-}
-footer{
-  color:var(--gold);
-  border-top:1px solid #eac47d50;
-  padding:30px 15px;
-}
-@keyframes royalSpin{
-  to{transform:rotate(360deg)}
-}
-@keyframes royalOrbit{
-  from{transform:rotate(-25deg)}
-  to{transform:rotate(335deg)}
-}
-@keyframes royalFloat{
-  50%{transform:translateY(-12px)}
-}
-@media(max-width:600px){
-  main{padding:12px}
-  .card{padding:17px}
-  .tabs button{font-size:14px;padding:12px 8px}
-  .row>*{min-width:0}
-}
-@media(prefers-reduced-motion:reduce){
-  .royal-ring,.royal-logo{
-    animation:none!important;
-  }
+.notice.error{background:#fff0ec;color:#9b3028}
+.muted{color:#66786d}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;text-align:right;border-bottom:1px solid #dfe8df}
+th{background:#edf4ed}
+.bar{height:14px;background:#e4ece5;border-radius:8px;overflow:hidden}
+.fill{height:100%;background:#2c8766}
+footer{text-align:center;color:#557262;padding:25px}
+@media(max-width:540px){
+  .card{padding:16px}
+  .choices{grid-template-columns:1fr}
+  header h1{font-size:27px}
 }
 </style>
+</head>
+<body>
+
+<header>
+  <div>وزارة التعليم | الصف السادس الابتدائي</div>
+  <h1>🏆 عبقريات نافس</h1>
+  <p>الرياضيات | فكّري • حلّلي • توصّلي للحل</p>
+</header>
+
+<main>
+
+<div class="tabs">
+  <button id="studentTab">دخول الطالبة</button>
+  <button id="teacherTab" class="alt">دخول المعلمة</button>
+</div>
+
+<section id="student">
+
+  <div class="card" id="studentLogin">
+    <h2>مرحبًا يا عبقرية الرياضيات 🌟</h2>
+    <p>أدخلي رمزك الخاص للمشاركة في تحديات نافس.</p>
+    <input id="studentCode" placeholder="رمز الطالبة" dir="ltr">
+    <button id="loginStudent">دخول التحديات</button>
+  </div>
+
+  <div class="card hidden" id="studentArea">
+    <div class="row">
+      <h2>مرحبًا <span id="studentName"></span></h2>
+      <button class="alt" id="studentLogout">تسجيل الخروج</button>
+    </div>
+    <p class="muted">اختاري الإجابة الصحيحة. تُحفظ كل إجابة مرة واحدة.</p>
+    <div id="questions"></div>
+  </div>
+
+</section>
+
+<section id="teacher" class="hidden">
+
+  <div class="card" id="teacherLogin">
+    <h2>لوحة المعلمة</h2>
+    <label>البريد الإلكتروني</label>
+    <input id="email" type="email" dir="ltr">
+    <label>كلمة المرور</label>
+    <input id="password" type="password" dir="ltr">
+    <button id="loginTeacher">تسجيل الدخول</button>
+    <button class="alt" id="forgotPassword">نسيت كلمة المرور؟</button>
+  </div>
+
+  <div class="card hidden" id="recoveryArea">
+    <h2>استعادة كلمة المرور</h2>
+    <input id="recoveryPassword" type="password" placeholder="كلمة المرور الجديدة">
+    <input id="recoveryConfirm" type="password" placeholder="تأكيد كلمة المرور">
+    <button id="saveRecoveryPassword">حفظ كلمة المرور</button>
+  </div>
+
+  <div id="teacherArea" class="hidden">
+
+    <div class="card">
+      <div class="row">
+        <h2>إدارة عبقريات نافس</h2>
+        <button class="alt" id="teacherLogout">تسجيل الخروج</button>
+      </div>
+
+      <h3>إضافة سؤال جديد</h3>
+
+      <label>اسم الدرس</label>
+      <input id="lesson" placeholder="اسم الدرس">
+
+      <label>نص السؤال</label>
+      <textarea id="qtext" rows="3"></textarea>
+
+      <div class="row">
+        <div>
+          <label>الخيار أ</label>
+          <input id="a">
+        </div>
+        <div>
+          <label>الخيار ب</label>
+          <input id="b">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>الخيار ج</label>
+          <input id="c">
+        </div>
+        <div>
+          <label>الخيار د</label>
+          <input id="d">
+        </div>
+      </div>
+
+      <label>الإجابة الصحيحة</label>
+      <select id="correct">
+        <option value="a">أ</option>
+        <option value="b">ب</option>
+        <option value="c">ج</option>
+        <option value="d">د</option>
+      </select>
+
+      <button id="addQuestion">إضافة السؤال ونشره</button>
+    </div>
+
+    <div class="card">
+      <h3>إضافة طالبة جديدة</h3>
+      <input id="newStudent" placeholder="اسم الطالبة">
+      <button id="addStudent">إنشاء رمز للطالبة</button>
+      <div id="newCode" class="notice hidden"></div>
+    </div>
+
+    <div class="card">
+      <h3>إدارة الأسئلة المنشورة</h3>
+      <div id="teacherQuestions"></div>
+    </div>
+
+    <div class="card">
+      <h2>📊 التحليل الإحصائي</h2>
+
+      <div class="row">
+        <div class="notice">
+          <strong id="analyticsCount">—</strong>
+          <p>الطالبات المشاركات</p>
+        </div>
+        <div class="notice">
+          <strong id="analyticsRate">—</strong>
+          <p>نسبة المشاركة</p>
+        </div>
+      </div>
+
+      <button id="analyticsRefresh">تحديث التحليل</button>
+      <p id="analyticsMessage" class="muted"></p>
+
+      <label>اختاري المهارة</label>
+      <select id="skillSelect">
+        <option value="">اختاري المهارة</option>
+      </select>
+
+      <h3 id="skillChartTitle">تحليل المهارة</h3>
+      <div id="analyticsBars"></div>
+    </div>
+
+    <div class="card">
+      <h3>🏅 النقاط والترتيب الشهري</h3>
+      <label>الشهر</label>
+      <input type="month" id="month">
+      <button id="loadScores">عرض النتائج</button>
+      <div class="scroll" id="scores"></div>
+    </div>
+
+    <div class="card">
+      <h3>تغيير كلمة مرور المعلمة</h3>
+      <input id="newTeacherPassword" type="password" placeholder="كلمة المرور الجديدة">
+      <button id="changeTeacherPassword">حفظ كلمة المرور</button>
+    </div>
+
+  </div>
+</section>
+
+<div id="status" aria-live="polite"></div>
+
+</main>
+
+<footer>معلمة المادة / جواهر السبيعي 💚</footer>
 
 <script>
-(function(){
-  const header=document.querySelector('header');
-  if(!header || header.querySelector('.royal-logo-wrap'))return;
+const $=id=>document.getElementById(id);
+const store=localStorage;
 
-  const wrap=document.createElement('div');
-  wrap.className='royal-logo-wrap';
+const config={
+  url:"https://ylsnogtohohmzlxpihks.supabase.co",
+  key:"sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q"
+};
 
-  const ring1=document.createElement('div');
-  ring1.className='royal-ring';
+let studentToken=store.getItem("nafes_student_token")||"";
+let teacherToken=store.getItem("nafes_teacher_token")||"";
+let recoveryToken="";
+let teacherQuestionCache=[];
+let analyticsSkills=[];
 
-  const ring2=document.createElement('div');
-  ring2.className='royal-ring second';
+function show(id,on){
+  $(id).classList.toggle("hidden",!on);
+}
 
-  const logo=document.createElement('img');
-  logo.className='royal-logo';
-  logo.src='https://jawaher-math-games.vercel.app/jawhara-logo.png';
-  logo.alt='شعار جوهرة ماث';
-  logo.onerror=function(){
-    this.style.display='none';
-    const fallback=document.createElement('span');
-    fallback.textContent='💎';
-    fallback.style.fontSize='90px';
-    wrap.append(fallback);
-  };
+function status(msg,error=false){
+  const el=$("status");
+  el.textContent=msg;
+  el.className="notice"+(error?" error":"");
+}
 
-  wrap.append(ring1,ring2,logo);
-  const title=header.querySelector('h1');
-  if(title){
-    header.insertBefore(wrap,title);
-  }else{
-    header.append(wrap);
+function escapeHtml(value){
+  return String(value??"").replace(/[&<>"']/g,ch=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[ch]);
+}
+
+async function request(path,data,token,method="POST"){
+  const response=await fetch(config.url+path,{
+    method,
+    headers:{
+      "apikey":config.key,
+      "Authorization":"Bearer "+(token||config.key),
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(data)
+  });
+
+  const raw=await response.text();
+  let result;
+
+  try{
+    result=raw?JSON.parse(raw):{};
+  }catch{
+    result={message:raw};
   }
-})();
+
+  if(!response.ok){
+    throw new Error(
+      result.message||
+      result.msg||
+      result.error_description||
+      result.error||
+      "تعذر الاتصال بالخادم"
+    );
+  }
+
+  return result;
+}
+
+function rpc(name,args={},teacher=false){
+  return request(
+    "/rest/v1/rpc/"+name,
+    args,
+    teacher?teacherToken:null
+  );
+}
+
+function tab(which){
+  show("student",which==="student");
+  show("teacher",which==="teacher");
+  $("studentTab").className=which==="student"?"":"alt";
+  $("teacherTab").className=which==="teacher"?"":"alt";
+}
+
+$("studentTab").onclick=()=>tab("student");
+
+$("teacherTab").onclick=()=>{
+  tab("teacher");
+  if(teacherToken){
+    loadTeacher().catch(e=>status(e.message,true));
+  }
+};
+
+/* دخول الطالبات */
+
+$("loginStudent").onclick=async()=>{
+  try{
+    const code=$("studentCode").value.trim();
+
+    if(!code){
+      status("اكتبي رمز الطالبة أولًا",true);
+      return;
+    }
+
+    const result=await rpc("nafes_v2_login",{
+      p_code:code
+    });
+
+    studentToken=result.token;
+    store.setItem("nafes_student_token",studentToken);
+
+    $("studentName").textContent=result.name||"يا عبقرية";
+
+    show("studentLogin",false);
+    show("studentArea",true);
+
+    await loadStudent();
+    status("تم تسجيل الدخول بنجاح");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+$("studentLogout").onclick=()=>{
+  studentToken="";
+  store.removeItem("nafes_student_token");
+  show("studentLogin",true);
+  show("studentArea",false);
+  $("questions").replaceChildren();
+};
+
+async function loadStudent(){
+  const result=await rpc("nafes_v2_questions_for_student",{
+    p_token:studentToken
+  });
+
+  const questions=Array.isArray(result)?result:[];
+  const container=$("questions");
+  container.replaceChildren();
+
+  if(!questions.length){
+    container.textContent="لا توجد أسئلة منشورة حاليًا.";
+    return;
+  }
+
+  questions.forEach((q,i)=>{
+    const box=document.createElement("div");
+    box.className="question";
+
+    const title=document.createElement("h3");
+    title.textContent="السؤال "+(i+1)+" | "+(q.lesson_title||"الرياضيات");
+
+    const question=document.createElement("p");
+    question.textContent=q.question_text||"";
+
+    box.append(title,question);
+
+    if(q.chosen_choice){
+      const done=document.createElement("div");
+      done.className="notice";
+
+      const letters={a:"أ",b:"ب",c:"ج",d:"د"};
+
+      done.textContent="إجابتك: "+
+        (letters[q.chosen_choice]||q.chosen_choice)+
+        (q.is_correct?" | إجابة صحيحة ⭐":" | تم حفظ الإجابة");
+
+      box.append(done);
+    }else{
+      const choices=document.createElement("div");
+      choices.className="choices";
+
+      [["a","أ"],["b","ب"],["c","ج"],["d","د"]].forEach(([value,letter])=>{
+        const button=document.createElement("button");
+        button.className="choice";
+        button.textContent="◯ "+letter+" - "+(q["choice_"+value]??"");
+
+        button.onclick=async()=>{
+          if(!confirm("هل تريدين اعتماد الإجابة؟"))return;
+
+          choices.querySelectorAll("button").forEach(b=>b.disabled=true);
+
+          try{
+            const result=await rpc("nafes_v2_submit",{
+              p_token:studentToken,
+              p_question_id:q.id,
+              p_choice:value
+            });
+
+            status(result.is_correct?
+              "أحسنتِ! إجابة صحيحة ⭐":
+              "تم حفظ إجابتك");
+
+            await loadStudent();
+          }catch(e){
+            status(e.message,true);
+            choices.querySelectorAll("button").forEach(b=>b.disabled=false);
+          }
+        };
+
+        choices.append(button);
+      });
+
+      box.append(choices);
+    }
+
+    container.append(box);
+  });
+}
+
+/* دخول المعلمة */
+
+$("loginTeacher").onclick=async()=>{
+  try{
+    const result=await request(
+      "/auth/v1/token?grant_type=password",
+      {
+        email:$("email").value.trim(),
+        password:$("password").value
+      }
+    );
+
+    teacherToken=result.access_token;
+    store.setItem("nafes_teacher_token",teacherToken);
+
+    await loadTeacher();
+    status("تم تسجيل دخول المعلمة");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+$("teacherLogout").onclick=()=>{
+  teacherToken="";
+  store.removeItem("nafes_teacher_token");
+  show("teacherLogin",true);
+  show("teacherArea",false);
+};
+
+/* الأسئلة */
+
+async function loadTeacher(){
+  const result=await rpc("nafes_v2_teacher_questions",{},true);
+  teacherQuestionCache=Array.isArray(result)?result:[];
+
+  show("teacherLogin",false);
+  show("teacherArea",true);
+
+  const container=$("teacherQuestions");
+  container.replaceChildren();
+
+  if(!teacherQuestionCache.length){
+    container.textContent="لا توجد أسئلة بعد.";
+  }
+
+  teacherQuestionCache.forEach(q=>{
+    const box=document.createElement("div");
+    box.className="question";
+
+    const title=document.createElement("h3");
+    title.textContent=q.lesson_title||"الرياضيات";
+
+    const p=document.createElement("p");
+    p.textContent=q.question_text||"";
+
+    const state=document.createElement("p");
+    state.className="muted";
+    state.textContent=q.published?"السؤال منشور":"السؤال غير منشور";
+
+    const button=document.createElement("button");
+    button.className="alt";
+    button.textContent=q.published?"إيقاف النشر":"نشر السؤال";
+
+    button.onclick=async()=>{
+      try{
+        await rpc("nafes_v2_publish",{
+          p_id:q.id,
+          p_publish:!q.published
+        },true);
+
+        await loadTeacher();
+        status("تم تحديث حالة السؤال");
+      }catch(e){
+        status(e.message,true);
+      }
+    };
+
+    box.append(title,p,state,button);
+    container.append(box);
+  });
+
+  await refreshAnalytics();
+}
+
+$("addQuestion").onclick=async()=>{
+  try{
+    const required=["lesson","qtext","a","b","c","d"];
+
+    if(required.some(id=>!$(id).value.trim())){
+      status("أكملي جميع بيانات السؤال",true);
+      return;
+    }
+
+    await rpc("nafes_v2_add_question",{
+      p_lesson:$("lesson").value.trim(),
+      p_question:$("qtext").value.trim(),
+      p_a:$("a").value.trim(),
+      p_b:$("b").value.trim(),
+      p_c:$("c").value.trim(),
+      p_d:$("d").value.trim(),
+      p_correct:$("correct").value,
+      p_publish:true
+    },true);
+
+    status("تمت إضافة السؤال ونشره");
+    await loadTeacher();
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+/* إضافة الطالبات */
+
+$("addStudent").onclick=async()=>{
+  try{
+    const name=$("newStudent").value.trim();
+
+    if(!name){
+      status("اكتبي اسم الطالبة",true);
+      return;
+    }
+
+    const result=await rpc("nafes_v2_add_student",{
+      p_name:name
+    },true);
+
+    const area=$("newCode");
+    area.replaceChildren();
+
+    const p=document.createElement("p");
+    p.textContent="رمز الطالبة: "+(result.name||name);
+
+    const code=document.createElement("strong");
+    code.textContent=result.code||"";
+
+    const copy=document.createElement("button");
+    copy.textContent="نسخ الرمز";
+
+    copy.onclick=async()=>{
+      try{
+        await navigator.clipboard.writeText(result.code);
+        status("تم نسخ الرمز");
+      }catch{
+        status("انسخي الرمز الظاهر يدويًا");
+      }
+    };
+
+    area.append(p,code,document.createElement("br"),copy);
+    show("newCode",true);
+
+    status("تم إنشاء رمز الطالبة");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+/* نتائج الشهر */
+
+const now=new Date();
+const saudiMonth=new Intl.DateTimeFormat("en-US",{
+  timeZone:"Asia/Riyadh",
+  year:"numeric",
+  month:"2-digit"
+}).formatToParts(now);
+
+const year=saudiMonth.find(p=>p.type==="year").value;
+const month=saudiMonth.find(p=>p.type==="month").value;
+$("month").value=year+"-"+month;
+
+$("loadScores").onclick=async()=>{
+  try{
+    const rows=await rpc("nafes_v2_scores",{
+      p_month:$("month").value
+    },true);
+
+    const table=document.createElement("table");
+    const thead=document.createElement("thead");
+    const heading=document.createElement("tr");
+
+    ["الطالبة","النقاط","عدد الإجابات"].forEach(text=>{
+      const th=document.createElement("th");
+      th.textContent=text;
+      heading.append(th);
+    });
+
+    thead.append(heading);
+    table.append(thead);
+
+    const tbody=document.createElement("tbody");
+
+    (Array.isArray(rows)?rows:[]).forEach(r=>{
+      const tr=document.createElement("tr");
+
+      [r.full_name,r.points,r.answered].forEach(value=>{
+        const td=document.createElement("td");
+        td.textContent=value??"";
+        tr.append(td);
+      });
+
+      tbody.append(tr);
+    });
+
+    table.append(tbody);
+    $("scores").replaceChildren(table);
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+/* التحليل الإحصائي */
+
+function skillName(s){
+  return String(
+    s.lesson_title||s.name||s.lesson||""
+  ).trim();
+}
+
+function drawAnalytics(){
+  const container=$("analyticsBars");
+  container.replaceChildren();
+
+  const selected=$("skillSelect").value;
+  const skill=analyticsSkills.find(s=>skillName(s)===selected);
+
+  if(!skill){
+    $("skillChartTitle").textContent="اختاري المهارة";
+    return;
+  }
+
+  $("skillChartTitle").textContent="تحليل "+selected;
+
+  const summary=document.createElement("p");
+  summary.textContent=
+    "الإجابات: "+(skill.total_answers??0)+
+    " | الصحيحة: "+(skill.correct_answers??0)+
+    " | الإتقان: "+(skill.percent==null?"—":skill.percent+"٪");
+
+  container.append(summary);
+
+  const questions=Array.isArray(skill.questions)?skill.questions:[];
+
+  questions.forEach((q,i)=>{
+    const label=document.createElement("p");
+    label.textContent=
+      "السؤال "+(i+1)+": "+
+      (q.question_text||"")+
+      " — "+(q.percent==null?"لا توجد بيانات":q.percent+"٪");
+
+    const bar=document.createElement("div");
+    bar.className="bar";
+
+    const fill=document.createElement("div");
+    fill.className="fill";
+    fill.style.width=
+      Math.max(0,Math.min(100,Number(q.percent)||0))+"%";
+
+    bar.append(fill);
+    container.append(label,bar);
+  });
+}
+
+async function refreshAnalytics(){
+  if(!teacherToken)return;
+
+  try{
+    let result=null;
+    let analyticsError="";
+
+    try{
+      result=await rpc("nafes_v2_question_analytics",{
+        p_month:$("month").value
+      },true);
+    }catch(e){
+      analyticsError=e.message;
+    }
+
+    const reportedSkills=Array.isArray(result?.skills)?
+      result.skills:[];
+
+    const names=new Set([
+      ...teacherQuestionCache.map(skillName).filter(Boolean),
+      ...reportedSkills.map(skillName).filter(Boolean)
+    ]);
+
+    analyticsSkills=[...names].sort((a,b)=>
+      a.localeCompare(b,"ar")
+    ).map(name=>{
+      const found=reportedSkills.find(s=>skillName(s)===name);
+
+      if(found){
+        return {...found,lesson_title:name};
+      }
+
+      return {
+        lesson_title:name,
+        total_answers:0,
+        correct_answers:0,
+        percent:null,
+        questions:teacherQuestionCache
+          .filter(q=>skillName(q)===name)
+          .map(q=>({
+            question_text:q.question_text,
+            percent:null
+          }))
+      };
+    });
+
+    const select=$("skillSelect");
+    const old=select.value;
+
+    select.replaceChildren(new Option("اختاري المهارة",""));
+
+    analyticsSkills.forEach(s=>{
+      select.add(new Option(skillName(s),skillName(s)));
+    });
+
+    select.value=names.has(old)?
+      old:(analyticsSkills[0]?skillName(analyticsSkills[0]):"");
+
+    if(result){
+      const total=Number(result.total_students??0);
+      const participating=Number(result.participating_students??0);
+
+      $("analyticsCount").textContent=
+        participating+" / "+total;
+
+      $("analyticsRate").textContent=total?
+        (participating*100/total).toFixed(1)+"٪":"—";
+    }else{
+      $("analyticsCount").textContent="—";
+      $("analyticsRate").textContent="—";
+    }
+
+    $("analyticsMessage").textContent=analyticsError?
+      "تعذر جلب تفاصيل التحليل: "+analyticsError:
+      "تم تحديث التحليل للشهر المحدد.";
+
+    drawAnalytics();
+  }catch(e){
+    $("analyticsMessage").textContent=e.message;
+  }
+}
+
+$("skillSelect").onchange=drawAnalytics;
+$("analyticsRefresh").onclick=refreshAnalytics;
+$("month").onchange=refreshAnalytics;
+
+/* كلمة مرور المعلمة */
+
+$("forgotPassword").onclick=async()=>{
+  const email=$("email").value.trim();
+
+  if(!email){
+    status("اكتبي البريد الإلكتروني أولًا",true);
+    return;
+  }
+
+  try{
+    await request(
+      "/auth/v1/recover?redirect_to="+
+      encodeURIComponent(location.origin+location.pathname),
+      {email}
+    );
+
+    status("إذا كان البريد مسجلًا، ستصلك رسالة الاستعادة.");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+async function handleAuthCallback(){
+  const params=new URLSearchParams(location.hash.slice(1));
+  const token=params.get("access_token");
+  const type=params.get("type");
+
+  if(params.get("error_description")){
+    status(params.get("error_description"),true);
+    return;
+  }
+
+  if(!token)return;
+
+  try{
+    const response=await fetch(config.url+"/auth/v1/user",{
+      headers:{
+        apikey:config.key,
+        Authorization:"Bearer "+token
+      }
+    });
+
+    if(!response.ok){
+      throw new Error("رابط الاستعادة غير صالح أو منتهي الصلاحية");
+    }
+
+    if(type==="recovery"){
+      recoveryToken=token;
+      tab("teacher");
+      show("teacherLogin",false);
+      show("recoveryArea",true);
+    }
+
+    history.replaceState(null,"",location.pathname);
+  }catch(e){
+    status(e.message,true);
+  }
+}
+
+$("saveRecoveryPassword").onclick=async()=>{
+  const password=$("recoveryPassword").value;
+
+  if(password.length<8){
+    status("كلمة المرور يجب أن تكون ٨ أحرف على الأقل",true);
+    return;
+  }
+
+  if(password!==$("recoveryConfirm").value){
+    status("كلمتا المرور غير متطابقتين",true);
+    return;
+  }
+
+  if(!recoveryToken){
+    status("افتحي رابط استعادة كلمة المرور من البريد",true);
+    return;
+  }
+
+  try{
+    await request(
+      "/auth/v1/user",
+      {password},
+      recoveryToken,
+      "PUT"
+    );
+
+    recoveryToken="";
+    show("recoveryArea",false);
+    show("teacherLogin",true);
+
+    status("تم تغيير كلمة المرور. سجلي الدخول من جديد.");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+$("changeTeacherPassword").onclick=async()=>{
+  const password=$("newTeacherPassword").value;
+
+  if(password.length<8){
+    status("كلمة المرور يجب أن تكون ٨ أحرف على الأقل",true);
+    return;
+  }
+
+  try{
+    await request(
+      "/auth/v1/user",
+      {password},
+      teacherToken,
+      "PUT"
+    );
+
+    $("newTeacherPassword").value="";
+    status("تم تغيير كلمة المرور");
+  }catch(e){
+    status(e.message,true);
+  }
+};
+
+/* استعادة الجلسات */
+
+if(studentToken){
+  show("studentLogin",false);
+  show("studentArea",true);
+  $("studentName").textContent="يا عبقرية";
+
+  loadStudent().catch(e=>{
+    status(e.message,true);
+    $("studentLogout").click();
+  });
+}
+
+if(location.hash.includes("access_token=")){
+  handleAuthCallback();
+}else if(teacherToken){
+  loadTeacher().catch(e=>{
+    teacherToken="";
+    store.removeItem("nafes_teacher_token");
+    show("teacherLogin",true);
+    show("teacherArea",false);
+  });
+}
 </script>
+
+</body>
+</html>
