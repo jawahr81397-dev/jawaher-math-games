@@ -43,7 +43,9 @@ header h1{
   margin:12px 0;
 }
 header p{color:#e4d6b7}
-header .ministry{color:#cde8e2;font-size:14px}
+.ministry{color:#cde8e2;font-size:14px}
+
+/* الجوهرة الأصلية */
 .logo-stage{
   width:min(60vw,230px);
   aspect-ratio:1;
@@ -88,7 +90,9 @@ header .ministry{color:#cde8e2;font-size:14px}
   z-index:2;
   font-size:90px;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 @keyframes orbit{
   from{transform:rotate(-25deg)}
   to{transform:rotate(335deg)}
@@ -96,6 +100,8 @@ header .ministry{color:#cde8e2;font-size:14px}
 @keyframes float{
   50%{transform:translateY(-12px)}
 }
+
+/* الصفحة والبطاقات */
 main{
   max-width:950px;
   margin:25px auto;
@@ -130,10 +136,7 @@ button.alt{
   color:#fff3d6;
   border:1px solid #eac47d75;
 }
-button:disabled{
-  opacity:.55;
-  cursor:default;
-}
+button:disabled{opacity:.55;cursor:default}
 input,textarea,select{
   width:100%;
   display:block;
@@ -228,15 +231,19 @@ footer{
 <body>
 
 <header>
-  <div class="ministry">وزارة التعليم | الصف السادس الابتدائي</div>
+  <div class="ministry">
+    وزارة التعليم | الصف السادس الابتدائي
+  </div>
 
   <div class="logo-stage">
     <div class="logo-ring"></div>
     <div class="logo-ring second"></div>
+
     <img
-      src="jawhara-logo.jpg"
+      src="jawhara-logo.png"
       alt="شعار جوهرة ماث"
       onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block'">
+
     <span id="logoFallback" class="logo-fallback" style="display:none">💎</span>
   </div>
 
