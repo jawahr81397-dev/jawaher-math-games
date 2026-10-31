@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>جوهرة الأسبوع | تحدّي الرياضيات</title>
+<style>
+:root{--g:#123c32;--gold:#d6ad55;--cream:#fffaf0;--ink:#24332e;--muted:#718078}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145deg,#f5f0e3,#e4eee8);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:18px}
+.card{width:min(760px,100%);background:white;border:1px solid #e6dfcd;border-radius:26px;overflow:hidden;box-shadow:0 18px 55px #183e3020}
+.top{background:var(--g);color:white;text-align:center;padding:30px 20px;position:relative}
+.top:after{content:'✦';position:absolute;left:23px;top:16px;color:var(--gold);font-size:28px}
+.eyebrow{color:#ead69f;font-size:14px}.top h1{margin:9px 0 7px;font-size:clamp(30px,6vw,44px)}.top p{margin:0;color:#e5eee9}
+.body{padding:22px clamp(15px,5vw,36px) 28px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:14px;margin-bottom:18px}
+.score{background:#f7f0df;border:1px solid #ead9aa;color:#604c1e;padding:9px 13px;border-radius:99px;font-weight:bold}
+.tabs{display:flex;gap:10px;margin-bottom:14px}.tab{flex:1;border:1px solid #dbe3dd;border-radius:13px;padding:12px;background:#f8faf8;color:var(--g);font-size:16px;font-weight:bold;cursor:pointer}.tab.active{background:var(--g);color:white;border-color:var(--g)}
+.question{background:var(--cream);border:1px solid #efe3bf;border-radius:20px;padding:22px;text-align:center}.tag{color:#896b27;font-size:13px;font-weight:bold}.q{font-size:clamp(21px,5vw,29px);line-height:1.7;margin:12px 0 17px;font-weight:bold}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option{border:1px solid #d9dfd9;background:white;border-radius:13px;padding:13px 10px;font-size:18px;font-weight:bold;color:var(--ink);cursor:pointer}.option.selected{outline:3px solid #e4c771;background:#fff8df}.option.correct{background:#e5f4e9;border-color:#68a47a}.option.wrong{background:#fff0ed;border-color:#df8a7d}.option:disabled{cursor:default;opacity:1}
+.send{margin-top:16px;border:0;background:var(--gold);color:#24332e;border-radius:12px;padding:12px 22px;font-weight:bold;font-size:15px;cursor:pointer}.send:disabled{opacity:.55;cursor:default}
+.feedback{display:none;margin-top:14px;padding:12px;border-radius:12px;font-weight:bold}.feedback.show{display:block}.feedback.good{background:#eaf4ed;color:#174a35}.feedback.try{background:#fff0ed;color:#8d392c}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:21px}.foot strong{color:var(--g)}
+@media(max-width:500px){.options{grid-template-columns:1fr}.row{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<main class="card">
+<header class="top"><div class="eyebrow">تحدٍّ رياضي جديد كل أسبوع</div><h1>جوهرة الأسبوع 💎</h1><p>اختاري صفك، أجيبي، واجمعي النقاط!</p></header>
+<section class="body">
+<div class="row"><span id="weekLabel">تحدي هذا الأسبوع</span><span class="score" id="score">نقاطك: ٠</span></div>
+<div class="tabs"><button class="tab active" data-grade="5">الصف الخامس</button><button class="tab" data-grade="6">الصف السادس</button></div>
+<div class="question"><div class="tag" id="gradeLabel"></div><div class="q" id="question"></div><div class="options" id="options"></div><button class="send" id="submit">اعتماد الإجابة</button><div class="feedback" id="feedback" aria-live="polite"></div></div>
+<div class="foot">بالتوفيق يا بطلات الرياضيات 🌷<br><strong>المعلمة / جواهر السبيعي</strong></div>
+</section>
+</main>
+<script>
+// الأسئلة الأصلية المرفقة: خمسة تحديات لكل صف، تتكرر بعد الأسبوع الخامس.
+const bank={
+  5:[
+    {q:'أكملي النمط: ٨، ١٦، ٣٢، ٦٤، ___',o:['١٢٠','١٢٨','٩٦','١١٢'],a:1},
+    {q:'ما ناتج ٢٤٦ ÷ ٦؟',o:['٤٠','٤١','٤٢','٤٦'],a:1},
+    {q:'احسبي: ٧ × ٨ + ١٢',o:['٥٦','٦٤','٦٨','٧٢'],a:2},
+    {q:'معكِ ٥٠٠ ريال، دفعتِ ٢٧٨ ريالًا. كم بقي؟',o:['٢١٢','٢٢٢','٢٣٢','٢٢٨'],a:1},
+    {q:'عدد إذا ضربناه في ٩ كان الناتج ٧٢، فما العدد؟',o:['٦','٧','٨','٩'],a:2}
+  ],
+  6:[
+    {q:'بسّطي الكسر ١٨⁄٢٤ إلى أبسط صورة.',o:['٣⁄٤','٣⁄٨','٢⁄٣','٦⁄٧'],a:0},
+    {q:'احسبي: ٢٫٤ × ٣',o:['٦٫٢','٧٫٢','٧٫٤','٨٫٢'],a:1},
+    {q:'احسبي: ٦٫٣٥ + ٢٫٨',o:['٨٫١٥','٩٫٠٥','٩٫١٥','٩٫٨٥'],a:2},
+    {q:'أيّهما أكبر؟',o:['٠٫٧','٠٫٦٨','متساويان','لا يمكن المقارنة'],a:0},
+    {q:'ما ناتج ٣⁄٤ من ٢٠؟',o:['١٢','١٤','١٥','١٦'],a:2}
+  ]
+};
+const $=id=>document.getElementById(id);
+const ar=n=>String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+// رقم الأسبوع حسب توقيت السعودية، ثابت طوال الأسبوع.
+function weekNumber(){
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const get=t=>Number(parts.find(p=>p.type===t).value);
+  const date=Date.UTC(get('year'),get('month')-1,get('day'));
+  const first=Date.UTC(get('year'),0,1);
+  return Math.floor((date-first)/604800000);
+}
+const week=weekNumber();
+let grade=5,selected=-1;
+const answerKey=()=>`jawhara_answer_v2_${grade}_${week}`;
+const scoreKey=()=>`jawharaPoints_${grade}`;
+const item=()=>bank[grade][week%bank[grade].length];
+function render(){
+  selected=-1;
+  const q=item(), saved=localStorage.getItem(answerKey());
+  const previous=saved===null?null:Number(saved);
+  $('weekLabel').textContent='تحدي الأسبوع '+ar(week+1);
+  $('gradeLabel').textContent='تحدي الصف '+(grade===5?'الخامس':'السادس');
+  $('question').textContent=q.q;
+  $('score').textContent='نقاطك: '+ar(Number(localStorage.getItem(scoreKey())||0));
+  const options=$('options');options.replaceChildren();
+  q.o.forEach((text,i)=>{
+    const button=document.createElement('button');
+    button.className='option';button.textContent=text;
+    if(previous!==null){
+      button.disabled=true;
+      if(i===q.a)button.classList.add('correct');
+      if(i===previous&&i!==q.a)button.classList.add('wrong');
+    }else{
+      button.onclick=()=>{
+        selected=i;
+        options.querySelectorAll('.option').forEach((b,j)=>b.classList.toggle('selected',i===j));
+      };
+    }
+    options.appendChild(button);
+  });
+  $('submit').disabled=previous!==null;
+  const feedback=$('feedback');feedback.className='feedback';feedback.textContent='';
+  if(previous!==null){
+    const correct=previous===q.a;
+    feedback.textContent=correct?'أحسنتِ! إجابتك محفوظة وحصلتِ على ١٠ نقاط ⭐':'إجابتك محفوظة. الإجابة الصحيحة: '+q.o[q.a];
+    feedback.className='feedback show '+(correct?'good':'try');
+  }
+}
+document.querySelectorAll('.tab').forEach(button=>button.onclick=()=>{
+  grade=Number(button.dataset.grade);
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===button));
+  render();
+});
+$('submit').onclick=()=>{
+  if(localStorage.getItem(answerKey())!==null){render();return;}
+  const feedback=$('feedback');
+  if(selected<0){feedback.textContent='اختاري إجابة أولًا 🌷';feedback.className='feedback show try';return;}
+  const correct=selected===item().a;
+  localStorage.setItem(answerKey(),String(selected));
+  if(correct){localStorage.setItem(scoreKey(),String(Number(localStorage.getItem(scoreKey())||0)+10));}
+  render();
+};
+render();
+</script>
+</body>
+</html>
