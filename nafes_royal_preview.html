@@ -4,373 +4,717 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>عبقريات نافس | النسخة الملكية</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Alexandria:wght@500;700;800&display=swap" rel="stylesheet">
+<title>عبقريات نافس | جوهرة ماث</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --g:#062c2b;
-  --g2:#0c5549;
-  --gold:#e8bf74;
-  --cyan:#81e7ef;
-  --txt:#fff7e7;
+  --gold:#eac47d;
+  --green:#0b5145;
+  --navy:#041d25;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Cairo,Tahoma,sans-serif;
-  color:var(--txt);
+  color:#fff8ea;
+  font:16px Cairo,Tahoma,sans-serif;
   background:
-    radial-gradient(circle at 15% 0%,#1d6457,transparent 45%),
-    linear-gradient(145deg,#031c23,#073a35 55%,#051c28);
-  min-height:100vh;
+    radial-gradient(ellipse at 10% 0%,#176257,transparent 45%),
+    radial-gradient(ellipse at 95% 70%,#12404f,transparent 50%),
+    var(--navy);
 }
-header{text-align:center;padding:20px 12px 12px}
-.mini{font-size:12px;color:#e9d7a9}
-.hero{
-  position:relative;
-  max-width:950px;
-  margin:10px auto 20px;
-  border:1px solid #e8bf7470;
-  border-radius:30px;
-  background:linear-gradient(150deg,#07382e,#0a2630);
-  padding:25px 18px 36px;
-  overflow:hidden;
+header{
   text-align:center;
-  box-shadow:0 22px 65px #0006;
+  padding:30px 15px 40px;
+  background:linear-gradient(140deg,#062d2d,#0b5145,#071d30);
+  border-bottom:3px solid var(--gold);
 }
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:-30%;
-  background:radial-gradient(circle,#76e7e51a,transparent 35%);
-  animation:pulse 5s ease-in-out infinite;
-  pointer-events:none;
+header h1{
+  font:800 clamp(30px,6vw,54px) Alexandria,Tahoma;
+  color:var(--gold);
+  text-shadow:0 0 25px #eac47d55;
 }
-.logo-wrap{
-  width:min(60vw,270px);
-  height:min(60vw,270px);
-  margin:auto;
+header p{color:#e7d8b9}
+.logo-stage{
+  width:min(65vw,250px);
+  aspect-ratio:1;
+  position:relative;
   display:grid;
   place-items:center;
-  position:relative;
+  margin:20px auto;
 }
-.ring{
+.logo-stage:before,.logo-stage:after{
+  content:"";
   position:absolute;
-  width:94%;
-  height:94%;
-  border:1px solid var(--gold);
-  border-radius:50%;
-  animation:spin 16s linear infinite;
-}
-.ring:after{
-  content:'✦';
-  position:absolute;
-  top:-15px;
-  color:var(--gold);
-  font-size:25px;
-}
-.ring.two{
-  width:110%;
-  height:60%;
-  border-color:var(--cyan);
-  animation:orbit 12s linear infinite;
-}
-.logo{
   width:100%;
   height:100%;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  animation:orbit 18s linear infinite;
+}
+.logo-stage:after{
+  width:115%;
+  height:65%;
+  border-color:#87e4ee;
+  animation-duration:12s;
+  animation-direction:reverse;
+}
+.logo-stage img{
+  width:94%;
+  height:94%;
   object-fit:contain;
   position:relative;
-  z-index:1;
-  filter:drop-shadow(0 0 15px #81e7ef77);
-  animation:float 4s ease-in-out infinite;
+  z-index:2;
+  animation:float 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px #7fe5f577);
 }
-.fallback{
-  font-size:90px;
-  animation:float 4s ease-in-out infinite;
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-12px)}}
+main{max-width:900px;margin:auto;padding:15px}
+.card{
+  padding:22px;
+  margin:15px 0;
+  border:1px solid #eac47d88;
+  border-radius:24px;
+  background:linear-gradient(145deg,#10483f,#092d38);
+  box-shadow:0 12px 35px #0004;
 }
-.hero h1{
-  font:800 clamp(32px,6vw,60px) Alexandria,Tahoma,sans-serif;
-  color:var(--gold);
-  margin:12px 0;
-}
-.hero p{color:#d2eee8}
-.tag{
-  display:inline-block;
-  border:1px solid #e8bf7480;
-  padding:6px 18px;
-  border-radius:30px;
-  color:var(--gold);
-}
-main{
-  max-width:950px;
-  margin:auto;
-  padding:0 14px 50px;
-}
-.tabs{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin:25px 0;
-}
-.tabs button,.btn{
-  border:1px solid var(--gold);
-  border-radius:15px;
-  padding:13px 22px;
-  background:linear-gradient(120deg,#d4a95c,#ffe3a2);
-  color:#11342c;
-  font:800 15px Cairo;
+h2,h3{color:var(--gold)}
+button{
+  font:700 15px Cairo,Tahoma;
+  padding:12px 18px;
+  border-radius:12px;
+  border:1px solid #f6dca0;
+  background:linear-gradient(120deg,#d7aa60,#ffe5a8);
+  color:#173c35;
   cursor:pointer;
 }
-.tabs button:not(.active){
-  background:#ffffff12;
-  color:#fff;
-  border-color:#ffffff55;
+button.alt{
+  background:#ffffff15;
+  color:#fff3d7;
+  border-color:#eac47d77;
 }
-.panel{
-  background:linear-gradient(145deg,#0e4a41,#082d34);
-  border:1px solid #caa66580;
-  border-radius:23px;
-  padding:24px;
-  box-shadow:0 12px 35px #0003;
-}
-.panel h2{
-  color:var(--gold);
-  margin-top:0;
-  font-family:Alexandria;
-}
-label{display:block;margin:14px 0 6px}
-input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #b8ad8a;
-  background:#fffdf6;
-  font:inherit;
-  color:#133a34;
-}
-.muted{color:#c1dcd5;font-size:13px}
-.sample{
-  border:1px solid #e8bf7450;
-  background:#ffffff0c;
-  padding:17px;
-  border-radius:15px;
-  margin:18px 0;
-}
-.options{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-.option{
-  border:1px solid #bba66c;
-  background:#fff7e9;
-  color:#12473e;
-  border-radius:12px;
-  padding:13px;
-  text-align:right;
-  font:700 16px Cairo;
-  cursor:pointer;
-}
-.option:hover{background:#f3dba5}
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-.metric{
-  text-align:center;
-  background:#ffffff12;
-  border:1px solid #e8bf7455;
-  padding:20px 8px;
-  border-radius:17px;
-}
-.metric strong{
+button:disabled{opacity:.55}
+input,textarea,select{
   display:block;
-  color:var(--gold);
-  font-size:28px;
-}
-.hidden{display:none}
-footer{
-  text-align:center;
-  color:#d6c6a6;
-  padding:20px;
-}
-.notice{
-  color:#ffe5a8;
-  border:1px dashed #e8bf74;
+  width:100%;
+  margin:7px 0 14px;
   padding:12px;
+  font:inherit;
+  color:#163d36;
+  background:#fffdf8;
+  border:1px solid #c9b88f;
   border-radius:12px;
-  text-align:center;
-  margin-bottom:15px;
 }
-@keyframes spin{
-  to{transform:rotate(360deg)}
+label{font-weight:bold}
+.tabs{display:flex;gap:10px;margin:18px 0}
+.tabs button{flex:1}
+.hidden{display:none!important}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1;min-width:0}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.choice{
+  background:#fff9e9;
+  color:#16483d;
+  border:1px solid #d4ae66;
+  text-align:right;
 }
-@keyframes orbit{
-  from{transform:rotate(-25deg)}
-  to{transform:rotate(335deg)}
+.question{border-top:1px solid #eac47d66;padding:18px 0}
+.notice{
+  padding:12px;
+  margin:12px 0;
+  background:#e9f5ec;
+  color:#19493f;
+  border-radius:11px;
 }
-@keyframes float{
-  50%{transform:translateY(-12px)}
-}
-@keyframes pulse{
-  50%{opacity:.3;transform:scale(1.15)}
-}
-@media(max-width:540px){
-  .options,.metrics{grid-template-columns:1fr}
-  .panel{padding:16px}
+.error{background:#fff0ec;color:#8e3026}
+.muted{color:#c5d9d5;font-size:14px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;text-align:right;border-bottom:1px solid #eac47d55}
+.scroll{overflow-x:auto}
+footer{text-align:center;color:var(--gold);padding:25px}
+@media(max-width:600px){
+  .card{padding:16px}
+  .tabs button{font-size:13px;padding:11px 6px}
 }
 @media(prefers-reduced-motion:reduce){
-  *{animation:none!important}
+  .logo-stage:before,.logo-stage:after,.logo-stage img{animation:none}
 }
 </style>
 </head>
 <body>
-
 <header>
-  <span class="mini">
-    وزارة التعليم · الرياضيات · الصف السادس الابتدائي
-  </span>
+  <div>وزارة التعليم · الصف السادس الابتدائي</div>
+  <div class="logo-stage">
+    <img src="jawhara-logo.jpg" alt="شعار جوهرة ماث"
+      onerror="this.style.display='none';document.getElementById('fallback').style.display='block'">
+    <span id="fallback" style="display:none;font-size:85px">💎</span>
+  </div>
+  <h1>عبقريات نافس</h1>
+  <p>الرياضيات | فكّري • حلّلي • توصّلي للحل</p>
 </header>
 
-<section class="hero">
-  <span class="tag">✦ أكاديمية التميز الرياضي ✦</span>
-
-  <div class="logo-wrap">
-    <div class="ring"></div>
-    <div class="ring two"></div>
-
-    <img
-      class="logo"
-      src="https://jawaher-math-games.vercel.app/jawhara-logo.png"
-      alt="شعار جوهرة ماث"
-      onerror="this.style.display='none';document.getElementById('fallback').style.display='block'">
-
-    <span class="fallback" id="fallback" style="display:none">
-      💎
-    </span>
-  </div>
-
-  <h1>عبقريات نافس</h1>
-  <p>حلّلي ✦ فكّري ✦ تألقي في عالم الرياضيات</p>
-</section>
-
 <main>
-  <div class="notice">
-    💎 معاينة للتصميم فقط — لا تتصل ببيانات الطالبات
-    ولا تحفظ إجابات أو نقاط
-  </div>
-
   <div class="tabs">
-    <button class="active" id="studentTab"
-      onclick="showTab('student')">
-      🎓 بوابة الطالبة
-    </button>
-
-    <button id="teacherTab"
-      onclick="showTab('teacher')">
-      👑 لوحة المعلمة
-    </button>
+    <button id="studentTab">🎓 صفحة الطالبة</button>
+    <button id="teacherTab" class="alt">👩‍🏫 لوحة المعلمة</button>
   </div>
 
-  <section id="student" class="panel">
-    <h2>أهلًا بعبقرية الرياضيات ✨</h2>
-    <p>كل سؤال خطوة نحو القمة!</p>
-
-    <label>رمز الدخول الخاص بكِ</label>
-    <input placeholder="أدخلي رمز الطالبة" disabled>
-
-    <p class="muted">
-      الدخول معطّل في المعاينة حفاظًا على بيانات الطالبات.
-    </p>
-
-    <div class="sample">
-      <h3>✨ نموذج سؤال نافس</h3>
-      <p>ما المضاعف المشترك الأصغر للعددين ٦ و٨؟</p>
-
-      <div class="options">
-        <button class="option" onclick="answer(this,false)">
-          أ ◯ ١٢
-        </button>
-        <button class="option" onclick="answer(this,true)">
-          ب ◯ ٢٤
-        </button>
-        <button class="option" onclick="answer(this,false)">
-          ج ◯ ٣٦
-        </button>
-        <button class="option" onclick="answer(this,false)">
-          د ◯ ٤٨
-        </button>
+  <section id="student">
+    <div id="studentLogin" class="card">
+      <h2>دخول الطالبة</h2>
+      <p>اكتبي رمزك الخاص الذي استلمتيه من المعلمة.</p>
+      <input id="studentCode" placeholder="رمز الطالبة" dir="ltr">
+      <button id="loginStudent">دخول</button>
+    </div>
+    <div id="studentArea" class="card hidden">
+      <div class="row">
+        <h2>مرحبًا، <span id="studentName"></span> 🌟</h2>
+        <button id="studentLogout" class="alt">خروج</button>
       </div>
-
-      <p id="feedback" aria-live="polite"></p>
+      <div id="questions"></div>
     </div>
   </section>
 
-  <section id="teacher" class="panel hidden">
-    <h2>👑 مركز قيادة عبقريات نافس</h2>
-    <p>لوحة ملكية لإدارة الأسئلة وقراءة مؤشرات التميز.</p>
-
-    <div class="metrics">
-      <div class="metric">
-        <strong>٢٤</strong>
-        الطالبات (رقم توضيحي)
-      </div>
-      <div class="metric">
-        <strong>١١</strong>
-        الأسئلة (رقم توضيحي)
-      </div>
-      <div class="metric">
-        <strong>٪٨٥</strong>
-        إتقان تجريبي
-      </div>
+  <section id="teacher" class="hidden">
+    <div id="teacherLogin" class="card">
+      <h2>دخول المعلمة</h2>
+      <label>البريد الإلكتروني</label>
+      <input id="email" type="email" dir="ltr">
+      <label>كلمة المرور</label>
+      <input id="password" type="password" dir="ltr">
+      <button id="loginTeacher">دخول المعلمة</button>
+      <button id="forgotPassword" class="alt">نسيت كلمة المرور؟</button>
     </div>
 
-    <div class="sample">
-      <h3>📊 تحليل المهارات</h3>
-      <p>
-        مساحة مستقبلية لعرض الإحصاءات الحقيقية
-        من النظام الحالي.
-      </p>
+    <div id="recoveryArea" class="card hidden">
+      <h2>تعيين كلمة مرور جديدة</h2>
+      <input id="recoveryPassword" type="password" placeholder="كلمة المرور الجديدة">
+      <input id="recoveryConfirm" type="password" placeholder="تأكيد كلمة المرور">
+      <button id="saveRecoveryPassword">حفظ كلمة المرور</button>
     </div>
 
-    <div class="sample">
-      <h3>✍️ إدارة الأسئلة</h3>
-      <p>
-        ستُربط وظائف النشر وإضافة الطالبات
-        بالنظام الحالي عند اعتماد التصميم.
-      </p>
+    <div id="teacherArea" class="hidden">
+      <div class="card">
+        <div class="row">
+          <h2>لوحة إدارة عبقريات نافس</h2>
+          <button id="teacherLogout" class="alt">خروج</button>
+        </div>
+        <h3>إضافة سؤال درس</h3>
+        <label>اسم الدرس</label>
+        <input id="lesson" placeholder="قسمة الكسور العشرية">
+        <label>السؤال</label>
+        <textarea id="qtext"></textarea>
+        <div class="row">
+          <div><label>أ</label><input id="a"></div>
+          <div><label>ب</label><input id="b"></div>
+        </div>
+        <div class="row">
+          <div><label>ج</label><input id="c"></div>
+          <div><label>د</label><input id="d"></div>
+        </div>
+        <label>الإجابة الصحيحة</label>
+        <select id="correct">
+          <option value="a">أ</option>
+          <option value="b">ب</option>
+          <option value="c">ج</option>
+          <option value="d">د</option>
+        </select>
+        <button id="addQuestion">نشر السؤال</button>
+      </div>
+
+      <div class="card">
+        <h3>إضافة طالبة</h3>
+        <input id="newStudent" placeholder="اسم الطالبة">
+        <button id="addStudent">إنشاء رمز دخول</button>
+        <div id="newCode" class="notice hidden"></div>
+      </div>
+
+      <div class="card">
+        <h3>أسئلة الدروس</h3>
+        <div id="teacherQuestions"></div>
+      </div>
+
+      <div class="card">
+        <h2>📊 التحليل الإحصائي</h2>
+        <div class="row">
+          <div class="notice">
+            <strong id="analyticsCount">—</strong>
+            <div>المشاركات</div>
+          </div>
+          <div class="notice">
+            <strong id="analyticsRate">—</strong>
+            <div>نسبة المشاركة</div>
+          </div>
+        </div>
+        <button id="analyticsRefresh">تحديث التحليل</button>
+        <p id="analyticsMessage" class="muted"></p>
+        <label>المهارة / الدرس</label>
+        <select id="skillSelect">
+          <option value="">اختاري المهارة</option>
+        </select>
+        <h3 id="skillChartTitle">تحليل المهارة</h3>
+        <div id="analyticsBars" class="scroll"></div>
+      </div>
+
+      <div class="card">
+        <h3>نتائج الشهر</h3>
+        <input id="month" type="month">
+        <button id="loadScores">عرض النقاط</button>
+        <div id="scores" class="scroll"></div>
+      </div>
+
+      <div class="card">
+        <h3>تغيير كلمة مرور المعلمة</h3>
+        <input id="newTeacherPassword" type="password" placeholder="كلمة المرور الجديدة">
+        <button id="changeTeacherPassword">حفظ كلمة المرور</button>
+      </div>
     </div>
   </section>
+
+  <div id="status" aria-live="polite"></div>
 </main>
-
-<footer>
-  💎 جوهرة ماث | المعلمة/ جواهر السبيعي
-</footer>
+<footer>معلمة المادة / جواهر السبيعي 💚</footer>
 
 <script>
-function showTab(t){
-  document.getElementById('student')
-    .classList.toggle('hidden',t!=='student');
+const $=id=>document.getElementById(id);
+const store=localStorage;
+const config={
+  url:'https://ylsnogtohohmzlxpihks.supabase.co',
+  key:'sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q'
+};
+let studentToken=store.getItem('nafes_student_token')||'';
+let teacherToken=store.getItem('nafes_teacher_token')||'';
+let recoveryToken='';
+let teacherQuestions=[];
+let skills=[];
 
-  document.getElementById('teacher')
-    .classList.toggle('hidden',t!=='teacher');
+function show(id,yes){
+  $(id).classList.toggle('hidden',!yes);
+}
+function status(message,error=false){
+  $('status').textContent=message;
+  $('status').className='notice'+(error?' error':'');
+}
+async function request(path,data,token){
+  const response=await fetch(config.url+path,{
+    method:'POST',
+    headers:{
+      apikey:config.key,
+      Authorization:'Bearer '+(token||config.key),
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(data)
+  });
+  const raw=await response.text();
+  let result;
+  try{result=raw?JSON.parse(raw):{}}
+  catch{result={message:raw}}
+  if(!response.ok){
+    throw Error(result.message||result.msg||result.error_description||result.error||'تعذر الاتصال');
+  }
+  return result;
+}
+function rpc(name,args={},teacher=false){
+  return request('/rest/v1/rpc/'+name,args,teacher?teacherToken:null);
+}
+function tab(which){
+  show('student',which==='student');
+  show('teacher',which==='teacher');
+  $('studentTab').className=which==='student'?'':'alt';
+  $('teacherTab').className=which==='teacher'?'':'alt';
+}
+$('studentTab').onclick=()=>tab('student');
+$('teacherTab').onclick=()=>{
+  tab('teacher');
+  if(teacherToken)loadTeacher().catch(e=>status(e.message,true));
+};
 
-  document.getElementById('studentTab')
-    .classList.toggle('active',t==='student');
+$('loginStudent').onclick=async()=>{
+  try{
+    const result=await rpc('nafes_v2_login',{
+      p_code:$('studentCode').value.trim()
+    });
+    studentToken=result.token;
+    store.setItem('nafes_student_token',studentToken);
+    $('studentName').textContent=result.name;
+    show('studentLogin',false);
+    show('studentArea',true);
+    await loadStudent();
+    status('تم الدخول بنجاح 🌟');
+  }catch(e){status(e.message,true)}
+};
+$('studentLogout').onclick=()=>{
+  studentToken='';
+  store.removeItem('nafes_student_token');
+  show('studentLogin',true);
+  show('studentArea',false);
+};
 
-  document.getElementById('teacherTab')
-    .classList.toggle('active',t==='teacher');
+async function loadStudent(){
+  try{
+    const questions=await rpc('nafes_v2_questions_for_student',{
+      p_token:studentToken
+    });
+    $('questions').replaceChildren();
+    if(!questions.length){
+      $('questions').textContent='لا توجد أسئلة منشورة حاليًا.';
+      return;
+    }
+    questions.forEach((q,i)=>{
+      const box=document.createElement('div');
+      box.className='question';
+      const title=document.createElement('h3');
+      title.textContent='السؤال '+(i+1)+' · '+q.lesson_title;
+      const prompt=document.createElement('p');
+      prompt.textContent=q.question_text;
+      box.append(title,prompt);
+
+      if(q.chosen_choice){
+        const note=document.createElement('div');
+        note.className='notice';
+        const letters={a:'أ',b:'ب',c:'ج',d:'د'};
+        note.textContent='إجابتك: '+letters[q.chosen_choice]+
+          (q.is_correct?' — ⭐ نقطة واحدة':' — تم حفظ الإجابة');
+        box.append(note);
+      }else{
+        const choices=document.createElement('div');
+        choices.className='choices';
+        [['a','أ'],['b','ب'],['c','ج'],['d','د']].forEach(([v,letter])=>{
+          const button=document.createElement('button');
+          button.className='choice';
+          button.textContent='◯ '+letter+' — '+q['choice_'+v];
+          button.onclick=async()=>{
+            if(!confirm('اعتماد الإجابة؟ لا يمكن تغييرها بعد الإرسال.'))return;
+            choices.querySelectorAll('button').forEach(b=>b.disabled=true);
+            try{
+              const r=await rpc('nafes_v2_submit',{
+                p_token:studentToken,
+                p_question_id:q.id,
+                p_choice:v
+              });
+              status(r.is_correct?'أحسنتِ! نقطة واحدة ⭐':'تم حفظ إجابتك 💚');
+              await loadStudent();
+            }catch(e){
+              status(e.message,true);
+              choices.querySelectorAll('button').forEach(b=>b.disabled=false);
+            }
+          };
+          choices.append(button);
+        });
+        box.append(choices);
+      }
+      $('questions').append(box);
+    });
+  }catch(e){
+    status(e.message,true);
+    if(/جلسة|session/i.test(e.message))$('studentLogout').click();
+  }
 }
 
-function answer(el,ok){
-  document.getElementById('feedback').textContent =
-    ok
-      ? 'أحسنتِ! إجابة صحيحة ✨'
-      : 'حاولي مرة أخرى 💚';
+$('loginTeacher').onclick=async()=>{
+  try{
+    const r=await request('/auth/v1/token?grant_type=password',{
+      email:$('email').value.trim(),
+      password:$('password').value
+    });
+    teacherToken=r.access_token;
+    store.setItem('nafes_teacher_token',teacherToken);
+    await loadTeacher();
+    status('تم دخول المعلمة بنجاح');
+  }catch(e){status(e.message,true)}
+};
+$('teacherLogout').onclick=()=>{
+  teacherToken='';
+  store.removeItem('nafes_teacher_token');
+  show('teacherArea',false);
+  show('teacherLogin',true);
+};
 
-  el.style.background = ok ? '#b8f0d8' : '#ffe0c8';
+async function loadTeacher(){
+  const rows=await rpc('nafes_v2_teacher_questions',{},true);
+  teacherQuestions=Array.isArray(rows)?rows:[];
+  show('teacherLogin',false);
+  show('teacherArea',true);
+  $('teacherQuestions').replaceChildren();
+
+  teacherQuestions.forEach(q=>{
+    const box=document.createElement('div');
+    box.className='question';
+    const text=document.createElement('p');
+    text.textContent=q.lesson_title+' — '+q.question_text+
+      (q.published?' (منشور)':' (موقوف)');
+    const button=document.createElement('button');
+    button.className='alt';
+    button.textContent=q.published?'إيقاف النشر':'نشر';
+    button.onclick=async()=>{
+      try{
+        await rpc('nafes_v2_publish',{
+          p_id:q.id,p_publish:!q.published
+        },true);
+        await loadTeacher();
+      }catch(e){status(e.message,true)}
+    };
+    box.append(text,button);
+    $('teacherQuestions').append(box);
+  });
+  if(!teacherQuestions.length){
+    $('teacherQuestions').textContent='لا توجد أسئلة بعد.';
+  }
+  await refreshAnalytics();
+}
+
+$('addQuestion').onclick=async()=>{
+  try{
+    await rpc('nafes_v2_add_question',{
+      p_lesson:$('lesson').value,
+      p_question:$('qtext').value,
+      p_a:$('a').value,
+      p_b:$('b').value,
+      p_c:$('c').value,
+      p_d:$('d').value,
+      p_correct:$('correct').value,
+      p_publish:true
+    },true);
+    status('تم نشر السؤال');
+    await loadTeacher();
+  }catch(e){status(e.message,true)}
+};
+
+$('addStudent').onclick=async()=>{
+  try{
+    const r=await rpc('nafes_v2_add_student',{
+      p_name:$('newStudent').value
+    },true);
+    const area=$('newCode');
+    area.replaceChildren();
+    const p=document.createElement('p');
+    p.textContent='رمز '+r.name+' (احفظيه الآن):';
+    const code=document.createElement('code');
+    code.textContent=r.code;
+    const button=document.createElement('button');
+    button.textContent='نسخ الرمز';
+    button.onclick=()=>navigator.clipboard.writeText(r.code);
+    area.append(p,code,document.createElement('br'),button);
+    show('newCode',true);
+    status('تم إنشاء رمز الطالبة');
+  }catch(e){status(e.message,true)}
+};
+
+const now=new Date();
+$('month').value=new Intl.DateTimeFormat('en-CA',{
+  timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit'
+}).format(now).slice(0,7);
+
+$('loadScores').onclick=async()=>{
+  try{
+    const rows=await rpc('nafes_v2_scores',{
+      p_month:$('month').value
+    },true);
+    const table=document.createElement('table');
+    table.innerHTML='<thead><tr><th>الطالبة</th><th>النقاط</th><th>الإجابات</th></tr></thead>';
+    const body=document.createElement('tbody');
+    rows.forEach(r=>{
+      const tr=document.createElement('tr');
+      [r.full_name,r.points,r.answered].forEach(v=>{
+        const td=document.createElement('td');
+        td.textContent=v;
+        tr.append(td);
+      });
+      body.append(tr);
+    });
+    table.append(body);
+    $('scores').replaceChildren(table);
+  }catch(e){status(e.message,true)}
+};
+
+function skillName(x){
+  return String(x.lesson_title||x.name||x.lesson||'').trim();
+}
+function drawAnalytics(){
+  const area=$('analyticsBars');
+  area.replaceChildren();
+  const skill=skills.find(x=>skillName(x)===$('skillSelect').value);
+  if(!skill){
+    $('skillChartTitle').textContent='اختاري المهارة';
+    return;
+  }
+  $('skillChartTitle').textContent='تحليل '+skillName(skill);
+  const questions=Array.isArray(skill.questions)?skill.questions:[];
+  const summary=document.createElement('p');
+  summary.textContent='الإجابات: '+(skill.total_answers||0)+
+    ' | الصحيحة: '+(skill.correct_answers||0)+
+    ' | الإتقان: '+(skill.percent==null?'لا توجد بيانات':skill.percent+'٪');
+  area.append(summary);
+  questions.forEach((q,i)=>{
+    const p=document.createElement('p');
+    p.textContent='السؤال '+(i+1)+': '+(q.question_text||'')+
+      ' — '+(q.percent==null?'لا توجد إجابات':q.percent+'٪');
+    const bar=document.createElement('div');
+    bar.style.cssText='height:14px;border-radius:8px;background:#183b39;margin-bottom:16px;overflow:hidden';
+    const fill=document.createElement('div');
+    fill.style.cssText='height:100%;background:linear-gradient(90deg,#08705b,#eac47d);width:'+
+      Math.max(0,Math.min(100,Number(q.percent)||0))+'%';
+    bar.append(fill);
+    area.append(p,bar);
+  });
+}
+$('skillSelect').onchange=drawAnalytics;
+
+async function refreshAnalytics(){
+  if(!teacherToken)return;
+  try{
+    let result=null;
+    let error='';
+    try{
+      result=await rpc('nafes_v2_question_analytics',{
+        p_month:$('month').value
+      },true);
+    }catch(e){error=e.message}
+
+    const analytics=Array.isArray(result?.skills)?result.skills:[];
+    const names=new Set([
+      ...teacherQuestions.map(skillName).filter(Boolean),
+      ...analytics.map(skillName).filter(Boolean)
+    ]);
+    skills=[...names].sort((a,b)=>a.localeCompare(b,'ar')).map(name=>{
+      const match=analytics.find(x=>skillName(x)===name);
+      if(match)return {...match,lesson_title:name};
+      const questions=teacherQuestions.filter(q=>skillName(q)===name);
+      return {
+        lesson_title:name,
+        total_answers:0,
+        correct_answers:0,
+        percent:null,
+        questions:questions.map(q=>({
+          question_text:q.question_text,percent:null
+        }))
+      };
+    });
+
+    const select=$('skillSelect');
+    const previous=select.value;
+    select.replaceChildren(new Option('اختاري المهارة',''));
+    skills.forEach(s=>select.add(new Option(skillName(s),skillName(s))));
+    select.value=names.has(previous)?previous:(skills[0]?skillName(skills[0]):'');
+
+    if(result){
+      const total=Number(result.total_students??24);
+      const participating=Number(result.participating_students??0);
+      $('analyticsCount').textContent=participating+' / '+total;
+      $('analyticsRate').textContent=total?
+        (participating*100/total).toFixed(1)+'٪':'—';
+    }
+    $('analyticsMessage').textContent=error?
+      'تفاصيل التحليل غير متاحة: '+error:
+      'تم تحديث التحليل للشهر المحدد.';
+    drawAnalytics();
+  }catch(e){
+    $('analyticsMessage').textContent=e.message;
+  }
+}
+$('analyticsRefresh').onclick=refreshAnalytics;
+$('month').onchange=refreshAnalytics;
+
+$('forgotPassword').onclick=async()=>{
+  const email=$('email').value.trim();
+  if(!email){status('اكتبي بريد المعلمة أولًا.',true);return}
+  try{
+    await request('/auth/v1/recover?redirect_to='+
+      encodeURIComponent(location.origin+location.pathname),{email});
+    status('إذا كان البريد مسجلًا، ستصلك رسالة استعادة.');
+  }catch(e){status(e.message,true)}
+};
+
+async function handleRecovery(){
+  const hash=new URLSearchParams(location.hash.slice(1));
+  const token=hash.get('access_token');
+  const error=hash.get('error_description');
+  if(error){status(error,true);return}
+  if(!token)return;
+  try{
+    const r=await fetch(config.url+'/auth/v1/user',{
+      headers:{
+        apikey:config.key,
+        Authorization:'Bearer '+token
+      }
+    });
+    if(!r.ok)throw Error('رابط الاستعادة غير صالح أو انتهت صلاحيته.');
+    recoveryToken=token;
+    tab('teacher');
+    show('teacherLogin',false);
+    show('recoveryArea',true);
+    history.replaceState(null,'',location.pathname);
+  }catch(e){status(e.message,true)}
+}
+$('saveRecoveryPassword').onclick=async()=>{
+  const password=$('recoveryPassword').value;
+  if(password.length<8){
+    status('كلمة المرور يجب أن تكون ٨ أحرف على الأقل.',true);
+    return;
+  }
+  if(password!==$('recoveryConfirm').value){
+    status('كلمتا المرور غير متطابقتين.',true);
+    return;
+  }
+  if(!recoveryToken){
+    status('افتحي رابط استعادة جديدًا.',true);
+    return;
+  }
+  try{
+    const r=await fetch(config.url+'/auth/v1/user',{
+      method:'PUT',
+      headers:{
+        apikey:config.key,
+        Authorization:'Bearer '+recoveryToken,
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({password})
+    });
+    if(!r.ok)throw Error('تعذر تغيير كلمة المرور');
+    recoveryToken='';
+    show('recoveryArea',false);
+    show('teacherLogin',true);
+    status('تم تغيير كلمة المرور. سجّلي الدخول الآن.');
+  }catch(e){status(e.message,true)}
+};
+
+$('changeTeacherPassword').onclick=async()=>{
+  const password=$('newTeacherPassword').value;
+  if(password.length<8){
+    status('كلمة المرور يجب أن تكون ٨ أحرف على الأقل.',true);
+    return;
+  }
+  try{
+    const r=await fetch(config.url+'/auth/v1/user',{
+      method:'PUT',
+      headers:{
+        apikey:config.key,
+        Authorization:'Bearer '+teacherToken,
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({password})
+    });
+    if(!r.ok)throw Error('تعذر تغيير كلمة المرور');
+    $('newTeacherPassword').value='';
+    status('تم تغيير كلمة المرور');
+  }catch(e){status(e.message,true)}
+};
+
+if(studentToken){
+  show('studentLogin',false);
+  show('studentArea',true);
+  $('studentName').textContent='طالبتنا';
+  loadStudent();
+}
+if(location.hash.includes('access_token=')){
+  handleRecovery();
+}else if(teacherToken){
+  loadTeacher().catch(()=>{
+    teacherToken='';
+    store.removeItem('nafes_teacher_token');
+    show('teacherLogin',true);
+    show('teacherArea',false);
+  });
 }
 </script>
 </body>
