@@ -929,10 +929,11 @@ $("month").onchange=refreshAnalytics;
 
 
 /* تقرير نافس العلاجي: قراءة فقط من التحليل المحمي للمعلمة */
-function nafesReportBuild(){
+async function nafesReportBuild(){
  const root=$("nafesReport");root.replaceChildren();
  const limit=Number($("nafesMastery").value);
  if(!Number.isFinite(limit)||limit<1||limit>100){root.textContent="اختاري معيار إتقان من ١ إلى ١٠٠";return;}
+ let studentRows=[];try{const scores=await rpc("nafes_v2_scores",{p_month:$("month").value},true);studentRows=Array.isArray(scores)?scores:[]}catch(e){const warning=document.createElement("p");warning.textContent="تعذر تحميل أسماء الطالبات: "+e.message;root.append(warning)}
  const skills=analyticsSkills.filter(s=>Number(s.total_answers)>0&&s.percent!==null&&s.percent!==undefined);
  if(!skills.length){root.textContent="لا توجد نتائج تحليل متاحة للشهر المحدد. حدّثي التحليل أولًا.";return;}
  const heading=document.createElement("div");heading.innerHTML="<h2>تقرير تحليل المهارات والخطة العلاجية</h2><p>وزارة التعليم | إدارة تعليم الأحساء | الابتدائية التاسعة عشر بالهفوف</p><p>الرياضيات – عبقريات نافس | المعلمة: جواهر السبيعي | مديرة المدرسة: دانة الدوسري</p>";
@@ -948,6 +949,10 @@ function nafesReportBuild(){
   [skillName(k),k.total_answers,k.correct_answers,p.toFixed(1)+"٪",needs?"تحتاج إلى علاج وتقييم بعدي":"متقنة وفق المعيار المحدد"].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});
   table.append(tr);
  });root.append(table);
+ const graphTitle=document.createElement("h3");graphTitle.textContent="📊 الرسم البياني لمستوى إتقان المهارات";root.append(graphTitle);
+ skills.forEach(k=>{const label=document.createElement("div");label.textContent=skillName(k)+" — "+Number(k.percent).toFixed(1)+"٪";root.append(label);const bar=document.createElement("div");bar.style.cssText="height:20px;background:#d9e6e2;border-radius:10px;margin:5px 0 12px;overflow:hidden";const fill=document.createElement("div");fill.style.cssText="height:100%;background:linear-gradient(90deg,#176c60,#e5b65f);border-radius:10px";fill.style.width=Math.max(0,Math.min(100,Number(k.percent)))+"%";bar.append(fill);root.append(bar)});
+ const studentsTitle=document.createElement("h3");studentsTitle.textContent="👩‍🎓 نتائج الطالبات للشهر المحدد";root.append(studentsTitle);
+ if(studentRows.length){const st=document.createElement("table");const tr=document.createElement("tr");["الطالبة","الإجابات الصحيحة","إجمالي الإجابات","نسبة الصحة"].forEach(v=>{const th=document.createElement("th");th.textContent=v;tr.append(th)});st.append(tr);studentRows.forEach(r=>{const row=document.createElement("tr");const n=Number(r.answered)||0;[r.full_name||"",r.points??0,n,n?(100*(Number(r.points)||0)/n).toFixed(1)+"٪":"لا توجد إجابات"].forEach(v=>{const td=document.createElement("td");td.textContent=v;row.append(td)});st.append(row)});root.append(st)}else{const p=document.createElement("p");p.textContent="لا توجد نتائج طالبات متاحة للشهر المحدد.";root.append(p)}
  const h=document.createElement("h3");h.textContent="الخطة العلاجية المقترحة";root.append(h);
  if(!low.length){const p=document.createElement("p");p.textContent="جميع المهارات ذات البيانات بلغت معيار الإتقان. يُوصى بتحديات إثرائية.";root.append(p);}
  low.slice(0,3).forEach((k,i)=>{
@@ -959,8 +964,7 @@ function nafesReportBuild(){
 }
 $("nafesBuildReport").onclick=nafesReportBuild;
 $("nafesPrintReport").onclick=()=>{
- if(!$("nafesReport").children.length){nafesReportBuild();}
- if(!$("nafesReport").children.length)return;
+ if(!$("nafesReport").children.length){status("أنشئي التقرير أولًا ثم اضغطي طباعة",true);return;}
  window.print();
 };
 
