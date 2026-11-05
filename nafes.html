@@ -226,6 +226,8 @@ footer{
   .logo-ring,.logo-stage img{animation:none!important}
 }
 @media print{body{background:white!important;color:#111!important}header,.tabs,#student,#teacherLogin,#recoveryArea,#teacherArea>.card:not(#nafesRemediation),#nafesRemediation>button,#nafesRemediation>label,#nafesMastery,footer,#status{display:none!important}#teacher,#teacherArea,#nafesRemediation{display:block!important}#nafesRemediation{background:white!important;color:#111!important;border:0;box-shadow:none}#nafesReport table{width:100%;border-collapse:collapse}#nafesReport th,#nafesReport td{border:1px solid #777;padding:7px} @page{size:A4 portrait;margin:14mm}}
+#nafesReport{background:#fff;color:#193c38;padding:24px;border-radius:16px;line-height:1.8}#nafesReport h1,#nafesReport h2,#nafesReport h3{color:#146358}#nafesReport table{width:100%;border-collapse:collapse;margin:15px 0 24px}#nafesReport th{background:#175d53;color:white}#nafesReport td,#nafesReport th{border:1px solid #b3c5c0;padding:9px;text-align:right}#nafesReport tr:nth-child(even) td{background:#f1f7f4}.report-cover{text-align:center;border:2px solid #d7b16d;padding:24px 14px;margin-bottom:24px}.report-ministry{font-size:13px;text-align:right}.report-emblem{font-size:42px}.report-credits{font-weight:700;margin-top:20px}.report-comparison{border-top:2px solid #d7b16d;margin-top:25px;padding-top:12px}
+@media print{#nafesReport{padding:0;border:0;font-size:11pt}#nafesReport h1{font-size:21pt}#nafesReport h2{font-size:15pt}#nafesReport table{font-size:9pt}#nafesReport tr{break-inside:avoid}#nafesReport h3{break-after:avoid}#nafesReport th{background:#175d53!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}#nafesReport td{color:#111!important;background:white!important}#nafesReport .report-cover{break-after:page;min-height:235mm;display:flex;flex-direction:column;justify-content:center}#nafesReport .report-ministry{position:absolute;top:25mm;right:18mm}#nafesReport .report-comparison{break-before:page}#nafesReport div[style*="background"]{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 
@@ -936,7 +938,7 @@ async function nafesReportBuild(){
  let studentRows=[];try{const scores=await rpc("nafes_v2_scores",{p_month:$("month").value},true);studentRows=Array.isArray(scores)?scores:[]}catch(e){const warning=document.createElement("p");warning.textContent="تعذر تحميل أسماء الطالبات: "+e.message;root.append(warning)}
  const skills=analyticsSkills.filter(s=>Number(s.total_answers)>0&&s.percent!==null&&s.percent!==undefined);
  if(!skills.length){root.textContent="لا توجد نتائج تحليل متاحة للشهر المحدد. حدّثي التحليل أولًا.";return;}
- const heading=document.createElement("div");heading.innerHTML="<h2>تقرير تحليل المهارات والخطة العلاجية</h2><p>وزارة التعليم | إدارة تعليم الأحساء | الابتدائية التاسعة عشر بالهفوف</p><p>الرياضيات – عبقريات نافس | المعلمة: جواهر السبيعي | مديرة المدرسة: دانة الدوسري</p>";
+ const heading=document.createElement("div");heading.className="report-cover";heading.innerHTML="<div class='report-ministry'>المملكة العربية السعودية | وزارة التعليم<br>الإدارة العامة للتعليم بالأحساء<br>الابتدائية التاسعة عشر بالهفوف</div><div class='report-emblem'>💎</div><h1>تقرير تحليل نتائج عبقريات نافس</h1><h2>الرياضيات | الصف السادس الابتدائي</h2><div class='report-credits'>إعداد المعلمة: جواهر السبيعي<br>مديرة المدرسة: دانة الدوسري</div>";
  root.append(heading);
  const note=document.createElement("p");note.textContent="الشهر: "+$("month").value+" | معيار الإتقان: "+limit+"٪ | النتائج مجمعة حسب المهارة، ولا تمثل اختبارًا قبليًا وبعديًا.";root.append(note);
  const table=document.createElement("table");const head=document.createElement("tr");
@@ -951,6 +953,12 @@ async function nafesReportBuild(){
  });root.append(table);
  const graphTitle=document.createElement("h3");graphTitle.textContent="📊 الرسم البياني لمستوى إتقان المهارات";root.append(graphTitle);
  skills.forEach(k=>{const label=document.createElement("div");label.textContent=skillName(k)+" — "+Number(k.percent).toFixed(1)+"٪";root.append(label);const bar=document.createElement("div");bar.style.cssText="height:20px;background:#d9e6e2;border-radius:10px;margin:5px 0 12px;overflow:hidden";const fill=document.createElement("div");fill.style.cssText="height:100%;background:linear-gradient(90deg,#176c60,#e5b65f);border-radius:10px";fill.style.width=Math.max(0,Math.min(100,Number(k.percent)))+"%";bar.append(fill);root.append(bar)});
+ const levelsTitle=document.createElement("h3");levelsTitle.textContent="مستويات الأداء للطالبات المشاركات";root.append(levelsTitle);
+ const participants=studentRows.filter(r=>Number(r.answered)>0);
+ const levels=[["مرتفع",80,101],["متوسط",60,80],["منخفض",40,60],["منخفض جدًا",0,40]];
+ const levelsTable=document.createElement("table");const lr=document.createElement("tr");["المستوى","عدد الطالبات","نسبة المشاركات"].forEach(v=>{const th=document.createElement("th");th.textContent=v;lr.append(th)});levelsTable.append(lr);
+ levels.forEach(([name,min,max])=>{const count=participants.filter(r=>{const n=Number(r.answered);const pct=100*Number(r.points)/n;return pct>=min&&pct<max}).length;const tr=document.createElement("tr");[name,count,participants.length?(100*count/participants.length).toFixed(1)+"٪":"—"].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});levelsTable.append(tr)});root.append(levelsTable);
+ const attendance=document.createElement("p");attendance.textContent="المشاركة في إجابات الشهر: "+participants.length+" طالبة | بدون إجابات: "+(studentRows.length-participants.length)+" طالبة. عدم وجود إجابات لا يعني الغياب المدرسي.";root.append(attendance);
  const studentsTitle=document.createElement("h3");studentsTitle.textContent="👩‍🎓 نتائج الطالبات للشهر المحدد";root.append(studentsTitle);
  if(studentRows.length){const st=document.createElement("table");const tr=document.createElement("tr");["الطالبة","الإجابات الصحيحة","إجمالي الإجابات","نسبة الصحة"].forEach(v=>{const th=document.createElement("th");th.textContent=v;tr.append(th)});st.append(tr);studentRows.forEach(r=>{const row=document.createElement("tr");const n=Number(r.answered)||0;[r.full_name||"",r.points??0,n,n?(100*(Number(r.points)||0)/n).toFixed(1)+"٪":"لا توجد إجابات"].forEach(v=>{const td=document.createElement("td");td.textContent=v;row.append(td)});st.append(row)});root.append(st)}else{const p=document.createElement("p");p.textContent="لا توجد نتائج طالبات متاحة للشهر المحدد.";root.append(p)}
  const h=document.createElement("h3");h.textContent="الخطة العلاجية المقترحة";root.append(h);
@@ -960,6 +968,7 @@ async function nafesReportBuild(){
  p.textContent=(i+1)+"- "+skillName(k)+": شرح مبسط وتمثيل بصري، مثال محلول، تدريب موجه، ثم أسئلة مستقلة جديدة وتقييم بعدي. توثيق تاريخ التنفيذ ونتيجة القياس بعد العلاج.";
  root.append(p);
  });
+ const comparison=document.createElement("section");comparison.className="report-comparison";comparison.innerHTML="<h3>مقارنة الاختبارين حسب المستوى</h3><p>تُفعّل عند توفر اختبار أول واختبار ثانٍ محددين، مع نتائج متكافئة لكل طالبة. لا يمكن اشتقاق المقارنة من إجابات شهرية متفرقة.</p><h3>الحضور والغياب في الاختبارين</h3><p>غير متاح حتى تسجيل المشاركة في كل اختبار على حدة.</p>";root.append(comparison);
  const caution=document.createElement("p");caution.textContent="ملاحظة منهجية: نسب الإجابات ليست بالضرورة نسب الطالبات. لا يُحسب تحسن فردي أو أثر علاج قبل وجود اختبارين متكافئين ونتائج مرتبطة بالطالبة نفسها.";root.append(caution);
 }
 $("nafesBuildReport").onclick=nafesReportBuild;
