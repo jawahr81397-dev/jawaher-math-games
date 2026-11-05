@@ -228,6 +228,17 @@ footer{
 @media print{body{background:white!important;color:#111!important}header,.tabs,#student,#teacherLogin,#recoveryArea,#teacherArea>.card:not(#nafesRemediation),#nafesRemediation>button,#nafesRemediation>label,#nafesMastery,footer,#status{display:none!important}#teacher,#teacherArea,#nafesRemediation{display:block!important}#nafesRemediation{background:white!important;color:#111!important;border:0;box-shadow:none}#nafesReport table{width:100%;border-collapse:collapse}#nafesReport th,#nafesReport td{border:1px solid #777;padding:7px} @page{size:A4 portrait;margin:14mm}}
 #nafesReport{background:#fff;color:#193c38;padding:24px;border-radius:16px;line-height:1.8}#nafesReport h1,#nafesReport h2,#nafesReport h3{color:#146358}#nafesReport table{width:100%;border-collapse:collapse;margin:15px 0 24px}#nafesReport th{background:#175d53;color:white}#nafesReport td,#nafesReport th{border:1px solid #b3c5c0;padding:9px;text-align:right}#nafesReport tr:nth-child(even) td{background:#f1f7f4}.report-cover{text-align:center;border:2px solid #d7b16d;padding:24px 14px;margin-bottom:24px}.report-ministry{font-size:13px;text-align:right}.report-emblem{font-size:42px}.report-credits{font-weight:700;margin-top:20px}.report-comparison{border-top:2px solid #d7b16d;margin-top:25px;padding-top:12px}
 @media print{#nafesReport{padding:0;border:0;font-size:11pt}#nafesReport h1{font-size:21pt}#nafesReport h2{font-size:15pt}#nafesReport table{font-size:9pt}#nafesReport tr{break-inside:avoid}#nafesReport h3{break-after:avoid}#nafesReport th{background:#175d53!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}#nafesReport td{color:#111!important;background:white!important}#nafesReport .report-cover{break-after:page;min-height:235mm;display:flex;flex-direction:column;justify-content:center}#nafesReport .report-ministry{position:absolute;top:25mm;right:18mm}#nafesReport .report-comparison{break-before:page}#nafesReport div[style*="background"]{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* إصلاح تباين الطباعة ومعاينة PDF على iPhone */
+@media print{
+ #nafesReport, #nafesReport * {color:#172d2a!important;text-shadow:none!important;opacity:1!important;visibility:visible!important;}
+ #nafesReport th,#nafesReport th *{background:#175d53!important;color:#ffffff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+ #nafesReport td,#nafesReport td *{color:#172d2a!important;}
+ #nafesReport h1,#nafesReport h2,#nafesReport h3{color:#175d53!important;}
+ #nafesReport .report-cover{position:relative;}
+ #nafesReport .report-ministry{color:#172d2a!important;}
+ #nafesReport tr,#nafesReport td,#nafesReport th{break-inside:avoid;page-break-inside:avoid;}
+}
 </style>
 </head>
 
