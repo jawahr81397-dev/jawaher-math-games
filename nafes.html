@@ -239,6 +239,14 @@ footer{
  #nafesReport .report-ministry{color:#172d2a!important;}
  #nafesReport tr,#nafesReport td,#nafesReport th{break-inside:avoid;page-break-inside:avoid;}
 }
+/* تباين واضح للشاشة وPDF حتى مع قواعد البوابة الداكنة */
+#nafesReport,#nafesReport p,#nafesReport td,#nafesReport div,#nafesReport section,#nafesReport span{color:#142d2a!important;opacity:1!important;text-shadow:none!important}
+#nafesReport td{background:#fff!important;color:#142d2a!important}
+#nafesReport tr:nth-child(even) td{background:#edf4f1!important}
+#nafesReport th{background:#135348!important;color:#fff!important}
+#nafesReport h1,#nafesReport h2,#nafesReport h3{color:#135348!important}
+#nafesPrintReport{display:inline-block!important;visibility:visible!important;opacity:1!important;cursor:pointer!important;background:#f1cf84!important;color:#18382e!important}
+@media print{#nafesReport,#nafesReport *{-webkit-print-color-adjust:exact;print-color-adjust:exact}#nafesReport td{color:#142d2a!important}#nafesReport th{color:#fff!important}#nafesReport{width:100%;max-width:100%;overflow:visible}}
 </style>
 </head>
 
@@ -400,7 +408,7 @@ footer{
 <p class="muted">تعتمد النتائج على إجابات الشهر المحدد أعلاه. لا تُعرض بيانات فردية إلا بعد توفر مصدر آمن لها.</p>
 <label>معيار الإتقان (%)</label><input id="nafesMastery" type="number" min="1" max="100" value="80">
 <button id="nafesBuildReport">إنشاء التحليل والخطة العلاجية</button>
-<button class="alt" id="nafesPrintReport">طباعة التقرير / حفظ PDF</button>
+<button class="alt" id="nafesPrintReport">🖨️ طباعة التقرير / حفظ PDF</button>
 <div id="nafesReport" aria-live="polite"></div>
 </div>
     <div class="card">
@@ -983,9 +991,15 @@ async function nafesReportBuild(){
  const caution=document.createElement("p");caution.textContent="ملاحظة منهجية: نسب الإجابات ليست بالضرورة نسب الطالبات. لا يُحسب تحسن فردي أو أثر علاج قبل وجود اختبارين متكافئين ونتائج مرتبطة بالطالبة نفسها.";root.append(caution);
 }
 $("nafesBuildReport").onclick=nafesReportBuild;
-$("nafesPrintReport").onclick=()=>{
- if(!$("nafesReport").children.length){status("أنشئي التقرير أولًا ثم اضغطي طباعة",true);return;}
- window.print();
+$("nafesPrintReport").onclick=async()=>{
+ const button=$("nafesPrintReport");
+ button.disabled=true;
+ try{
+   if(!$("nafesReport").querySelector("table"))await nafesReportBuild();
+   if(!$("nafesReport").querySelector("table")){status("لا توجد نتائج كافية لإنشاء تقرير للطباعة",true);return;}
+   window.print();
+ }catch(e){status("تعذر تجهيز الطباعة: "+e.message,true);}
+ finally{button.disabled=false;}
 };
 
 /* استعادة كلمة المرور */
