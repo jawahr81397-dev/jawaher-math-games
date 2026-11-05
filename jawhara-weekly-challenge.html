@@ -68,11 +68,12 @@ const week=weekNumber();
 let grade=5,selected=-1;
 const answerKey=()=>`jawhara_answer_v2_${grade}_${week}`; // المفتاح القديم محفوظ دون حذف
 const scoreKey=()=>`jawharaPoints_${grade}`;
+const studentAnswerKey=()=>`jm_crown_${grade}_${week}_${$('className').value}_${$('studentName').value.trim()}`;
 const item=()=>bank[grade][week%bank[grade].length];
 function render(){
   selected=-1;
   $('crown').classList.remove('show');
-  const q=item(), saved=localStorage.getItem(answerKey());
+  const q=item(), saved=localStorage.getItem(studentAnswerKey());
   const previous=saved===null?null:Number(saved);
   $('weekLabel').textContent='تحدي الأسبوع '+ar(week+1);
   $('gradeLabel').textContent='تحدي الصف '+(grade===5?'الخامس':'السادس');
@@ -102,6 +103,7 @@ function render(){
     feedback.className='feedback show '+(correct?'good':'try');
   }
 }
+$('studentName').onchange=render;
 $('className').onchange=()=>{const v=$('className').value;if(!v)return;grade=v==='سادس أ'?6:5;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',Number(b.dataset.grade)===grade));render()};
 document.querySelectorAll('.tab').forEach(button=>button.onclick=()=>{
   grade=Number(button.dataset.grade);
@@ -124,12 +126,12 @@ $('submit').onclick=async()=>{
   if(data.status==='already_submitted'){feedback.textContent='تم تسجيل مشاركة بهذا الاسم والفصل لهذا الأسبوع مسبقًا 🌷';feedback.className='feedback show try';return}
   const correct=!!data.correct;
   // نحافظ على نقاط النسخة الأصلية داخل الجهاز أيضًا.
-  if(localStorage.getItem(answerKey())===null){localStorage.setItem(answerKey(),String(selected));if(correct)localStorage.setItem(scoreKey(),String(Number(localStorage.getItem(scoreKey())||0)+10))}
+  if(localStorage.getItem(studentAnswerKey())===null){localStorage.setItem(studentAnswerKey(),String(selected));if(correct)localStorage.setItem(scoreKey(),String(Number(localStorage.getItem(scoreKey())||0)+10))}
   render();
   if(correct){showCrown(name,cls,data.title);$('feedback').textContent='مبارك! تم حفظ التتويج في لوحة المعلمة 👑';$('feedback').className='feedback show good'}
   else{$('feedback').textContent='تم حفظ مشاركتك. الإجابة الصحيحة: '+item().o[item().a];$('feedback').className='feedback show try'}
  }catch(e){feedback.textContent='تعذر حفظ المشاركة في لوحة المعلمة. حاولي لاحقًا. '+e.message;feedback.className='feedback show try'}
- finally{button.textContent='اعتماد الإجابة';button.disabled=localStorage.getItem(answerKey())!==null}
+ finally{button.textContent='اعتماد الإجابة';button.disabled=localStorage.getItem(studentAnswerKey())!==null}
 };
 render();
 </script>
