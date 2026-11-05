@@ -17,7 +17,7 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const digits=n=>Number(n||0).toLocaleString('ar-SA',{maximumFractionDigits:1});
 const pct=(s,m)=>m>0?Math.round(100*s/m):0;
 const table=(heads,rows)=>'<table><thead><tr>'+heads.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
-async function read(name,cols='*'){const {data,error}=await sb.from(name).select(cols).limit(1000);if(error)throw Error(name+': '+error.message);return data||[]}
+async function read(name,cols='*'){const all=[];const pageSize=500;for(let offset=0;offset<100000;offset+=pageSize){const {data,error}=await sb.from(name).select(cols).range(offset,offset+pageSize-1);if(error)throw Error(name+': '+error.message);const batch=data||[];all.push(...batch);if(batch.length<pageSize)return all;}throw Error(name+': عدد السجلات كبير جدًا؛ يلزم تحميل مخصص دون إخفاء النتائج')}
 async function authorized(){const {data:{user}}=await sb.auth.getUser();if(!user)return false;const {data,error}=await sb.from('jm_teacher_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error)throw Error(error.message);return !!data}
 async function load(){msg('جاري تحميل البيانات المحمية…');try{
 const [classes,students,programs,skills,results,decimal,crowns]=await Promise.all([read('jm_classes'),read('jm_students'),read('jm_programs'),read('jm_skills'),read('jm_activity_results'),read('jm_decimal_submissions'),read('jm_weekly_crowns')]);
