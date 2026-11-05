@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>جوهرة الأسبوع | تحدّي الرياضيات</title>
+<title>جوهرة الأسبوع | تحدّي الرياضيات</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--g:#123c32;--gold:#d6ad55;--cream:#fffaf0;--ink:#24332e;--muted:#718078}
 *{box-sizing:border-box}
@@ -22,6 +22,7 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145
 .feedback{display:none;margin-top:14px;padding:12px;border-radius:12px;font-weight:bold}.feedback.show{display:block}.feedback.good{background:#eaf4ed;color:#174a35}.feedback.try{background:#fff0ed;color:#8d392c}
 .foot{text-align:center;color:var(--muted);font-size:13px;margin-top:21px}.foot strong{color:var(--g)}
 @media(max-width:500px){.options{grid-template-columns:1fr}.row{flex-wrap:wrap}}
+.identity{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.identity input,.identity select{width:100%;padding:13px;border:1px solid #d7c79e;border-radius:12px;background:#fff;font:inherit}.crown{display:none;margin-top:18px;text-align:center;padding:22px;border-radius:24px;background:radial-gradient(circle at 50% 10%,#7b4ec1,#281346 75%);color:#fff;overflow:hidden}.crown.show{display:block;animation:reveal .8s ease}.crown .crown-icon{font-size:88px;display:block;animation:float 2s ease-in-out infinite}.crown h2{color:#ffe09c;font-size:27px}.crown p{line-height:1.8}.crown button{padding:12px 20px;border:0;border-radius:12px;background:#f5d38b;color:#302046;font-weight:bold;font:inherit;cursor:pointer}@keyframes reveal{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}@keyframes float{50%{transform:translateY(-10px)}}@media(max-width:500px){.identity{grid-template-columns:1fr}}@media print{body{background:white}.top,.question,.tabs,.row,.identity,.foot{display:none!important}.crown{display:block!important;color:#25163b;background:white;border:3px solid #b89a52}.crown button{display:none}}
 </style>
 </head>
 <body>
@@ -29,9 +30,9 @@ body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145
 <header class="top"><div class="eyebrow">تحدٍّ رياضي جديد كل أسبوع</div><h1>جوهرة الأسبوع 💎</h1><p>اختاري صفك، أجيبي، واجمعي النقاط!</p></header>
 <section class="body">
 <div class="row"><span id="weekLabel">تحدي هذا الأسبوع</span><span class="score" id="score">نقاطك: ٠</span></div>
-<div class="tabs"><button class="tab active" data-grade="5">الصف الخامس</button><button class="tab" data-grade="6">الصف السادس</button></div>
+<div class="identity"><input id="studentName" maxlength="80" placeholder="اسم الطالبة الكامل" autocomplete="name" aria-label="اسم الطالبة"><select id="className" aria-label="الفصل"><option value="">اختاري الفصل</option><option value="خامس أ">خامس أ</option><option value="خامس ب">خامس ب</option><option value="سادس أ">سادس أ</option></select></div><div class="tabs"><button class="tab active" data-grade="5">الصف الخامس</button><button class="tab" data-grade="6">الصف السادس</button></div>
 <div class="question"><div class="tag" id="gradeLabel"></div><div class="q" id="question"></div><div class="options" id="options"></div><button class="send" id="submit">اعتماد الإجابة</button><div class="feedback" id="feedback" aria-live="polite"></div></div>
-<div class="foot">بالتوفيق يا بطلات الرياضيات 🌷<br><strong>المعلمة / جواهر السبيعي</strong></div>
+<div class="crown" id="crown"><span class="crown-icon">👑</span><h2>تاج الجوهرة</h2><p id="crownText"></p><button onclick="window.print()">🖨️ حفظ أو طباعة بطاقة التتويج</button></div><div class="foot">بالتوفيق يا بطلات الرياضيات 🌷<br><strong>المعلمة / جواهر السبيعي</strong></div>
 </section>
 </main>
 <script>
@@ -52,6 +53,7 @@ const bank={
     {q:'ما ناتج ٣⁄٤ من ٢٠؟',o:['١٢','١٤','١٥','١٦'],a:2}
   ]
 };
+const sb=window.supabase.createClient('https://ylsnogtohohmzlxpihks.supabase.co','sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q');
 const $=id=>document.getElementById(id);
 const ar=n=>String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
 // رقم الأسبوع حسب توقيت السعودية، ثابت طوال الأسبوع.
@@ -64,11 +66,12 @@ function weekNumber(){
 }
 const week=weekNumber();
 let grade=5,selected=-1;
-const answerKey=()=>`jawhara_answer_v2_${grade}_${week}`;
+const answerKey=()=>`jawhara_answer_v2_${grade}_${week}`; // المفتاح القديم محفوظ دون حذف
 const scoreKey=()=>`jawharaPoints_${grade}`;
 const item=()=>bank[grade][week%bank[grade].length];
 function render(){
   selected=-1;
+  $('crown').classList.remove('show');
   const q=item(), saved=localStorage.getItem(answerKey());
   const previous=saved===null?null:Number(saved);
   $('weekLabel').textContent='تحدي الأسبوع '+ar(week+1);
@@ -99,19 +102,34 @@ function render(){
     feedback.className='feedback show '+(correct?'good':'try');
   }
 }
+$('className').onchange=()=>{const v=$('className').value;if(!v)return;grade=v==='سادس أ'?6:5;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',Number(b.dataset.grade)===grade));render()};
 document.querySelectorAll('.tab').forEach(button=>button.onclick=()=>{
   grade=Number(button.dataset.grade);
+  $('className').value='';
   document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===button));
   render();
 });
-$('submit').onclick=()=>{
-  if(localStorage.getItem(answerKey())!==null){render();return;}
-  const feedback=$('feedback');
-  if(selected<0){feedback.textContent='اختاري إجابة أولًا 🌷';feedback.className='feedback show try';return;}
-  const correct=selected===item().a;
-  localStorage.setItem(answerKey(),String(selected));
-  if(correct){localStorage.setItem(scoreKey(),String(Number(localStorage.getItem(scoreKey())||0)+10));}
+function showCrown(name,cls,title){$('crownText').textContent='مبارك يا '+name+' ✨ | '+cls+' | '+title+' | تحدي الأسبوع '+ar(week+1)+' — المعلمة/ جواهر السبيعي';$('crown').classList.add('show');$('crown').scrollIntoView({behavior:'smooth',block:'center'});}
+$('submit').onclick=async()=>{
+ const name=$('studentName').value.trim().replace(/\\s+/g,' ');
+ const cls=$('className').value;
+ const feedback=$('feedback');
+ if(name.length<2||!cls){feedback.textContent='اكتبي اسمك واختاري فصلك أولًا 🌷';feedback.className='feedback show try';return}
+ if((grade===5&&!['خامس أ','خامس ب'].includes(cls))||(grade===6&&cls!=='سادس أ')){feedback.textContent='الفصل لا يطابق الصف';feedback.className='feedback show try';return}
+ if(selected<0){feedback.textContent='اختاري إجابة أولًا 🌷';feedback.className='feedback show try';return}
+ const button=$('submit');button.disabled=true;button.textContent='جارٍ حفظ المشاركة…';
+ try{
+  const {data,error}=await sb.rpc('jm_submit_weekly_crown',{p_name:name,p_class:cls,p_grade:grade,p_answer:selected});
+  if(error)throw error;
+  if(data.status==='already_submitted'){feedback.textContent='تم تسجيل مشاركة بهذا الاسم والفصل لهذا الأسبوع مسبقًا 🌷';feedback.className='feedback show try';return}
+  const correct=!!data.correct;
+  // نحافظ على نقاط النسخة الأصلية داخل الجهاز أيضًا.
+  if(localStorage.getItem(answerKey())===null){localStorage.setItem(answerKey(),String(selected));if(correct)localStorage.setItem(scoreKey(),String(Number(localStorage.getItem(scoreKey())||0)+10))}
   render();
+  if(correct){showCrown(name,cls,data.title);$('feedback').textContent='مبارك! تم حفظ التتويج في لوحة المعلمة 👑';$('feedback').className='feedback show good'}
+  else{$('feedback').textContent='تم حفظ مشاركتك. الإجابة الصحيحة: '+item().o[item().a];$('feedback').className='feedback show try'}
+ }catch(e){feedback.textContent='تعذر حفظ المشاركة في لوحة المعلمة. حاولي لاحقًا. '+e.message;feedback.className='feedback show try'}
+ finally{button.textContent='اعتماد الإجابة';button.disabled=localStorage.getItem(answerKey())!==null}
 };
 render();
 </script>
