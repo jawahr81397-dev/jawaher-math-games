@@ -113,7 +113,7 @@ document.querySelectorAll('.tab').forEach(button=>button.onclick=()=>{
 });
 function showCrown(name,cls,title){$('crownText').textContent='مبارك يا '+name+' ✨ | '+cls+' | '+title+' | تحدي الأسبوع '+ar(week+1)+' — المعلمة/ جواهر السبيعي';$('crown').classList.add('show');$('crown').scrollIntoView({behavior:'smooth',block:'center'});}
 $('submit').onclick=async()=>{
- const name=$('studentName').value.trim().replace(/\\s+/g,' ');
+ const name=$('studentName').value.trim().replace(/\s+/g,' ');
  const cls=$('className').value;
  const feedback=$('feedback');
  if(name.length<2||!cls){feedback.textContent='اكتبي اسمك واختاري فصلك أولًا 🌷';feedback.className='feedback show try';return}
