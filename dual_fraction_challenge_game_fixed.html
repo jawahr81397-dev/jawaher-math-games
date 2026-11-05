@@ -542,6 +542,8 @@
             if (!isGameRunning) return;
 
             const pair = state[pairIdx];
+            if (pair.finished || pair.currentQ >= 3) return;
+            document.querySelectorAll(`#options-${pairIdx} button`).forEach(button => { button.disabled = true; });
             const qData = questionsData[pairIdx][pair.currentQ];
 
             if (selectedIdx === qData.correct) {
