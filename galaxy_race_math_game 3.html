@@ -626,6 +626,8 @@
             if (!isGameRunning) return;
 
             const team = teamState[teamIdx];
+            if (team.finished || team.currentQ >= 3) return;
+            document.querySelectorAll(`#options-${teamIdx} button`).forEach(button => { button.disabled = true; });
             const qData = questions[teamIdx][team.currentQ];
             const flame = document.getElementById(`flame-${teamIdx}`);
 
