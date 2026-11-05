@@ -2,7 +2,7 @@
 :root{font-family:Tahoma,Arial,sans-serif;background:#061521;color:#f0f9ff}*{box-sizing:border-box}body{margin:0}main{max-width:1150px;margin:auto;padding:24px 16px 65px}h1{color:#edc87d;font-size:clamp(24px,5vw,37px)}h2{font-size:19px}p,.muted{color:#b5cdd6;line-height:1.8}a{color:#83e8f5}.panel,.card{background:#0d293a;border:1px solid #315369;border-radius:18px;padding:18px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.num{font-size:30px;font-weight:800;color:#edc87d}input,select,button{font:inherit;padding:12px;border-radius:12px;border:1px solid #537b8b;background:#122f42;color:white;max-width:100%}button{cursor:pointer;background:#175467}button:hover{background:#246d82}input{width:100%;margin:7px 0}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px;text-align:right;border-bottom:1px solid #ffffff24}th{color:#edc87d}.scroll{overflow-x:auto}.hidden{display:none!important}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.notice{padding:13px;border-radius:12px;background:#18384b;color:#e8f5ff}.bad{color:#ffb5b5}svg{max-width:100%} .bar{height:12px;background:#183f53;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#83e8f5,#edc87d)}@media print{@page{size:A4;margin:12mm}#login,#logout,#refresh,.no-print,#msg,main>a,main>p{display:none!important}html,body,main{background:#fff!important;color:#111!important}main{max-width:none;padding:0}.panel,.card{background:#fff!important;color:#111!important;border:1px solid #bbb;break-inside:avoid;page-break-inside:avoid}h1,h2,p,.muted,.num,th,td{color:#111!important}table{width:100%;font-size:11px}th,td{padding:6px;border-bottom:1px solid #ddd}.scroll{overflow:visible!important}svg{max-width:100%}.bar{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style></head><body><main><a href="index.html">← بوابة جوهرة ماث</a><h1>💎 لوحة المعلمة المركزية</h1><p>متابعة الصفوف والمهارات والبرامج وقياس أثر التحسن — دخول خاص بالمعلمة</p><div id="msg" class="notice">جاري تجهيز الاتصال الآمن…</div>
 <section id="login" class="panel"><h2>🔐 دخول المعلمة</h2><form id="loginForm"><label>البريد الإلكتروني<input id="email" type="email" autocomplete="username" required></label><label>كلمة المرور<input id="password" type="password" autocomplete="current-password" required></label><button type="submit">دخول آمن</button></form><p class="muted">استخدمي حساب المعلمة المصرح له في Nafes-math، وليس رمز الطالبة.</p></section>
-<div id="dashboard" class="hidden"><div class="row no-print"><button id="refresh">↻ تحديث النتائج</button><button id="logout">تسجيل الخروج</button><button onclick="window.print()">طباعة التقرير</button></div><div id="stats" class="grid"></div>
+<div id="dashboard" class="hidden"><div class="row no-print"><button id="refresh">↻ تحديث النتائج</button><button id="logout">تسجيل الخروج</button><button type="button" onclick="openPrintableReport()">طباعة التقرير</button></div><div id="stats" class="grid"></div>
 <section class="panel"><h2>📊 نتائج الصفوف</h2><div id="classes"></div></section>
 <section class="panel"><h2>🎯 قياس أثر التحسن</h2><p class="muted">تُحسب المقارنة من نتائج الاختبارات القبلية والبعدية المسجلة في قاعدة البيانات؛ لا تُعرض نسب افتراضية.</p><div id="impact"></div></section>
 <section class="panel"><h2>👑 تاج الجوهرة | تحدي الأسبوع</h2><p class="muted">سجل المشاركات والمتوجات حسب الفصل والأسبوع. تظهر فقط المشاركات المحفوظة في قاعدة البيانات.</p><div id="crownStats" class="grid"></div><div id="crowns" class="scroll"></div></section>
@@ -34,4 +34,22 @@ msg('تم تحميل بيانات لوحة المعلمة بنجاح.');}catch(e
 async function boot(){try{if(await authorized()){$('login').classList.add('hidden');$('dashboard').classList.remove('hidden');await load()}else{$('dashboard').classList.add('hidden');$('login').classList.remove('hidden');msg('سجلي الدخول بحساب المعلمة المخول.')}}catch(e){msg('تعذر التحقق من الصلاحية: '+e.message,true)}}
 $('loginForm').onsubmit=async e=>{e.preventDefault();msg('جارٍ التحقق من الحساب…');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});$('password').value='';if(error){msg('تعذر الدخول: '+error.message,true);return}await boot()};
 $('logout').onclick=async()=>{await sb.auth.signOut();$('dashboard').classList.add('hidden');$('login').classList.remove('hidden');msg('تم تسجيل الخروج')};$('refresh').onclick=load;boot();
-</script></body></html>
+</script>
+<script>
+function openPrintableReport(){
+ const source=document.querySelector('#dashboard');
+ if(!source||source.classList.contains('hidden')||source.classList.contains('hide')){alert('افتحي التقرير بعد تسجيل الدخول وتحميل النتائج أولًا.');return;}
+ const popup=window.open('','_blank');
+ if(!popup){alert('تعذر فتح نسخة الطباعة. اسمحي بالنوافذ المنبثقة في Safari ثم أعيدي المحاولة.');return;}
+ const content=source.cloneNode(true);
+ content.querySelectorAll('.no-print,.controls,button,input,select,script').forEach(el=>el.remove());
+ const css=document.querySelector('style')?.textContent||'';
+ const heading=document.querySelector('h1')?.textContent||'تقرير جوهرة ماث';
+ const safeTitle=heading.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ popup.document.open();
+ popup.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>'+css+' @media screen{body{background:#fff!important;color:#111!important} .print-actions{position:sticky;top:0;padding:12px;background:#fff;z-index:10;border-bottom:1px solid #ddd}.print-actions button{background:#175467;color:white;padding:12px;border:0;border-radius:10px;font-size:16px} .panel,.card{background:white!important;color:#111!important} h1,h2,p,.muted,th,td{color:#111!important}} @media print{.print-actions{display:none!important}body{background:white!important;color:black!important}}</style></head><body><div class="print-actions"><button type="button" onclick="window.print()">🖨️ طباعة من Safari</button><p>إذا لم تفتح الطباعة، اضغطي مشاركة في Safari ثم اختاري «طباعة».</p></div><main><h1>'+safeTitle+'</h1>'+content.innerHTML+'</main></body></html>');
+ popup.document.close();
+ popup.focus();
+}
+</script>
+</body></html>
