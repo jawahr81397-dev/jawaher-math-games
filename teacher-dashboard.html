@@ -49,7 +49,21 @@ function renderImpact(){
  impactTable.innerHTML=rows.length?table(['الفصل','الطالبة','البرنامج','المهارة','قبلي %','بعدي %','التغير (نقطة مئوية)','الحالة'],rows.map(x=>[x.cls,x.name,x.program,x.skill,x.a.toFixed(1),x.b.toFixed(1),(x.delta>0?'+':'')+x.delta.toFixed(1),x.b>=90?'حققت معيار الإتقان':x.delta>0?'تحسن وتحتاج متابعة':x.delta<0?'تحتاج خطة علاجية':'دون تغير'])):'<p class="muted">لا توجد نتائج قبلية وبعدية مكتملة للتصفية المحددة. لا يمكن الحكم على التحسن دون بيانات.</p>';
  $('impact').replaceChildren(impactSummary,impactTable);
  const pending=rows.filter(x=>x.b<90);
- $('remediation').innerHTML='<h3>📝 توصيات علاجية مبنية على النتائج</h3>'+(pending.length?table(['الصف','الطالبة','المهارة','التوصية','إعادة القياس'],pending.map(x=>[x.cls,x.name,x.skill,'تدريب متدرج على '+x.skill+' مع شرح الأخطاء ومراجعة فردية','اختبار بعدي جديد للتحقق من الإتقان'])):'<p class="muted">لا توجد حالات دون معيار الإتقان في النتائج المعروضة. لا يُستنتج ذلك عند غياب البيانات.</p>')+'<p class="muted">هذه توصيات أولية وليست تشخيصًا فرديًا؛ راجعي إجابات الطالبة قبل اعتماد الخطة العلاجية.</p>';
+ const grouped=new Map();
+ for(const x of pending){const key=x.cls+'|'+x.skill; if(!grouped.has(key))grouped.set(key,{cls:x.cls,skill:x.skill,students:[],scores:[]});const g=grouped.get(key);g.students.push(x.name);g.scores.push(x.b)}
+ const programsBySkill=[
+  {re:/الكسور العشرية|الفاصلة|جمع الكسور العشرية|طرح الكسور العشرية|ضرب الكسور العشرية|قسمة الكسور العشرية/,name:'ما وراء الفاصلة',url:'ma-waraa-al-fasila.html',method:'التدرب على العمليات الأربع مع التركيز على المهارة المحددة'},
+  {re:/جدول الضرب|حقائق الضرب|مهارات الضرب|ضرب الأعداد/,name:'أكاديمية بطلات الضرب',url:'multiplication-academy.html',method:'تدريب متدرج على حقائق الضرب مع تصحيح الأخطاء'},
+  {re:/حقائق القسمة|القسمة المطولة|قسمة الأعداد|مهارات القسمة/,name:'أكاديمية بطلات القسمة',url:'division-academy.html',method:'تدريب متدرج على القسمة والتحقق من الإجابة'},
+  {re:/القيمة المنزلية|قراءة الأعداد/,name:'مملكة الأعداد',url:'number-kingdom.html',method:'تدريب على قراءة الأعداد والقيمة المنزلية'},
+  {re:/الكسور المتكافئة|تبسيط الكسور|مقارنة الكسور|تمثيل الكسور/,name:'مملكة الكسور',url:'fractions-kingdom.html',method:'تدريب تفاعلي على مفاهيم الكسور'}
+ ];
+ const plans=[...grouped.values()].map(g=>{const found=programsBySkill.find(p=>p.re.test(g.skill));return {...g,program:found,avg:g.scores.reduce((a,b)=>a+b,0)/g.scores.length}});
+ const safeLink=p=>p?'<a href="'+p.url+'" target="_blank" rel="noopener noreferrer">'+esc(p.name)+' — فتح التدريب</a>':'لا يوجد ربط مؤكد بهذه المهارة؛ حددي تدريبًا مناسبًا يدويًا';
+ $('remediation').innerHTML='<h3>📝 الخطط العلاجية الجماعية حسب المهارة والصف</h3>'+
+ (plans.length?plans.map(g=>'<article class="panel" style="break-inside:avoid"><h3>'+esc(g.cls)+' | '+esc(g.skill)+'</h3><p><strong>الطالبات المستهدفات ('+digits(g.students.length)+'):</strong> '+esc([...new Set(g.students)].join('، '))+'</p><p><strong>التشخيص:</strong> نتائج بعدية دون معيار الإتقان (٩٠٪)، متوسط المجموعة '+digits(g.avg)+'٪. يلزم مراجعة أخطاء الإجابات لتحديد السبب.</p><p><strong>الهدف:</strong> وصول كل طالبة إلى ٩٠٪ فأكثر في اختبار تحقق جديد للمهارة.</p><p><strong>التدخل:</strong> '+esc(g.program?.method||'شرح موجه وأمثلة محلولة وتدريبات متدرجة على المهارة')+'</p><p><strong>النشاط المرتبط:</strong> '+safeLink(g.program)+'</p><p><strong>مدة مقترحة:</strong> حصتان قصيرتان قابلتان للتعديل حسب استجابة الطالبات.</p><p><strong>التحقق من الأثر:</strong> اختبار مستقل جديد على المهارة نفسها بعد التدخل، وتسجيل النتيجة للمقارنة.</p><p class="muted">اعتماد المعلمة: __________ | تاريخ التنفيذ: __________ | نتيجة إعادة القياس: __________</p></article>').join(''):'<p class="muted">لا توجد خطط جماعية مطلوبة وفق النتائج المتاحة للتصفية المحددة. عند غياب نتائج مكتملة لا يُفترض الإتقان.</p>')+
+ '<p class="muted">تفتح الروابط البرامج الموجودة فعلًا في البوابة، وقد تحتاج الطالبة إلى اختيار المهارة داخل البرنامج؛ لم يُفعّل الانتقال المباشر إلى تمرين بعينه. هذه خطط مقترحة تعتمدها المعلمة بعد مراجعة الأخطاء، ولا يُعد فتح التدريب دليلًا على إكمال العلاج.</p>';
+
 }
 classSelect.onchange=()=>{studentSelect.value='all';renderImpact()};studentSelect.onchange=renderImpact;renderImpact();
 $('printImpact').onclick=()=>{document.body.classList.add('impact-only-print');window.print();setTimeout(()=>document.body.classList.remove('impact-only-print'),1500)};window.addEventListener('afterprint',()=>document.body.classList.remove('impact-only-print'));
