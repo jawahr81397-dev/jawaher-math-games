@@ -56,7 +56,9 @@ function renderImpact(){
   {re:/جدول الضرب|حقائق الضرب|مهارات الضرب|ضرب الأعداد/,name:'أكاديمية بطلات الضرب',url:'multiplication-academy.html',method:'تدريب متدرج على حقائق الضرب مع تصحيح الأخطاء'},
   {re:/حقائق القسمة|القسمة المطولة|قسمة الأعداد|مهارات القسمة/,name:'أكاديمية بطلات القسمة',url:'division-academy.html',method:'تدريب متدرج على القسمة والتحقق من الإجابة'},
   {re:/القيمة المنزلية|قراءة الأعداد/,name:'مملكة الأعداد',url:'number-kingdom.html',method:'تدريب على قراءة الأعداد والقيمة المنزلية'},
-  {re:/الكسور المتكافئة|تبسيط الكسور|مقارنة الكسور|تمثيل الكسور/,name:'مملكة الكسور',url:'fractions-kingdom.html',method:'تدريب تفاعلي على مفاهيم الكسور'}
+  {re:/تبسيط الكسور/,name:'مختبر جواهر لتبسيط الكسور',url:'jawaher_fraction_lab_v2.html',method:'تدريب تفاعلي على تبسيط الكسور'},
+  {re:/الكسور المتكافئة|مقارنة الكسور|تمثيل الكسور/,name:'جوهرة الكسور | رحلة الإتقان',url:'fractions-mastery.html',method:'تدريب على مفاهيم الكسور مع اختيار النشاط المطابق للمهارة'},
+  {re:/ترتيب العمليات|الأنماط|التحليل|العوامل الأولية|الأعداد الأولية|القاسم المشترك الأكبر|التقريب|الجمع|الطرح/,name:'مراجعات جوهرة ماث التفاعلية',url:'jawhara-interactive-reviews.html',method:'اختيار الصف والدرس المطابق للمهارة ثم التدريب؛ يلزم التحقق من توفر الدرس داخل المراجعة'}
  ];
  const plans=[...grouped.values()].map(g=>{const found=programsBySkill.find(p=>p.re.test(g.skill));return {...g,program:found,avg:g.scores.reduce((a,b)=>a+b,0)/g.scores.length}});
  const safeLink=p=>p?'<a href="'+p.url+'" target="_blank" rel="noopener noreferrer">'+esc(p.name)+' — فتح التدريب</a>':'لا يوجد ربط مؤكد بهذه المهارة؛ حددي تدريبًا مناسبًا يدويًا';
