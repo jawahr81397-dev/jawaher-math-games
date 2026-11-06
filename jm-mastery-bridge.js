@@ -2,11 +2,12 @@
 const endpoint='https://ylsnogtohohmzlxpihks.supabase.co/functions/v1/jm-mastery-submit';
 let klass='';
 function init(){
+const hasOwnClass=location.pathname.endsWith('/ma-waraa-al-fasila.html')&&!!document.getElementById('class');
 const box=document.createElement('div');
-box.style.cssText='position:fixed;bottom:10px;right:10px;z-index:9999;background:#102e41;color:white;padding:12px;border-radius:12px;font:14px Tahoma;direction:rtl';
-box.innerHTML='<label>🏫 الفصل <select id="jm-class"><option value="">اختاري الفصل</option><option>خامس أ</option><option>خامس ب</option><option>سادس أ</option></select></label><div id="jm-status" style="font-size:11px;margin-top:6px"></div>';
+box.style.cssText=hasOwnClass?'position:static;margin:8px auto;max-width:760px;background:#102e41;color:white;padding:8px 12px;border-radius:12px;font:13px Tahoma;direction:rtl':'position:fixed;bottom:10px;right:10px;z-index:9999;background:#102e41;color:white;padding:12px;border-radius:12px;font:14px Tahoma;direction:rtl';
+box.innerHTML=hasOwnClass?'<div id="jm-status" aria-live="polite" style="font-size:12px"></div>':'<label>🏫 الفصل <select id="jm-class"><option value="">اختاري الفصل</option><option>خامس أ</option><option>خامس ب</option><option>سادس أ</option></select></label><div id="jm-status" style="font-size:11px;margin-top:6px"></div>';
 document.body.appendChild(box);
-document.getElementById('jm-class').onchange=e=>klass=e.target.value;
+if(!hasOwnClass)document.getElementById('jm-class').onchange=e=>klass=e.target.value;
 }
 async function submit(name,skill,score,max_score,className){
 const status=document.getElementById('jm-status');
