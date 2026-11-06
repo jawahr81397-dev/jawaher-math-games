@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#061521">
+
+<title>جوهرة ماث | Jawhara Math</title>
+
+<link rel="icon" type="image/png" href="jawhara-logo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#061521;
+  --panel:#0d293a;
+  --gold:#edc87d;
+  --cyan:#83e8f5;
+  --white:#f0f9ff;
+  --muted:#b5cdd6;
+  --emerald:#0b5047;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  min-height:100vh;
+  color:var(--white);
+  font-family:Cairo,Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 5%,#123b54,transparent 42%),
+    radial-gradient(ellipse at 90% 35%,#10483d,transparent 43%),
+    var(--bg);
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.wrap {
+  width:min(1140px,calc(100% - 32px));
+  margin:auto;
+}
+
+/* شريط التنقل */
+
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#061521ed;
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid #ffffff24;
+}
+
+.nav {
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--gold);
+  font:800 17px Alexandria,sans-serif;
+}
+
+.brand img {
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 9px #83e8f570);
+  animation:float 5s ease-in-out infinite;
+}
+
+.navlinks {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.navlinks a,
+.navlinks button {
+  color:white;
+  background:#ffffff0c;
+  border:1px solid #ffffff30;
+  border-radius:30px;
+  padding:9px 13px;
+  font-size:13px;
+}
+
+/* واجهة الترحيب */
+
+.hero {
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:30px;
+  padding:55px 0 40px;
+}
+
+.hero h1 {
+  font:800 clamp(39px,6vw,72px) Alexandria,sans-serif;
+  color:var(--gold);
+  margin:16px 0;
+  text-shadow:0 0 28px #edc87d30;
+}
+
+.hero p {
+  color:var(--muted);
+  font-size:18px;
+  line-height:2;
+}
+
+.eyebrow {
+  display:inline-block;
+  color:var(--gold);
+  border:1px solid #edc87d70;
+  border-radius:30px;
+  padding:8px 16px;
+}
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+
+.btn {
+  display:inline-block;
+  border:1px solid var(--gold);
+  border-radius:15px;
+  padding:12px 20px;
+  background:linear-gradient(135deg,#e3b56d,#fff0bd);
+  color:#102434;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btn.secondary {
+  color:white;
+  background:#ffffff0b;
+  border-color:#ffffff50;
+}
+
+/* الشعار المتحرك */
+
+.hero-art {
+  position:relative;
+  min-height:400px;
+  display:grid;
+  place-items:center;
+  isolation:isolate;
+}
+
+.hero-art::before {
+  content:"";
+  position:absolute;
+  width:80%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,#1d90ad55,transparent 68%);
+  filter:blur(22px);
+  animation:pulse 5s ease-in-out infinite;
+}
+
+.halo {
+  position:absolute;
+  width:85%;
+  aspect-ratio:1;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  animation:spin 24s linear infinite;
+}
+
+.halo::after {
+  content:"✦";
+  position:absolute;
+  top:-17px;
+  left:50%;
+  font-size:30px;
+  color:var(--gold);
+}
+
+.halo.two {
+  width:98%;
+  border-color:var(--cyan);
+  animation:orbit 16s linear infinite;
+}
+
+.hero-logo {
+  position:relative;
+  z-index:2;
+  width:95%;
+  max-width:390px;
+  height:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 22px #83e8f56b)
+    drop-shadow(0 0 40px #edc87d30);
+  animation:float 5s ease-in-out infinite;
+}
+
+.math-symbol {
+  position:absolute;
+  z-index:3;
+  font-size:35px;
+  color:var(--cyan);
+  text-shadow:0 0 16px var(--cyan);
+  pointer-events:none;
+}
+
+.m1 {top:8%;right:8%}
+.m2 {bottom:15%;left:5%;color:var(--gold)}
+.m3 {top:12%;left:9%}
+.m4 {bottom:9%;right:9%}
+
+/* الأقسام */
+
+.heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin:22px 0;
+}
+
+.heading h2 {
+  font:700 clamp(24px,3vw,35px) Alexandria,sans-serif;
+  margin:0;
+}
+
+.heading p {
+  color:var(--muted);
+}
+
+.search {
+  width:min(100%,370px);
+  background:#ffffff0c;
+  color:white;
+  border:1px solid #ffffff35;
+  border-radius:14px;
+  padding:13px;
+}
+
+.search::placeholder {
+  color:#b0c9d2;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+  margin-bottom:50px;
+}
+
+.tile {
+  display:flex;
+  flex-direction:column;
+  min-height:195px;
+  padding:23px;
+  border:1px solid #edc87d50;
+  border-radius:23px;
+  background:linear-gradient(145deg,#153747,#0a2030);
+  transition:
+    transform .25s,
+    border-color .25s,
+    box-shadow .25s;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  transform:translateY(-5px);
+  border-color:var(--gold);
+  box-shadow:0 12px 35px #0005;
+}
+
+.tile.featured {
+  background:linear-gradient(145deg,#104c43,#0b2939);
+  border-color:var(--gold);
+  box-shadow:0 0 25px #edc87d25;
+}
+
+.tile .ico {
+  font-size:32px;
+}
+
+.tile h3 {
+  font:700 18px Alexandria,sans-serif;
+  line-height:1.7;
+  margin:13px 0 7px;
+}
+
+.tile p {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+  margin:0 0 12px;
+}
+
+.tile .go {
+  color:var(--gold);
+  font-weight:800;
+  margin-top:auto;
+}
+
+.panel {
+  border:1px solid #ffffff29;
+  background:#0b2636;
+  border-radius:25px;
+  padding:23px;
+  margin:30px 0 45px;
+}
+
+.back {
+  display:inline-block;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.item-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+
+.item {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:17px;
+  border-radius:16px;
+  background:#ffffff09;
+  border:1px solid #ffffff20;
+}
+
+.item:hover {
+  border-color:var(--gold);
+}
+
+.item .emoji {
+  font-size:27px;
+}
+
+.item strong {
+  display:block;
+}
+
+.item small {
+  display:block;
+  color:var(--muted);
+}
+
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+}
+
+.footer {
+  text-align:center;
+  border-top:1px solid #ffffff25;
+  padding:30px;
+  color:var(--muted);
+}
+
+.footer strong {
+  color:var(--gold);
+}
+
+/* الافتتاحية السينمائية */
+
+.intro {
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:
+    radial-gradient(circle at 50% 42%,#174761,#061521 65%);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:20px;
+  transition:opacity .85s,visibility .85s;
+}
+
+.intro.hide {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro[hidden] {
+  display:none!important;
+}
+
+.intro-content {
+  position:relative;
+  width:min(100%,550px);
+}
+
+.intro-logo {
+  position:relative;
+  z-index:2;
+  display:block;
+  width:min(85vw,420px);
+  height:auto;
+  margin:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 25px #77e4ef80)
+    drop-shadow(0 0 50px #edc87d40);
+  animation:
+    appear 1s ease both,
+    float 5s ease-in-out 1s infinite;
+}
+
+.intro-ring {
+  position:absolute;
+  top:5%;
+  left:15%;
+  width:70%;
+  aspect-ratio:1;
+  border:2px solid #e5bd7380;
+  border-radius:50%;
+  animation:spin 12s linear infinite;
+}
+
+.intro h2 {
+  font:800 clamp(26px,5vw,43px) Alexandria,sans-serif;
+  color:var(--gold);
+}
+
+.intro p {
+  color:#c4eaf2;
+}
+
+/* الحركات */
+
+@keyframes spin {
+  to {transform:rotate(360deg)}
+}
+
+@keyframes orbit {
+  from {transform:rotate(65deg) scaleY(.55)}
+  to {transform:rotate(425deg) scaleY(.55)}
+}
+
+@keyframes float {
+  50% {transform:translateY(-13px)}
+}
+
+@keyframes appear {
+  from {
+    opacity:0;
+    transform:translateY(25px) scale(.92);
+  }
+  to {
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity:.55;
+    transform:scale(1.12);
+  }
+}
+
+/* الجوال */
+
+@media(max-width:850px) {
+  .hero {
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-art {
+    grid-row:1;
+    min-height:330px;
+  }
+
+  .actions {
+    justify-content:center;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:570px) {
+  .grid,
+  .item-list {
+    grid-template-columns:1fr;
+  }
+
+  .brand {
+    font-size:13px;
+  }
+
+  .brand img {
+    width:43px;
+    height:43px;
+  }
+
+  .navlinks a,
+  .navlinks button {
+    font-size:11px;
+    padding:7px;
+  }
+
+  .hero-art {
+    min-height:290px;
+  }
+
+  .hero h1 {
+    font-size:38px;
+  }
+
+  .tile {
+    min-height:160px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,
+  *::before,
+  *::after {
+    animation:none!important;
+    transition:none!important;
+  }
+}
+
+/* Pearl preview — no changes to logo, links, games or student data */
+:root{--bg:#faf8ff;--panel:#fff;--gold:#9b7545;--cyan:#438e98;--white:#352d50;--muted:#706985;--emerald:#669c91}
+body{background:#faf8ff;color:var(--white);isolation:isolate}
+body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 38% 28% at 17% 24%,#a8e2dd9c,transparent 75%),radial-gradient(ellipse 36% 33% at 80% 33%,#c5b6f0a6,transparent 76%),radial-gradient(ellipse 36% 32% at 45% 77%,#f5c9db9e,transparent 78%),radial-gradient(ellipse 28% 22% at 80% 88%,#f3e0b599,transparent 75%);filter:blur(24px);animation:pearlWaves 17s ease-in-out infinite alternate}
+@keyframes pearlWaves{0%{transform:translate3d(-3%,1%,0) rotate(-5deg)}50%{transform:translate3d(3%,-2%,0) rotate(4deg) scale(1.08)}100%{transform:translate3d(-1%,3%,0) rotate(-3deg) scale(1.04)}}
+.topbar{background:#ffffffdf;border-bottom:1px solid #dcd2e9;box-shadow:0 4px 22px #55467d0b}
+.brand{color:#56427c}.brand img{filter:drop-shadow(0 5px 9px #7867a433)}
+.navlinks a,.navlinks button{color:#51436d;background:#ffffffc7;border-color:#dcd2e9}
+.navlinks a:hover,.navlinks button:hover{background:#f0e9fb}
+.hero h1{color:#5b437f;text-shadow:none}.hero p,.heading p{color:var(--muted)}
+.eyebrow{color:#70568b;border-color:#d9c5e7;background:#ffffff9c}
+.btn{color:#473452;background:linear-gradient(125deg,#f6e6b9,#e6c88f);border-color:#e5c992;box-shadow:0 6px 18px #b39b6a2a}
+.btn.secondary{color:#584779;background:#ffffffc9;border-color:#d7c9e8}
+.hero-art::before{background:radial-gradient(circle,#c4f0edaa,transparent 68%)}.halo{border-color:#cfb77c}.halo.two{border-color:#a3d9d6}
+.hero-logo{filter:drop-shadow(0 12px 24px #7f78a144)}
+.math-symbol{color:#6a9eaa;text-shadow:0 0 13px #b5dfdf}.m2{color:#c19a53}
+.search{color:#463b5c;background:#ffffffd9;border-color:#d8cce8}
+.search::placeholder{color:#8a819c}
+.tile{background:linear-gradient(145deg,#ffffffed,#f8f3ffdc);border:1px solid #e6d8ef;box-shadow:0 10px 28px #7b69951c;backdrop-filter:blur(9px)}
+.tile:nth-child(3n+2){background:linear-gradient(145deg,#fffefaee,#edf9f6e8)}
+.tile:nth-child(3n){background:linear-gradient(145deg,#fffafdee,#fff0f6e8)}
+.tile.featured{background:linear-gradient(145deg,#fffdf8,#e8f6f3);border-color:#d9c7a3}
+.tile:hover,.tile:focus-visible{border-color:#b59ad4;box-shadow:0 16px 34px #7c659b30;transform:translateY(-6px)}
+.tile h3{color:#54416f}.tile p{color:#716b82}.tile .go{color:#8461a4}
+.panel{background:#ffffffdf;border:1px solid #e5d9ef;box-shadow:0 12px 35px #7d6b9821}
+.back{color:#72509c}.item{background:#f9f5ff;border-color:#e8dbf1}.item:hover{border-color:#b69bd6}.item small{color:#716b82}
+.footer{border-top-color:#dcd1e7;color:#706b7d}.footer strong{color:#795d98}
+.intro{background:radial-gradient(ellipse at 30% 25%,#d8f2ed,transparent 60%),radial-gradient(ellipse at 80% 80%,#e8d9f6,transparent 65%),#faf8ff}
+.intro-ring{border-color:#c7aa76}.intro h2{color:#614780}.intro p{color:#6f6584}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
+
+</style>
+</head>
+
+<body>
+
+<!-- افتتاحية الشعار -->
+
+<div class="intro" id="intro">
+  <div class="intro-content">
+
+    <div class="intro-ring"></div>
+
+    <img
+      class="intro-logo"
+      src="jawhara-logo.png"
+      alt="شعار جوهرة ماث الرسمي">
+
+    <h2>مرحبًا بكِ في جوهرة ماث</h2>
+
+    <p>حيث تتحول الأرقام إلى اكتشافات</p>
+
+    <button class="btn" id="skipIntro">
+      ✦ دخول المنصة
+    </button>
+
+  </div>
+</div>
+
+<!-- الشريط العلوي -->
+
+<header class="topbar">
+  <nav class="wrap nav">
+
+    <a class="brand" href="#home">
+      <img
+        src="jawhara-logo.png"
+        alt="شعار جوهرة ماث">
+
+      <span>جوهرة ماث</span>
+    </a>
+
+    <div class="navlinks">
+
+      <a href="#home">
+        الرئيسية
+      </a>
+
+      <a href="nafes.html">
+        🏆 عبقريات نافس
+      </a>
+      <a href="teacher-dashboard.html">🔐 لوحة المعلمة</a>
+
+      <button id="replay" type="button">
+        ✨ عرض الشعار
+      </button>
+
+    </div>
+
+  </nav>
+</header>
+
+<main class="wrap">
+  <div id="app"></div>
+</main>
+
+<footer class="footer">
+  💎 جوهرة ماث — حيث تتحول الأرقام إلى اكتشافات
+  <br>
+  <strong>المعلمة/ جواهر السبيعي</strong>
+</footer>
+
+<script>
+
+/* الأقسام الرئيسية */
+
+const sections = [
+  {
+    id:'grade5',
+    icon:'🎯',
+    title:'ألعاب الصف الخامس',
+    desc:'مغامرات القسمة والضرب والأنماط الجبرية'
+  },
+  {
+    id:'grade6',
+    icon:'🚀',
+    title:'ألعاب الصف السادس',
+    desc:'الكسور والعوامل الأولية وتحديات التفكير'
+  },
+  {
+    id:'mastery',
+    icon:'💎',
+    title:'رحلة الإتقان',
+    desc:'بوابة الإتقان | بطلات الضرب والقسمة والمصادر التعليمية',
+    href:'mastery-home.html',
+    featured:true
+
+  },
+  {
+    id:'nafes',
+    icon:'🏆',
+    title:'أكاديمية عبقريات نافس',
+    desc:'بوابة الطالبات ولوحة المعلمة ونقاط التحديات',
+    href:'nafes.html',
+    featured:true
+  },
+  {
+    id:'review5',
+    icon:'📘',
+    title:'المراجعة ومهارات التفكير العليا – خامس',
+    desc:'حقيبة جواهر وأوراق العمل'
+  },
+  {
+    id:'review6',
+    icon:'📗',
+    title:'المراجعة ومهارات التفكير العليا – سادس',
+    desc:'حقيبة جواهر وأوراق العمل'
+  },
+  {
+    id:'challenges',
+    icon:'⭐',
+    title:'التحدي الأسبوعي',
+    desc:'تحديات رياضية ممتعة ومتجددة'
+  },
+  {
+    id:'excellence',
+    icon:'🎖️',
+    title:'لوحة التميز والتكريمات',
+    desc:'الشهادات والتحفيز ونجمات الصف'
+  },
+  {
+    id:'activities',
+    icon:'💌',
+    title:'الأنشطة التعليمية التفاعلية',
+    desc:'رسائل مفاجئة وقصص رياضية'
+  },
+  {
+    id:'schoolActivities',
+    icon:'🎨',
+    title:'الأنشطة والإذاعات المدرسية',
+    desc:'مساحة للأنشطة والفعاليات المدرسية'
+  },
+  {
+    id:'practice',
+    icon:'📝',
+    title:'التدريبات والاختبارات والمهام الأدائية',
+    desc:'تطبيقات ومهام ترتبط بالرياضيات'
+  }
+];
+
+/* أقسام التميز */
+
+const categories = {
+  certificates:{
+    title:'الشهادات والتكريم',
+    icon:'🎖️'
+  },
+  motivation:{
+    title:'التحفيز والتشجيع',
+    icon:'💚'
+  },
+  stars:{
+    title:'نجمات الرياضيات',
+    icon:'⭐'
+  }
+};
+
+/* جميع روابط المحتوى */
+
+const content = {
+
+  /* أكاديمية الإتقان */
+
+  mastery:[
+    ['fractions-mastery.html','💠','جوهرة الكسور | رحلة الإتقان','رحلة تفاعلية لتعلّم الكسور وإتقانها'],
+    [
+      'ma-waraa-al-fasila.html',
+      '💎',
+      'ما وراء الفاصلة',
+      'رحلة علاجية في العمليات الأربع على الكسور العشرية | شرح وتدريب واختبار قبلي وبعدي وقياس التحسن'
+    ],
+    [
+      'mastery-home.html',
+      '🏛️',
+      'بوابة رحلة الإتقان',
+      'مدخل أنشطة الإتقان'
+    ],
+    [
+      'mastery-journey.html',
+      '✨',
+      'رحلة الإتقان التفاعلية',
+      'تدريب وتحديات الإتقان'
+    ],
+    [
+      'number-kingdom.html',
+      '👑',
+      'مملكة الأعداد وأسرار الجوهرة',
+      'قراءة الأعداد والقيمة المنزلية'
+    ],
+    [
+      'multiplication-academy.html',
+      '✖️',
+      'أكاديمية بطلات الضرب',
+      'رحلة تفاعلية لإتقان جداول الضرب من ٠ إلى ١٢'
+    ],
+    [
+      'division-academy.html',
+      '➗',
+      'أكاديمية بطلات القسمة',
+      'رحلة تعليمية لفهم القسمة وإتقان مهاراتها'
+    ]
+  ],
+
+  /* ألعاب الصف الخامس */
+
+  grade5:[
+    [
+      'algebra_mission_grade5.html',
+      '🔐',
+      'غرفة العمليات الجبرية',
+      'مهمات المعادلات الجبرية'
+    ],
+    [
+      'treasure_grade5.html',
+      '🗝️',
+      'كنز القسمة المفقود',
+      'افتحي أقفال الكنز بحل مسائل القسمة'
+    ],
+    [
+      'wheel_grade5.html',
+      '🎡',
+      'عجلة تحدي الضرب',
+      'عجلة تفاعلية وأسئلة ضرب ونقاط'
+    ],
+    [
+      'balloon_grade5.html',
+      '🎈',
+      'سباق المناطيد',
+      'منافسة المجموعات في سماء الرياضيات'
+    ],
+    [
+      'doors_grade5.html',
+      '🚪',
+      'الأبواب الغامضة',
+      'اختاري الباب واكتشفي السؤال'
+    ]
+  ],
+
+  /* ألعاب الصف السادس */
+
+  grade6:[
+    [
+      'wheel-fractions 3.html',
+      '🎡',
+      'عجلة التميز – تحويل الكسور',
+      'تحويل العدد الكسري والكسر غير الفعلي'
+    ],
+    [
+      'fractions-kingdom.html',
+      '🏰',
+      'مملكة الكسور',
+      'نشاط تفاعلي في الكسور'
+    ],
+    [
+      'train.html',
+      '🚂',
+      'قطار التحدي الرياضي',
+      'الكسور العشرية وأربع محطات'
+    ],
+    [
+      'galaxy_race_math_game 3.html',
+      '🚀',
+      'سباق المجرّة',
+      'تبسيط الكسور الاعتيادية'
+    ],
+    [
+      'firestore.html',
+      '💎',
+      'العوامل الأولية',
+      'نشاط تفاعلي في العوامل الأولية'
+    ],
+    [
+      'dual_fraction_challenge_game_fixed.html',
+      '🧩',
+      'تحدي الثنائيات',
+      'منافسة في الكسور الاعتيادية'
+    ],
+    [
+      'jawaher_fraction_lab_v2.html',
+      '🔬',
+      'مختبر جواهر السري – الإصدار الجديد',
+      'مختبر تفاعلي لتبسيط الكسور الاعتيادية'
+    ]
+  ],
+
+  /* إضافات رحلة الإتقان */
+  /* مراجعة خامس */
+
+  review5:[
+    ['jawhara-interactive-reviews.html','📘','مراجعات جوهرة ماث التفاعلية – خامس','اختاري الصف الخامس ثم الدرس وابدئي التحدي'],
+    [
+      'jawaher_thinking_grade5.html',
+      '💎',
+      'حقيبة جواهر – خامس',
+      'مراجعة وتعزيز التفكير الرياضي'
+    ],
+
+    [
+      'jawaher_thinking_grade5_worksheets.html',
+      '📄',
+      'أوراق عمل حقيبة جواهر – خامس',
+      'أوراق عمل وممارسة'
+    ]
+  ],
+
+  /* مراجعة سادس */
+
+  review6:[
+    ['jawhara-interactive-reviews.html','📗','مراجعات جوهرة ماث التفاعلية – سادس','اختاري الصف السادس ثم الدرس وابدئي التحدي'],
+    [
+      'jawaher_thinking_grade6.html',
+      '💎',
+      'حقيبة جواهر – سادس',
+      'مراجعة وتعزيز التفكير الرياضي'
+    ],
+    [
+      'jawaher_thinking_grade6_worksheets.html',
+      '📄',
+      'أوراق عمل حقيبة جواهر – سادس',
+      'أوراق عمل وممارسة'
+    ]
+  ],
+
+  /* التحدي الأسبوعي */
+
+  challenges:[
+    [
+      'jawhara-weekly-challenge.html',
+      '💎',
+      'جوهرة الأسبوع',
+      'تحديات أسبوعية للصفين الخامس والسادس مع جمع النقاط'
+    ],
+    [
+      'lcm_challenge.mp4.MP4',
+      '🎬',
+      'تحدي المضاعف المشترك الأصغر',
+      'تحدٍّ مصور'
+    ]
+  ],
+
+  /* الشهادات والتكريم */
+
+  certificates:[
+    [
+      'itqan-honors-ordered.html',
+      '🏆',
+      'إتقان الضرب والقسمة',
+      'حفل تكريم طالبات الصف الخامس وشهادات الإتقان'
+    ],
+    [
+      'thank_you_certificates.pdf.pdf',
+      '🎖️',
+      'شهادات شكر',
+      'شهادات التميز'
+    ],
+    [
+      'تكريم المعلمة الصغيرة.jpg',
+      '👩‍🏫',
+      'تكريم المعلمة الصغيرة',
+      'تكريم'
+    ],
+    [
+      'شهادة شكر نجمة الشهر.PNG',
+      '👑',
+      'شهادة نجمة الشهر',
+      'شهادة تكريم'
+    ],
+    [
+      'نجمة الشهر صف سادس سنا الحويشان.MOV',
+      '🎬',
+      'نجمة الشهر – سادس',
+      'فيديو التكريم'
+    ]
+  ],
+
+  /* التحفيز */
+
+  motivation:[
+    [
+      'reward-vault.html',
+      '🎁',
+      'خزينة جوهرة ماث – أظرف المكافآت',
+      'أظرف المكافآت التفاعلية'
+    ],
+    [
+      'surprise-machine.html',
+      '🎰',
+      'آلة المفاجآت',
+      'مفاجآت تحفيزية'
+    ],
+    [
+      'happiness-envelopes.html',
+      '💌',
+      'ظروف السعادة',
+      'رسائل تشجيع ومفاجآت'
+    ],
+    [
+      'بريد السعادة.HEIC',
+      '💌',
+      'بريد السعادة',
+      'رسائل تحفيزية'
+    ],
+    [
+      'الطالبات المميزات في القسمة الصف الخامس .pdf',
+      '🌟',
+      'المتميزات في القسمة – خامس',
+      'تكريم القسمة'
+    ],
+    [
+      'تحفيز طالبات الصف السادس قسمة الكسور العشرية.HEIC',
+      '💚',
+      'تحفيز طالبات سادس',
+      'تحفيز القسمة العشرية'
+    ],
+    [
+      'تحفيز في الحصة القسمة على عدد من رقمين .jpg',
+      '✨',
+      'تحفيز في حصة القسمة',
+      'نشاط تحفيزي'
+    ]
+  ],
+
+  /* نجمات الرياضيات */
+
+  stars:[
+    [
+      'نجمة اليوم.html',
+      '⭐',
+      'نجمة اليوم',
+      'نجمة الرياضيات'
+    ],
+    [
+      'hursday_stars.html',
+      '🎭',
+      'نجمات الخميس',
+      'لوحة نجمات الخميس'
+    ],
+    [
+      'نجمة الاسبوع جنان بوخضر .PNG',
+      '⭐',
+      'نجمة الأسبوع',
+      'تكريم نجمة الأسبوع'
+    ],
+    [
+      'division_heroes.html',
+      '🏆',
+      'بطلات القسمة',
+      'بطلات القسمة'
+    ]
+  ],
+
+  /* الأنشطة التفاعلية */
+
+  activities:[
+    ['jawhara-wall.html','🧱','حائط عبقريات جوهرة ماث','مساحة مشاركات تجريبية؛ الحفظ والموافقة حاليًا على الجهاز فقط'],
+    [
+      'sirr-al-jawhara.html',
+      '💎',
+      'سر الجوهرة | نجمات الخميس – دفعة ٢٠٢٧',
+      'صندوق الجواهر والرسائل الخاصة'
+    ],
+    [
+      'math_stage.html',
+      '🎭',
+      'مسرح قرعة الرياضيات',
+      'قرعة الأسماء والتحديات'
+    ],
+    [
+      'math-luck.html',
+      '🎲',
+      'حظك الرياضي',
+      'لعبة تفاعلية'
+    ],
+    [
+      'boredom-rescue.html',
+      '🎉',
+      'أنقذيني من الملل',
+      'استراحة تفاعلية'
+    ],
+    [
+      'interactive_qr.html',
+      '💌',
+      'هناك رسالة تنتظركِ',
+      'رسائل تفاعلية'
+    ],
+    [
+      'Animating_3D_mathematics_pop-up_…_b8e1c3f1.mp4',
+      '📖',
+      'كتاب جواهر السحري – حكاية الأعمدة البيانية',
+      'حكاية تعليمية مصورة'
+    ]
+  ],
+
+  /* الأنشطة المدرسية */
+
+  schoolActivities:[
+    ['juice-party.html','🧃','احتفال العصير – نجاح بنكهة الاجتهاد','٢٢ عصيرًا ومفاجآت'],
+    ['الاحتفال بفوز المنتخب .MP4','🇸🇦','الاحتفال بفوز المنتخب','فعالية مدرسية'],
+    ['نشاط صفي المادة ٣٤.PNG','🎨','نشاط صفي – المادة ٣٤','نشاط مدرسي'],
+
+    ['‎⁨مسابقةمن انا التفاعلية الوطنية المعلمة جواهر السبيعي⁩.pptx','🇸🇦','مسابقة من أنا الوطنية','عرض تفاعلي مدرسي']
+  ],
+
+  /* التدريبات والاختبارات */
+
+  practice:[
+    ['skills-library.html','📚','مكتبة المهارات الرياضية','الصف الخامس والسادس: وحدات ودروس وتدريبات تفاعلية'],
+    [
+      'saudi_equations_task.mp4',
+      '🇸🇦',
+      'رحلة المعادلات في ربوع وطني',
+      'مهمة أدائية وطنية'
+    ],
+    ['%E2%80%8E%E2%81%A8%D8%A7%D9%94%D9%88%D8%B1%D8%A7%D9%82%20%D8%B9%D9%85%D9%84%20%D8%B3%D8%A7%D8%AF%D8%B3%E2%81%A9.pdf.pdf','📘','أوراق عمل رياضيات – الصف السادس','تدريبات وأوراق عمل للصف السادس']
+  ]
+};
+
+/* إنشاء عناصر الصفحة */
+
+const app = document.getElementById('app');
+
+function el(tag,cls,text) {
+  const n = document.createElement(tag);
+
+  if(cls) {
+    n.className = cls;
+  }
+
+  if(text !== undefined) {
+    n.textContent = text;
+  }
+
+  return n;
+}
+
+/* واجهة الموقع */
+
+function hero() {
+
+  const h = el('section','hero');
+  const copy = el('div');
+
+  copy.append(
+    el('span','eyebrow','✦ عالم الأرقام يبدأ من هنا'),
+    el('h1','','جوهرة ماث'),
+    el(
+      'p',
+      '',
+      'حيث تتحول الأرقام إلى اكتشافات! انطلقي في مغامرات الرياضيات، واكتشفي ألعابًا وتحديات ومهارات جديدة.'
+    )
+  );
+
+  const actions = el('div','actions');
+
+  const a = el('a','btn','✨ اكتشفي الألعاب');
+  a.href = '#sections';
+
+  const b = el('a','btn secondary','🏆 ادخلي عبقريات نافس');
+  b.href = 'nafes.html';
+
+  actions.append(a,b);
+  copy.append(actions);
+
+  const art = el('div','hero-art');
+
+  art.append(
+    el('div','halo'),
+    el('div','halo two')
+  );
+
+  const img = el('img','hero-logo');
+
+  img.src = 'jawhara-logo.png';
+  img.alt = 'شعار جوهرة ماث الرسمي';
+
+  art.append(img);
+
+  [
+    ['m1','π'],
+    ['m2','Σ'],
+    ['m3','x²'],
+    ['m4','÷']
+  ].forEach(([c,t]) => {
+    art.append(
+      el('span','math-symbol '+c,t)
+    );
+  });
+
+  h.append(copy,art);
+
+  return h;
+}
+
+/* بطاقة القسم */
+
+function makeTile(s) {
+
+  const a = el(
+    'a',
+    'tile'+(s.featured?' featured':'')
+  );
+
+  a.href = s.href || '#'+s.id;
+
+  a.append(
+    el('span','ico',s.icon),
+    el('h3','',s.title),
+    el('p','',s.desc),
+    el(
+      'span',
+      'go',
+      s.href
+        ? 'دخول الأكاديمية ←'
+        : 'استكشفي القسم ←'
+    )
+  );
+
+  return a;
+}
+
+/* الصفحة الرئيسية */
+
+function home() {
+
+  app.replaceChildren(hero());
+
+  const area = el('section');
+  area.id = 'sections';
+
+  const head = el('div','heading');
+  const t = el('div');
+
+  t.append(
+    el('h2','','بوابات جوهرة ماث'),
+    el('p','','اختاري القسم وابدئي مغامرتكِ')
+  );
+
+  head.append(t);
+
+  const search = el('input','search');
+
+  search.type = 'search';
+  search.placeholder = 'ابحثي عن قسم أو لعبة…';
+
+  search.setAttribute(
+    'aria-label',
+    'البحث عن قسم أو لعبة'
+  );
+
+  head.append(search);
+  area.append(head);
+
+  const grid = el('div','grid');
+
+  area.append(grid);
+  app.append(area);
+
+  function draw() {
+
+    const q = search.value.trim().toLowerCase();
+
+    grid.replaceChildren();
+
+    const filtered = sections.filter(s => {
+
+      const sub = s.id === 'excellence'
+        ? [
+            ...content.certificates,
+            ...content.motivation,
+            ...content.stars
+          ]
+        : content[s.id] || [];
+
+      return [
+        s.title,
+        s.desc,
+        ...sub.flat()
+      ]
+      .join(' ')
+      .toLowerCase()
+      .includes(q);
+
+    });
+
+    filtered.forEach(s => {
+      grid.append(makeTile(s));
+    });
+
+    if(!filtered.length) {
+      grid.append(
+        el('p','empty','لا توجد نتائج مطابقة.')
+      );
+    }
+  }
+
+  search.addEventListener('input',draw);
+
+  draw();
+}
+
+/* بطاقة لعبة أو نشاط */
+
+function itemCard(item) {
+
+  const [href,icon,title,desc] = item;
+
+  const a = el('a','item');
+
+  a.href = href;
+
+  const e = el('span','emoji',icon);
+
+  const txt = el('span');
+
+  txt.append(
+    el('strong','',title),
+    el('small','',desc)
+  );
+
+  a.append(e,txt);
+
+  return a;
+}
+
+/* صفحة القسم */
+
+function section(id) {
+
+  const info =
+    sections.find(s => s.id === id)
+    || categories[id];
+
+  if(!info) {
+    home();
+    return;
+  }
+
+  app.replaceChildren();
+
+  const box = el('section','panel');
+
+  const back = el(
+    'a',
+    'back',
+    '← العودة إلى الرئيسية'
+  );
+
+  back.href = '#home';
+
+  box.append(back);
+
+  const heading = el('div','heading');
+
+  heading.append(
+    el(
+      'h2',
+      '',
+      (info.icon || '💎')+' '+info.title
+    )
+  );
+
+  box.append(heading);
+
+  if(id === 'excellence') {
+
+    const grid = el('div','grid');
+
+    Object.entries(categories).forEach(
+      ([key,v]) => {
+
+        grid.append(
+          makeTile({
+            ...v,
+            id:key,
+            desc:'شاهدي محتوى '+v.title
+          })
+        );
+
+      }
+    );
+
+    box.append(grid);
+
+  } else {
+
+    const list = el('div','item-list');
+
+    (content[id] || []).forEach(item => {
+      list.append(itemCard(item));
+    });
+
+    if(!list.children.length) {
+
+      box.append(
+        el(
+          'p',
+          'empty',
+          'هذا القسم جاهز لإضافة الأنشطة قريبًا.'
+        )
+      );
+
+    } else {
+
+      box.append(list);
+
+    }
+  }
+
+  app.append(box);
+}
+
+/* التنقل */
+
+function render() {
+
+  const hash = decodeURIComponent(
+    location.hash.slice(1)
+  ) || 'home';
+
+  if(hash === 'home' || hash === 'sections') {
+    home();
+
+    if(hash === 'sections') {
+      requestAnimationFrame(() => {
+        document.getElementById('sections')
+          ?.scrollIntoView();
+      });
+    }
+
+  } else {
+    section(hash);
+    window.scrollTo(0,0);
+  }
+}
+
+window.addEventListener(
+  'hashchange',
+  render
+);
+
+render();
+
+/* التحكم بالافتتاحية */
+
+const intro = document.getElementById('intro');
+
+let introTimer;
+let hideTimer;
+
+function closeIntro() {
+
+  clearTimeout(introTimer);
+  clearTimeout(hideTimer);
+
+  intro.classList.add('hide');
+
+  hideTimer = setTimeout(() => {
+    intro.hidden = true;
+  },900);
+
+}
+
+function playIntro() {
+
+  clearTimeout(introTimer);
+  clearTimeout(hideTimer);
+
+  intro.hidden = false;
+
+  intro.classList.remove('hide');
+
+  introTimer = setTimeout(
+    closeIntro,
+    5500
+  );
+
+}
+
+document.getElementById('skipIntro')
+  .onclick = closeIntro;
+
+document.getElementById('replay')
+  .onclick = playIntro;
+
+if(
+  window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches
+) {
+  intro.hidden = true;
+} else {
+  playIntro();
+}
+
+</script>
+
+</body>
+</html>
