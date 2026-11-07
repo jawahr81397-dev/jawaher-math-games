@@ -69,13 +69,8 @@ h1{font:800 clamp(24px,4vw,37px) Alexandria,Cairo,sans-serif;color:#594373;margi
           <option value="question">❓ أطرح استفسارًا</option>
         </select>
       </label>
-      <label class="field">الصف
-        <select name="grade" required>
-          <option value="عام">للصفين الخامس والسادس</option>
-          <option value="خامس أ">خامس أ</option>
-          <option value="خامس ب">خامس ب</option>
-          <option value="سادس أ">سادس أ</option>
-        </select>
+      <label class="field">الصف (اختياري)
+        <input name="grade" maxlength="40" placeholder="مثال: رابع ابتدائي، أو اتركيه فارغًا">
       </label>
       <label class="field">المهارة الرياضية
         <input name="skill" maxlength="80" required placeholder="مثل: القسمة المطولة أو الكسور العشرية">
@@ -104,7 +99,7 @@ const ENDPOINT='https://ylsnogtohohmzlxpihks.supabase.co/functions/v1/jm-family-
 const KEY='sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q';
 const form=document.getElementById('familyForm'),status=document.getElementById('formStatus'),submit=document.getElementById('sendFamily'),posts=document.getElementById('familyPosts');
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
-async function load(){posts.replaceChildren(el('p','empty','جارٍ تحميل المشاركات…'));try{const r=await fetch(ENDPOINT,{headers:{apikey:KEY}});if(!r.ok)throw Error();const data=await r.json();posts.replaceChildren();const entries=data.contributions||[];if(!entries.length){posts.append(el('p','empty','ستظهر هنا التجارب والإجابات بعد اعتمادها.'));return}entries.forEach(item=>{const card=el('article','post');card.append(el('span','tag',item.submission_type==='question'?'❓ استفسار وإجابة':'💡 تجربة أسرية'));card.append(el('p','meta','📚 '+item.grade+' · '+item.skill));card.append(el('h3','',item.title));card.append(el('p','',item.message));if(item.teacher_answer){const answer=el('div','answer');answer.append(el('strong','','رد المعلمة: '),document.createTextNode(item.teacher_answer));card.append(answer)}posts.append(card)})}catch{posts.replaceChildren(el('p','empty','تعذر تحميل المشاركات الآن. حاولي تحديث الصفحة لاحقًا.'))}}
+async function load(){posts.replaceChildren(el('p','empty','جارٍ تحميل المشاركات…'));try{const r=await fetch(ENDPOINT,{headers:{apikey:KEY}});if(!r.ok)throw Error();const data=await r.json();posts.replaceChildren();const entries=data.contributions||[];if(!entries.length){posts.append(el('p','empty','ستظهر هنا التجارب والإجابات بعد اعتمادها.'));return}entries.forEach(item=>{const card=el('article','post');card.append(el('span','tag',item.submission_type==='question'?'❓ استفسار وإجابة':'💡 تجربة أسرية'));card.append(el('p','meta',(item.grade?'📚 '+item.grade+' · ':'📚 ')+item.skill));card.append(el('h3','',item.title));card.append(el('p','',item.message));if(item.teacher_answer){const answer=el('div','answer');answer.append(el('strong','','رد المعلمة: '),document.createTextNode(item.teacher_answer));card.append(answer)}posts.append(card)})}catch{posts.replaceChildren(el('p','empty','تعذر تحميل المشاركات الآن. حاولي تحديث الصفحة لاحقًا.'))}}
 form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;status.textContent='جارٍ إرسال المشاركة للمراجعة…';const payload=Object.fromEntries(new FormData(form).entries());try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',apikey:KEY},body:JSON.stringify(payload)});const result=await r.json();if(!r.ok)throw Error(result.message||'تعذر الإرسال');form.reset();status.textContent=result.message||'وصلت المشاركة للمعلمة للمراجعة.'}catch(error){status.textContent=error.message||'تعذر الإرسال الآن؛ حاولي مرة أخرى.'}finally{submit.disabled=false}});
 load();
 })();
