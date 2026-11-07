@@ -105,9 +105,7 @@ function openPrintableReport(){
  const heading=document.querySelector('h1')?.textContent||'تقرير جوهرة ماث';
  const safeTitle=heading.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  popup.document.open();
- popup.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>'+css+' @media screen{body{background:#fff!important;color:#111!important} .print-actions{position:sticky;top:0;padding:12px;background:#fff;z-index:10;border-bottom:1px solid #ddd}.print-actions button{background:#175467;color:white;padding:12px;border:0;border-radius:10px;font-size:16px} .panel,.card{background:white!important;color:#111!important} h1,h2,p,.muted,th,td{color:#111!important}} @media print{.print-actions{display:none!important}body{background:white!important;color:black!important}}</style></head><body><div class="print-actions"><button type="button" onclick="window.print()">🖨️ طباعة من Safari</button><p>إذا لم تفتح الطباعة، اضغطي مشاركة في Safari ثم اختاري «طباعة».</p></div><main><h1>'+safeTitle+'</h1>'+content.innerHTML+'</main><script>
-(()=>{const tabs=[...document.querySelectorAll('.tab[data-tab]')];const views=[...document.querySelectorAll('.view-section[data-view]')];function show(name){tabs.forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===name)));views.forEach(v=>v.hidden=v.dataset.view!==name);try{history.replaceState(null,'','#'+name)}catch(e){}}tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));const first=(location.hash||'').slice(1);show(tabs.some(b=>b.dataset.tab===first)?first:'overview');})();
-</script></body></html>');
+ popup.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>'+css+' @media screen{body{background:#fff!important;color:#111!important} .print-actions{position:sticky;top:0;padding:12px;background:#fff;z-index:10;border-bottom:1px solid #ddd}.print-actions button{background:#175467;color:white;padding:12px;border:0;border-radius:10px;font-size:16px} .panel,.card{background:white!important;color:#111!important} h1,h2,p,.muted,th,td{color:#111!important}} @media print{.print-actions{display:none!important}body{background:white!important;color:black!important}}</style></head><body><div class="print-actions"><button type="button" onclick="window.print()">🖨️ طباعة من Safari</button><p>إذا لم تفتح الطباعة، اضغطي مشاركة في Safari ثم اختاري «طباعة».</p></div><main><h1>'+safeTitle+'</h1>'+content.innerHTML+'</main></body></html>');
  popup.document.close();
  popup.focus();
 }
@@ -153,4 +151,6 @@ async function loadFamily(){root.replaceChildren(make('p','muted','جارٍ تح
 document.getElementById('refreshFamily').addEventListener('click',loadFamily);
 })();
 </script>
-</body></html>
+<script>
+(()=>{const tabs=[...document.querySelectorAll('.tab[data-tab]')];const views=[...document.querySelectorAll('.view-section[data-view]')];function show(name){tabs.forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===name)));views.forEach(v=>v.hidden=v.dataset.view!==name);try{history.replaceState(null,'','#'+name)}catch(e){}}tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));const first=(location.hash||'').slice(1);show(tabs.some(b=>b.dataset.tab===first)?first:'overview');})();
+</script></body></html>
