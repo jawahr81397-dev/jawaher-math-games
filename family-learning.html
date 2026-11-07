@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f3fb">
+<title>مساحة أولياء الأمور لتعلّم الرياضيات | جوهرة ماث</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{font-family:Cairo,Tahoma,Arial,sans-serif;color:#413650;background:#faf8ff;--purple:#644b82;--soft:#786c87;--line:#e5d9ee;--mint:#eaf7f3;--gold:#d1a44e}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 8%,#dff3ef 0,transparent 35%),radial-gradient(ellipse at 88% 12%,#eee3fa 0,transparent 38%),#faf8ff}
+button,input,select,textarea{font:inherit}a{color:inherit}
+.wrap{width:min(900px,calc(100% - 30px));margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0 12px}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--purple);text-decoration:none;font-weight:800;padding:10px 14px;border:1px solid var(--line);background:#ffffffc9;border-radius:14px}
+.brandmark{display:flex;align-items:center;gap:13px}
+.icon{display:grid;place-items:center;width:68px;height:68px;flex:none;border-radius:22px;background:linear-gradient(145deg,#eee5fb,#e3f4f0);box-shadow:0 9px 22px #755a951d}
+.icon svg{width:58px;height:58px}
+h1{font:800 clamp(24px,4vw,37px) Alexandria,Cairo,sans-serif;color:#594373;margin:0}
+.intro{color:var(--soft);line-height:1.9;margin:10px 0 22px}
+.panel{padding:clamp(18px,4vw,30px);border:1px solid var(--line);border-radius:25px;background:#ffffffd9;box-shadow:0 15px 40px #76658f13;margin:16px 0}
+.panel h2{margin:0 0 7px;color:var(--purple);font:700 21px Alexandria,Cairo,sans-serif}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:grid;gap:7px;color:#594672;font-weight:700;font-size:14px}
+.field.full,.note,.status,.send{grid-column:1/-1}
+.field input,.field select,.field textarea{width:100%;min-width:0;color:#453b58;background:#fff;border:1px solid #d8cbe4;border-radius:13px;padding:12px;outline-color:#9877b4}
+.field input,.field select{min-height:48px}.field textarea{min-height:120px;resize:vertical;line-height:1.8}
+.note{margin:0;color:#766b83;font-size:13px;line-height:1.8;padding:11px 13px;border-radius:12px;background:#f7f3fb}
+.send{justify-self:start;border:0;border-radius:14px;padding:13px 20px;background:linear-gradient(125deg,#e8d3a4,#f6eacb);color:#473452;font-weight:800;cursor:pointer;box-shadow:0 6px 16px #b39b6a25}
+.send:disabled{opacity:.65;cursor:wait}.status{min-height:24px;margin:0;color:#526d64;font-weight:700}
+.list-title{margin:0 0 14px;color:var(--purple);font:700 22px Alexandria,Cairo,sans-serif}
+.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.post{min-width:0;padding:18px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.tag{display:inline-flex;padding:5px 11px;border-radius:99px;background:#f2eafa;color:#674b85;font-size:12px;font-weight:800}
+.meta{margin:9px 0 4px;color:#7a7087;font-size:13px}
+.post h3{margin:7px 0;color:#51406c;font-size:18px}
+.post p{margin:7px 0;color:#716b82;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.answer{margin-top:13px;padding:12px;border-radius:12px;background:var(--mint);color:#426c60;line-height:1.8}
+.empty{grid-column:1/-1;color:#81778f;text-align:center;padding:18px}
+.foot{text-align:center;color:#81778f;font-size:13px;padding:10px 0 30px}
+@media(max-width:600px){.form,.posts{grid-template-columns:1fr}.field.full,.note,.status,.send{grid-column:1}.top{align-items:flex-start}.icon{width:56px;height:56px;border-radius:18px}.icon svg{width:48px;height:48px}.back{font-size:13px;padding:9px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="index.html">← العودة للبوابة</a>
+    <span class="meta">جوهرة ماث</span>
+  </div>
+  <header class="brandmark">
+    <span class="icon" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="23" cy="20" r="7" fill="#795AA6"/><circle cx="43" cy="25" r="5.5" fill="#68A7A1"/>
+        <path d="M10.5 43.5c0-7 5.7-12.5 12.5-12.5s12.5 5.5 12.5 12.5v2.1c-8-3.1-16.8-3.1-25 0v-2.1Z" fill="#A88ACB"/>
+        <path d="M34.7 42.4c.5-5.3 4-9.1 8.3-9.1 4.7 0 8.5 4.3 8.5 9.6v2.4c-5.5-2.2-11.2-2-16.8.3v-3.2Z" fill="#91C7BD"/>
+        <path d="M11 49.5c7.1-2.7 14.3-2.7 21.4 0v6.2c-7.1-2.7-14.3-2.7-21.4 0v-6.2Zm21.4 0c7.1-2.7 14.3-2.7 21.4 0v6.2c-7.1-2.7-14.3-2.7-21.4 0v-6.2Z" fill="#FFFDF8" stroke="#80649F" stroke-width="2" stroke-linejoin="round"/>
+        <path d="m52 11 1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.6-2.5 3.6-.5L52 11Z" fill="#D1A44E"/>
+      </svg>
+    </span>
+    <h1>مساحة أولياء الأمور لتعلّم الرياضيات</h1>
+  </header>
+  <p class="intro">شاركوا طريقة ساعدت أبناءكم على فهم مهارة رياضية، أو اطرحوا استفسارًا ليستفيد الجميع من التجربة والإجابة.</p>
+
+  <section class="panel" aria-labelledby="formTitle">
+    <h2 id="formTitle">💌 شاركونا تجربتكم أو استفساركم</h2>
+    <form class="form" id="familyForm">
+      <label class="field">نوع المشاركة
+        <select name="submission_type" required>
+          <option value="experience">💡 أشارك تجربة أو طريقة تعلم</option>
+          <option value="question">❓ أطرح استفسارًا</option>
+        </select>
+      </label>
+      <label class="field">الصف
+        <select name="grade" required>
+          <option value="عام">للصفين الخامس والسادس</option>
+          <option value="خامس أ">خامس أ</option>
+          <option value="خامس ب">خامس ب</option>
+          <option value="سادس أ">سادس أ</option>
+        </select>
+      </label>
+      <label class="field">المهارة الرياضية
+        <input name="skill" maxlength="80" required placeholder="مثل: القسمة المطولة أو الكسور العشرية">
+      </label>
+      <label class="field">عنوان مختصر
+        <input name="title" maxlength="100" minlength="3" required placeholder="عنوان واضح للتجربة أو الاستفسار">
+      </label>
+      <label class="field full">التجربة أو الاستفسار
+        <textarea name="message" maxlength="1200" minlength="10" required placeholder="اكتبوا طريقة التعلم التي جربتموها أو استفساركم حول المهارة…"></textarea>
+      </label>
+      <p class="note">تُراجع المشاركات قبل ظهورها للجميع. يُرجى عدم كتابة أسماء الأبناء أو أرقام التواصل أو أي معلومات خاصة.</p>
+      <button class="send" id="sendFamily" type="submit">إرسال للمراجعة</button>
+      <p class="status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section class="panel" aria-labelledby="listTitle">
+    <h2 class="list-title" id="listTitle">مشاركات وتجارب وإجابات معتمدة</h2>
+    <div class="posts" id="familyPosts"><p class="empty">جارٍ تحميل المشاركات…</p></div>
+  </section>
+  <footer class="foot">المشاركة اختيارية، والهدف تبادل الأفكار التي تدعم تعلّم الأبناء.</footer>
+</main>
+<script>
+(()=>{'use strict';
+const ENDPOINT='https://ylsnogtohohmzlxpihks.supabase.co/functions/v1/jm-family-contributions';
+const KEY='sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q';
+const form=document.getElementById('familyForm'),status=document.getElementById('formStatus'),submit=document.getElementById('sendFamily'),posts=document.getElementById('familyPosts');
+const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
+async function load(){posts.replaceChildren(el('p','empty','جارٍ تحميل المشاركات…'));try{const r=await fetch(ENDPOINT,{headers:{apikey:KEY}});if(!r.ok)throw Error();const data=await r.json();posts.replaceChildren();const entries=data.contributions||[];if(!entries.length){posts.append(el('p','empty','ستظهر هنا التجارب والإجابات بعد اعتمادها.'));return}entries.forEach(item=>{const card=el('article','post');card.append(el('span','tag',item.submission_type==='question'?'❓ استفسار وإجابة':'💡 تجربة أسرية'));card.append(el('p','meta','📚 '+item.grade+' · '+item.skill));card.append(el('h3','',item.title));card.append(el('p','',item.message));if(item.teacher_answer){const answer=el('div','answer');answer.append(el('strong','','رد المعلمة: '),document.createTextNode(item.teacher_answer));card.append(answer)}posts.append(card)})}catch{posts.replaceChildren(el('p','empty','تعذر تحميل المشاركات الآن. حاولي تحديث الصفحة لاحقًا.'))}}
+form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;status.textContent='جارٍ إرسال المشاركة للمراجعة…';const payload=Object.fromEntries(new FormData(form).entries());try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',apikey:KEY},body:JSON.stringify(payload)});const result=await r.json();if(!r.ok)throw Error(result.message||'تعذر الإرسال');form.reset();status.textContent=result.message||'وصلت المشاركة للمعلمة للمراجعة.'}catch(error){status.textContent=error.message||'تعذر الإرسال الآن؛ حاولي مرة أخرى.'}finally{submit.disabled=false}});
+load();
+})();
+</script>
+</body>
+</html>
