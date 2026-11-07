@@ -732,7 +732,8 @@
         });
     </script>
 
-    <script>
+    <script src="jm-mastery-bridge.js"></script>
+<script>
         /* ----------------------------------------------------
            1. AUDIO SYNTHESIZER (Web Audio API - Synthesized)
            ---------------------------------------------------- */
@@ -1252,7 +1253,10 @@
             statusText.innerText = "جاري حفظ النتيجة في قاعدة البيانات...";
 
             let saved = false;
-            if (window.saveResultToFirestore) {
+            if (window.JMBridge) {
+                saved = await JMBridge.submit(studentName,'العوامل الأولية والتحليل إلى عوامل أولية',correctCount,totalQ,studentClass);
+            }
+            if (!saved && window.saveResultToFirestore) {
                 saved = await window.saveResultToFirestore(resultPayload);
             }
 
