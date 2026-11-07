@@ -587,6 +587,29 @@ body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none
 .intro-ring{border-color:#c7aa76}.intro h2{color:#614780}.intro p{color:#6f6584}
 @media(prefers-reduced-motion:reduce){body::before{animation:none}}
 
+
+/* مساحة أولياء الأمور */
+.family-space{margin:18px 0 48px;padding:clamp(20px,4vw,34px);border:1px solid #ddcfe8;border-radius:26px;background:linear-gradient(145deg,#fffdf8ed,#f1fbf9ed);box-shadow:0 14px 34px #79659618}
+.family-space h2{margin:0;color:#574174;font:700 clamp(23px,3vw,32px) Alexandria,sans-serif}
+.family-intro{color:#716b82;line-height:1.9;margin:9px 0 20px}
+.family-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;padding:18px;border-radius:19px;background:#ffffffc9;border:1px solid #e7d9ee}
+.family-field{display:grid;gap:6px;color:#594672;font-weight:700;font-size:14px}
+.family-field.full{grid-column:1/-1}
+.family-field input,.family-field select,.family-field textarea{width:100%;color:#453b58;background:#fff;border:1px solid #d8cbe4;border-radius:12px;padding:11px;min-height:46px}
+.family-field textarea{min-height:112px;resize:vertical;line-height:1.8}
+.family-note{grid-column:1/-1;margin:0;color:#766b83;font-size:13px;line-height:1.8}
+.family-send{grid-column:1/-1;justify-self:start;border:0;border-radius:13px;padding:12px 19px;background:linear-gradient(125deg,#e8d3a4,#f6eacb);color:#473452;font-weight:800}
+.family-status{grid-column:1/-1;min-height:22px;margin:0;color:#526d64;font-weight:700}
+.family-list-title{margin:27px 0 12px;color:#574174;font-size:20px}
+.family-posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.family-post{padding:17px;border:1px solid #e5d9ee;border-radius:17px;background:#fffdfd}
+.family-post .tag{display:inline-flex;padding:5px 10px;border-radius:99px;background:#f2eafa;color:#674b85;font-size:12px;font-weight:800}
+.family-post h3{margin:10px 0 5px;color:#51406c}
+.family-post p{margin:7px 0;color:#716b82;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.family-answer{margin-top:12px;padding:12px;border-radius:12px;background:#eef8f5;color:#426c60;line-height:1.8}
+.family-empty{grid-column:1/-1;color:#81778f;text-align:center;padding:15px}
+@media(max-width:600px){.family-form,.family-posts{grid-template-columns:1fr}.family-field.full,.family-note,.family-send,.family-status{grid-column:1}}
+
 </style>
 </head>
 
@@ -1218,6 +1241,48 @@ function makeTile(s) {
   return a;
 }
 
+/* مساحة أولياء الأمور لتعلّم الرياضيات */
+function familySpace(){
+  const box=el('section','family-space');box.id='family-space';
+  box.append(el('h2','','👨‍👩‍👧 مساحة أولياء الأمور لتعلّم الرياضيات'),el('p','family-intro','شاركوا طريقة ساعدت أبناءكم على فهم مهارة رياضية، أو اطرحوا استفسارًا ليستفيد الجميع من التجربة والإجابة.'));
+  const form=el('form','family-form');
+  const typeLabel=el('label','family-field');typeLabel.append(document.createTextNode('نوع المشاركة'));
+  const type=el('select');type.name='submission_type';type.required=true;
+  [['experience','💡 أشارك تجربة أو طريقة تعلم'],['question','❓ أطرح استفسارًا']].forEach(([v,t])=>{const o=el('option','',t);o.value=v;type.append(o)});typeLabel.append(type);
+  const gradeLabel=el('label','family-field');gradeLabel.append(document.createTextNode('الصف'));
+  const grade=el('select');grade.name='grade';grade.required=true;
+  [['عام','للصفين الخامس والسادس'],['خامس أ','خامس أ'],['خامس ب','خامس ب'],['سادس أ','سادس أ']].forEach(([v,t])=>{const o=el('option','',t);o.value=v;grade.append(o)});gradeLabel.append(grade);
+  const skillLabel=el('label','family-field');skillLabel.append(document.createTextNode('المهارة الرياضية'));
+  const skill=el('input');skill.name='skill';skill.required=true;skill.maxLength=80;skill.placeholder='مثل: القسمة المطولة أو الكسور العشرية';skillLabel.append(skill);
+  const titleLabel=el('label','family-field');titleLabel.append(document.createTextNode('عنوان مختصر'));
+  const title=el('input');title.name='title';title.required=true;title.maxLength=100;title.placeholder='اكتبوا عنوانًا واضحًا للمشاركة';titleLabel.append(title);
+  const messageLabel=el('label','family-field full');messageLabel.append(document.createTextNode('التجربة أو الاستفسار'));
+  const message=el('textarea');message.name='message';message.required=true;message.minLength=10;message.maxLength=1200;message.placeholder='اكتبوا طريقة التعلم التي جربتموها أو استفساركم حول المهارة…';messageLabel.append(message);
+  const note=el('p','family-note','تُراجع المشاركات قبل ظهورها للجميع. لا تكتبوا أسماء الأبناء أو أرقام التواصل أو أي معلومات خاصة.');
+  const submit=el('button','family-send','إرسال للمراجعة');submit.type='submit';
+  const status=el('p','family-status','');status.setAttribute('role','status');
+  form.append(typeLabel,gradeLabel,skillLabel,titleLabel,messageLabel,note,submit,status);
+  const listTitle=el('h3','family-list-title','مشاركات وتجارب وإجابات معتمدة');
+  const posts=el('div','family-posts');posts.id='family-posts';
+  box.append(form,listTitle,posts);
+  const endpoint='https://ylsnogtohohmzlxpihks.supabase.co/functions/v1/jm-family-contributions';
+  async function load(){
+    posts.replaceChildren(el('p','family-empty','جارٍ تحميل المشاركات…'));
+    try{const r=await fetch(endpoint,{headers:{apikey:'sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q'}});if(!r.ok)throw Error();const data=await r.json();posts.replaceChildren();
+      const entries=data.contributions||[];
+      if(!entries.length){posts.append(el('p','family-empty','ستظهر هنا التجارب والإجابات بعد اعتمادها.'));return}
+      entries.forEach(item=>{const card=el('article','family-post');card.append(el('span','tag',item.submission_type==='question'?'❓ استفسار وإجابة':'💡 تجربة أسرية'));card.append(el('p','','📚 '+item.grade+' · '+item.skill));card.append(el('h3','',item.title));card.append(el('p','',item.message));if(item.teacher_answer){const answer=el('div','family-answer');answer.append(el('strong','','رد المعلمة: '),document.createTextNode(item.teacher_answer));card.append(answer)}posts.append(card)});
+    }catch{posts.replaceChildren(el('p','family-empty','تعذر تحميل المشاركات الآن. حاولي تحديث الصفحة لاحقًا.'))}
+  }
+  form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;status.textContent='جارٍ إرسال المشاركة للمراجعة…';
+    const payload={submission_type:type.value,grade:grade.value,skill:skill.value.trim(),title:title.value.trim(),message:message.value.trim()};
+    try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',apikey:'sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q'},body:JSON.stringify(payload)});const result=await r.json();if(!r.ok)throw Error(result.message||'تعذر الإرسال');form.reset();status.textContent=result.message||'وصلت المشاركة للمعلمة للمراجعة.';}
+    catch(error){status.textContent=error.message||'تعذر الإرسال الآن؛ حاولي مرة أخرى.'}
+    finally{submit.disabled=false}
+  });
+  load();return box;
+}
+
 /* الصفحة الرئيسية */
 
 function home() {
@@ -1296,6 +1361,7 @@ function home() {
   search.addEventListener('input',draw);
 
   draw();
+  app.append(familySpace());
 }
 
 /* بطاقة لعبة أو نشاط */
