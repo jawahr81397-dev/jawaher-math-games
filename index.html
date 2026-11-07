@@ -610,6 +610,13 @@ body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none
 .family-empty{grid-column:1/-1;color:#81778f;text-align:center;padding:15px}
 @media(max-width:600px){.family-form,.family-posts{grid-template-columns:1fr}.family-field.full,.family-note,.family-send,.family-status{grid-column:1}}
 
+
+.family-heading{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.family-mark{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:20px;background:linear-gradient(145deg,#eee5fb,#e3f4f0);box-shadow:0 7px 18px #755a9520}
+.family-mark svg{display:block;width:54px;height:54px}
+.family-heading h2{line-height:1.6}
+@media(max-width:500px){.family-mark{flex-basis:54px;width:54px;height:54px;border-radius:17px}.family-mark svg{width:48px;height:48px}}
+
 </style>
 </head>
 
@@ -1244,7 +1251,11 @@ function makeTile(s) {
 /* مساحة أولياء الأمور لتعلّم الرياضيات */
 function familySpace(){
   const box=el('section','family-space');box.id='family-space';
-  box.append(el('h2','','👨‍👩‍👧 مساحة أولياء الأمور لتعلّم الرياضيات'),el('p','family-intro','شاركوا طريقة ساعدت أبناءكم على فهم مهارة رياضية، أو اطرحوا استفسارًا ليستفيد الجميع من التجربة والإجابة.'));
+  const familyHeading=el('div','family-heading');
+  const familyMark=el('span','family-mark');familyMark.setAttribute('aria-hidden','true');
+  familyMark.innerHTML='<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="20" r="7" fill="#795AA6"/><circle cx="43" cy="25" r="5.5" fill="#68A7A1"/><path d="M10.5 43.5c0-7 5.7-12.5 12.5-12.5s12.5 5.5 12.5 12.5v2.1c-8-3.1-16.8-3.1-25 0v-2.1Z" fill="#A88ACB"/><path d="M34.7 42.4c.5-5.3 4-9.1 8.3-9.1 4.7 0 8.5 4.3 8.5 9.6v2.4c-5.5-2.2-11.2-2-16.8.3v-3.2Z" fill="#91C7BD"/><path d="M11 49.5c7.1-2.7 14.3-2.7 21.4 0v6.2c-7.1-2.7-14.3-2.7-21.4 0v-6.2Zm21.4 0c7.1-2.7 14.3-2.7 21.4 0v6.2c-7.1-2.7-14.3-2.7-21.4 0v-6.2Z" fill="#FFFDF8" stroke="#80649F" stroke-width="2" stroke-linejoin="round"/><path d="m52 11 1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.6-2.5 3.6-.5L52 11Z" fill="#D1A44E"/></svg>';
+  familyHeading.append(familyMark,el('h2','','مساحة أولياء الأمور لتعلّم الرياضيات'));
+  box.append(familyHeading,el('p','family-intro','شاركوا طريقة ساعدت أبناءكم على فهم مهارة رياضية، أو اطرحوا استفسارًا ليستفيد الجميع من التجربة والإجابة.'));
   const form=el('form','family-form');
   const typeLabel=el('label','family-field');typeLabel.append(document.createTextNode('نوع المشاركة'));
   const type=el('select');type.name='submission_type';type.required=true;
