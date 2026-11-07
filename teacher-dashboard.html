@@ -25,7 +25,7 @@
 <section class="panel"><h2>👑 تاج الجوهرة | تحدي الأسبوع</h2><p class="muted">سجل المشاركات والمتوجات حسب الفصل والأسبوع. تظهر فقط المشاركات المحفوظة في قاعدة البيانات.</p><div id="crownStats" class="grid"></div><div id="crowns" class="scroll"></div></section>
 <section class="panel"><h2>📚 البرامج والمهارات</h2><div class="row"><label>تصفية البرامج <select id="programFilter"><option value="all">الكل</option><option value="published">المنشورة</option><option value="hidden">غير المنشورة</option></select></label></div><div id="programs" class="scroll"></div></section>
 <section class="panel"><h2>📝 سجل النتائج</h2><div id="results" class="scroll"></div></section>
-<section class="panel"><h2>💌 بصمة جوهرة | اعتماد المشاركات</h2><p class="muted">تظهر هنا المشاركات المشتركة الواردة إلى قاعدة البيانات. لا تُنشر المشاركة إلا بعد اعتماد المعلمة. المشاركات المحلية القديمة تبقى على جهاز صاحبتها.</p><div id="wallPending"></div></section></div>
+<section class="panel"><h2>💌 بصمة جوهرة | اعتماد المشاركات</h2><p class="muted">تظهر هنا المشاركات المشتركة الواردة إلى قاعدة البيانات. لا تُنشر المشاركة إلا بعد اعتماد المعلمة. المشاركات المحلية القديمة تبقى على جهاز صاحبتها.</p><div id="wallPending"></div></section><section class="panel"><h2>👨‍👩‍👧 مساحة أولياء الأمور | مراجعة المشاركات</h2><p class="muted">راجعي التجارب والاستفسارات هنا. لا تظهر المشاركة في البوابة إلا بعد اعتمادها، ويمكن كتابة ردّ للاستفسار قبل النشر.</p><button id="refreshFamily" type="button">تحديث المشاركات</button><p id="familyAdminStatus" class="muted" role="status"></p><div id="familyAdminPosts"></div></section></div>
 <footer class="muted">المعلمة/ جواهر السبيعي — لا تُعرض بيانات الطالبات إلا بعد التحقق من الصلاحية</footer></main>
 <script>
 const sb=window.supabase.createClient('https://ylsnogtohohmzlxpihks.supabase.co','sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q');
@@ -108,7 +108,31 @@ function openPrintableReport(){
  const heading=document.querySelector('h1')?.textContent||'تقرير جوهرة ماث';
  const safeTitle=heading.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  popup.document.open();
- popup.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>'+css+' @media screen{body{background:#fff!important;color:#111!important} .print-actions{position:sticky;top:0;padding:12px;background:#fff;z-index:10;border-bottom:1px solid #ddd}.print-actions button{background:#175467;color:white;padding:12px;border:0;border-radius:10px;font-size:16px} .panel,.card{background:white!important;color:#111!important} h1,h2,p,.muted,th,td{color:#111!important}} @media print{.print-actions{display:none!important}body{background:white!important;color:black!important}}</style></head><body><div class="print-actions"><button type="button" onclick="window.print()">🖨️ طباعة من Safari</button><p>إذا لم تفتح الطباعة، اضغطي مشاركة في Safari ثم اختاري «طباعة».</p></div><main><h1>'+safeTitle+'</h1>'+content.innerHTML+'</main></body></html>');
+ popup.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>'+css+' @media screen{body{background:#fff!important;color:#111!important} .print-actions{position:sticky;top:0;padding:12px;background:#fff;z-index:10;border-bottom:1px solid #ddd}.print-actions button{background:#175467;color:white;padding:12px;border:0;border-radius:10px;font-size:16px} .panel,.card{background:white!important;color:#111!important} h1,h2,p,.muted,th,td{color:#111!important}} @media print{.print-actions{display:none!important}body{background:white!important;color:black!important}}</style></head><body><div class="print-actions"><button type="button" onclick="window.print()">🖨️ طباعة من Safari</button><p>إذا لم تفتح الطباعة، اضغطي مشاركة في Safari ثم اختاري «طباعة».</p></div><main><h1>'+safeTitle+'</h1>'+content.innerHTML+'</main>
+<script>
+(()=>{
+const FAMILY_URL='https://ylsnogtohohmzlxpihks.supabase.co';
+const FAMILY_KEY='sb_publishable_FZfSp2WWqILRcKPDo-mgxQ_zlDe6l_q';
+const familySb=window.supabase.createClient(FAMILY_URL,FAMILY_KEY);
+const status=document.getElementById('familyAdminStatus'),root=document.getElementById('familyAdminPosts');
+const make=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
+async function loadFamily(){root.replaceChildren(make('p','muted','جارٍ تحميل المشاركات…'));status.textContent='';
+ const {data:{session}}=await familySb.auth.getSession();if(!session){root.replaceChildren(make('p','muted','سجّلي الدخول إلى لوحة المعلمة أولًا، ثم اضغطي تحديث المشاركات.'));return}
+ const {data,error}=await familySb.from('jm_family_contributions').select('*').order('created_at',{ascending:false}).limit(100);
+ if(error){root.replaceChildren(make('p','bad','تعذر تحميل المشاركات. تأكدي من تسجيل الدخول بحساب المعلمة.'));return}
+ root.replaceChildren();const counts={pending:0,approved:0,rejected:0};for(const p of data||[])counts[p.status]=(counts[p.status]||0)+1;
+ status.textContent='بانتظار المراجعة: '+counts.pending+' · منشورة: '+counts.approved+' · غير منشورة: '+counts.rejected;
+ if(!data?.length){root.append(make('p','muted','لا توجد مشاركات حتى الآن.'));return}
+ for(const p of data){const card=make('article','card');card.append(make('strong','', (p.submission_type==='question'?'❓ استفسار':'💡 تجربة أسرية')+' · '+p.grade+' · '+p.skill));card.append(make('h3','',p.title));card.append(make('p','muted',p.message));
+  const answer=document.createElement('textarea');answer.placeholder='اكتبي إجابة المعلمة (اختياري، ومهم عند اعتماد الاستفسار)';answer.maxLength=1200;answer.value=p.teacher_answer||'';answer.style.cssText='width:100%;min-height:88px;padding:10px;border-radius:10px';card.append(answer);
+  card.append(make('p','muted','الحالة: '+({pending:'بانتظار المراجعة',approved:'منشورة',rejected:'غير منشورة'}[p.status]||p.status)));
+  const actions=make('div','row');for(const [label,next] of [['اعتماد ونشر','approved'],['رفض النشر','rejected']]){const button=make('button','',label);button.type='button';button.onclick=async()=>{button.disabled=true;const patch={status:next,teacher_answer:answer.value.trim()||null};const {error:updateError}=await familySb.from('jm_family_contributions').update(patch).eq('id',p.id);if(updateError){alert('تعذر تحديث المشاركة. أعيدي تسجيل الدخول وحاولي مرة أخرى.');button.disabled=false;return}await loadFamily()};actions.append(button)}card.append(actions);root.append(card)
+ }
+}
+document.getElementById('refreshFamily').addEventListener('click',loadFamily);
+})();
+</script>
+</body></html>');
  popup.document.close();
  popup.focus();
 }
