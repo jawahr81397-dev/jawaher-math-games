@@ -3,105 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#075239">
-<title>متاهة بصمة الوطن | جوهرة ماث</title>
+<meta name="theme-color" content="#f8f7f1">
+<title>بصمة المادة ٣٤ | جوهرة ماث</title>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--green:#075239;--deep:#06432f;--gold:#c99a35;--ink:#25372f;--paper:#fffefa;--soft:#f8f5e9}
-*{box-sizing:border-box}
-body{margin:0;padding:16px;background:#f4f1e6;color:var(--ink);font-family:Cairo,Arial,sans-serif}
-button,input{font:inherit}
-.page{max-width:1050px;margin:auto;background:var(--paper);border:5px double var(--gold);outline:1px solid #e9d7a5;outline-offset:-11px;padding:clamp(15px,3vw,28px);box-shadow:0 15px 45px #1d382018}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.flag{font-size:42px;line-height:1}
-.brand{font-weight:800;color:var(--green);font-size:14px;text-decoration:none}
-.brand:hover{text-decoration:underline}
-.title{margin:0 auto;text-align:center;background:var(--green);color:#fff9df;border:3px double var(--gold);border-radius:13px;padding:10px 25px;font:800 clamp(22px,5vw,38px) Alexandria,Cairo,sans-serif;box-shadow:0 4px 0 #ddc27e}
-.title-wrap{text-align:center;margin:10px 0 16px}
-.subtitle{margin:0;color:var(--green);font-weight:800;font-size:clamp(15px,3vw,21px)}
-.instruction{margin:6px 0 16px;color:#445b49;font-weight:700}
-.frame{border:3px solid var(--green);padding:7px;border-radius:8px;background:#fdfcf6}
-.maze-scroll{overflow-x:auto;padding:3px}
-.maze{display:grid;direction:ltr;margin:auto;width:max-content;background:#fff;touch-action:manipulation}
-.cell{width:clamp(29px,5.3vw,48px);height:clamp(29px,5.3vw,48px);display:grid;place-items:center;position:relative;background:white;border-color:var(--green);border-style:solid;border-width:0;font-size:clamp(9px,1.8vw,13px);font-weight:800;color:var(--green);line-height:1.1;text-align:center}
-.cell[data-n="1"]{border-top-width:5px}.cell[data-e="1"]{border-right-width:5px}.cell[data-s="1"]{border-bottom-width:5px}.cell[data-w="1"]{border-left-width:5px}
-.cell.token{background:#fff8dd;color:#845e10}
-.token-label{max-width:100%;padding:1px 2px}
-.player{position:absolute;width:21px;height:21px;border-radius:50%;background:var(--gold);border:3px solid white;box-shadow:0 1px 5px #0007;z-index:3;transition:all .12s}
-.end-dot{font-size:17px;color:var(--green)}
-.legend{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 2px;color:#536957;font-size:13px}
-.collected{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;min-height:34px;margin:14px 0}
-.chip{padding:5px 12px;border-radius:30px;background:#f2e8c8;border:1px solid #d8bc72;color:#5b4a20;font-weight:800}
-.chip.done{background:#e7f1e5;border-color:#afc7a7;color:var(--green)}
-.controls{direction:ltr;display:grid;grid-template-columns:repeat(3,50px);justify-content:center;gap:6px;margin:12px auto}
-.controls button{height:46px;border:1px solid #b79a4e;border-radius:12px;background:#fff9e8;color:var(--green);font-weight:900;font-size:20px;touch-action:manipulation}
-.controls button:active{background:#e6d396}
-.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:14px 0}
-button.action{border:0;border-radius:11px;padding:10px 17px;background:var(--green);color:white;font-weight:800;cursor:pointer}
-button.action.alt{background:#f5edda;color:var(--green);border:1px solid #d4bd7a}
-.answerbox{border:2px solid var(--gold);border-radius:10px;padding:14px;background:#fffdf7;margin-top:12px}
-.answerbox label{display:block;color:var(--green);font-weight:800;margin-bottom:7px}
-.answerrow{display:flex;gap:8px}
-.answerrow input{flex:1;min-width:0;border:1px solid #cfc7ae;border-radius:9px;padding:10px 12px}
-.status{text-align:center;min-height:25px;margin:8px 0 0;color:var(--green);font-weight:800}
-footer{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid #dbc98f;margin-top:15px;padding-top:10px;color:#596a5c;font-size:12px}
-footer strong{color:var(--green)}
-@media(max-width:480px){body{padding:6px}.page{padding:15px 10px;border-width:4px}.flag{font-size:32px}.answerrow{flex-direction:column}.answerrow button{align-self:center}footer{font-size:10px}}
-@media print{body{padding:0;background:white}.page{box-shadow:none;max-width:none}.controls,.actions,.answerrow button,.brand{display:none!important}.maze-scroll{overflow:visible}.cell{width:38px;height:38px}.answerrow input{border:0;border-bottom:1px dotted #555;border-radius:0}}
+:root{--green:#075b43;--green2:#0c7654;--red:#a8343c;--ink:#263a32;--muted:#6a7b72;--paper:#fffefa;--line:#e7e3d7}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 10%,#edf4e9,transparent 35%),radial-gradient(ellipse at 90% 30%,#f7e9e3,transparent 30%),#f8f7f1;color:var(--ink);font-family:Cairo,Arial,sans-serif}button,input{font:inherit}.wrap{width:min(850px,calc(100% - 28px));margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:17px 0;color:var(--green);font-weight:800}.top a{color:inherit;text-decoration:none}.brand{display:flex;gap:9px;align-items:center}.gem{font-size:24px}.crumb{font-size:13px;color:var(--muted)}
+.hero{text-align:center;padding:15px 10px 18px}.kicker{color:var(--green);font-weight:700}.hero h1{font:800 clamp(29px,7vw,47px) Alexandria,Cairo,sans-serif;color:var(--green);margin:8px 0}.hero p{color:var(--muted);line-height:1.9;margin:0 auto;max-width:660px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:27px;padding:clamp(18px,4vw,34px);box-shadow:0 18px 55px #4c5d4510;margin:12px auto 26px}
+.titleline{display:flex;justify-content:center;align-items:center;gap:10px;color:var(--green);font-weight:800;font-size:18px;text-align:center}
+.map-wrap{position:relative;width:min(100%,490px);aspect-ratio:1.5;margin:8px auto 8px}
+.map-wrap svg{width:100%;height:100%;position:absolute;inset:0}
+.land{fill:#e8eee4;stroke:#58735d;stroke-width:2.4;stroke-linejoin:round}
+.map-label{fill:#46634d;font:700 17px Cairo,sans-serif}
+.redline{stroke:var(--red);stroke-width:5;stroke-linecap:round;opacity:.83}
+.word-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.word-pill{min-width:92px;padding:7px 18px;border-radius:30px;background:var(--green);color:#fff;font-weight:800;font-size:clamp(17px,4vw,23px);box-shadow:0 5px 15px #075b4330;transform:translateY(-3px);display:none}
+.word-pill.show{display:block;animation:pop .3s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.8)}to{opacity:1;transform:translateY(-3px) scale(1)}}
+.hint{text-align:center;font-size:13px;color:#78867d;margin:0 0 14px}
+.statement{text-align:center;font-weight:800;color:var(--green);font-size:clamp(16px,3.5vw,20px);line-height:1.9;padding:12px 14px;border:1px solid #dfe8da;border-radius:15px;background:#f7faf4}
+.prompt{display:block;text-align:center;color:var(--green);font-weight:800;margin:18px 0 8px}
+.inputrow{display:flex;gap:10px;max-width:550px;margin:auto}
+input{flex:1;min-width:0;border:1px solid #d7d8c9;border-radius:13px;padding:13px 15px;background:#fff;color:var(--ink);text-align:center;font-weight:700;outline:none}
+input:focus{border-color:var(--green2);box-shadow:0 0 0 3px #0c765415}
+button{border:0;border-radius:13px;padding:12px 18px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:white;box-shadow:0 8px 18px #075b4325}.primary:hover{background:var(--green2)}.secondary{background:#f3f2ec;color:var(--green);border:1px solid #e5e1d6}
+.suggestions{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin:12px auto 0}.suggestions button{padding:5px 11px;border:1px solid #dce4d6;background:#f8fbf5;color:#526b55;font-size:13px}
+.actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:17px 0 0}
+.board{margin:25px 0 0;padding-top:18px;border-top:1px solid var(--line)}.board h2{text-align:center;color:var(--green);font:700 20px Alexandria,Cairo,sans-serif;margin:0 0 12px}.words{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;min-height:40px}.word{padding:7px 15px;border:1px solid #d8e4d7;border-radius:30px;background:#f3f8ef;color:var(--green);font-weight:800}.empty{text-align:center;color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);padding:0 10px 22px;font-size:13px}footer strong{color:var(--green)}
+@media(max-width:520px){.top .crumb{display:none}.inputrow{flex-direction:column}.inputrow button{align-self:center}.card{border-radius:22px}}
+@media print{body{background:#fff}.top,.hero,.prompt,.inputrow,.suggestions,.actions,.hint,footer{display:none!important}.wrap{width:100%}.card{margin:0;border:0;box-shadow:none}.board{break-inside:avoid}.word{print-color-adjust:exact}}
 </style>
 </head>
 <body>
-<main class="page">
-<header><a class="brand" href="index.html#schoolActivities">← الأنشطة المدرسية</a><div class="flag" aria-label="علم المملكة">🇸🇦</div></header>
-<section class="title-wrap"><h1 class="title">متاهة بصمة الوطن</h1></section>
-<p class="subtitle">اتبعي المسار الصحيح، واجمعي الكلمات بالترتيب، ثم اكتبي العبارة!</p>
-<p class="instruction">ابدئي من نقطة البداية 🟡، وحرّكي القطعة بالأسهم حتى تصلي إلى الدرع 🛡️.</p>
-<section class="frame"><div class="maze-scroll"><div id="maze" class="maze" aria-label="متاهة تفاعلية"></div></div></section>
-<div class="legend"><span>🟡 البداية</span><span>اجمعي الكلمات الذهبية بالترتيب</span><span>🛡️ النهاية</span></div>
-<div class="collected" id="collected" aria-live="polite"></div>
-<div class="controls" aria-label="أزرار الحركة">
-<span></span><button type="button" data-move="N" aria-label="تحركي للأعلى">↑</button><span></span>
-<button type="button" data-move="W" aria-label="تحركي لليسار">←</button><button type="button" data-move="S" aria-label="تحركي للأسفل">↓</button><button type="button" data-move="E" aria-label="تحركي لليمين">→</button>
-</div>
-<div class="actions"><button class="action alt" id="restart" type="button">إعادة المتاهة</button><button class="action alt" id="print" type="button">طباعة النشاط</button></div>
-<section class="answerbox"><label for="answer">العبارة التي اكتشفتها:</label><div class="answerrow"><input id="answer" placeholder="اكتبي العبارة بعد جمع الكلمات" autocomplete="off"><button class="action" id="check" type="button">تحققي من الإجابة</button></div><p class="status" id="status" aria-live="polite"></p></section>
-<footer><span>نشاط وطني تفاعلي</span><strong>المعلمة/ جواهر السبيعي • جوهرة ماث</strong></footer>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html#schoolActivities"><span class="gem">💎</span><span>جوهرة ماث</span></a><a class="crumb" href="index.html#schoolActivities">الأنشطة المدرسية ←</a></header>
+<section class="hero"><div class="kicker">نشاط تفاعلي للمادة ٣٤</div><h1>بصمتنا بكلمة</h1><p>الدفاع عن العقيدة الإسلامية والمجتمع والوطن واجب على كل مواطن. اختاري كلمة تعبّر عن بصمتكِ في خدمة وطنكِ.</p></section>
+<main class="card">
+<div class="titleline"><span>🇸🇦</span><span>اتركي بصمتكِ على خريطة المملكة</span><span>🇸🇦</span></div>
+<div class="map-wrap" role="img" aria-label="خريطة المملكة العربية السعودية"><svg viewBox="0 0 520 350" aria-hidden="true">
+<path class="land" d="M82 78 L111 51 L158 61 L185 34 L244 41 L276 61 L303 91 L343 98 L359 124 L392 135 L408 164 L440 187 L421 219 L435 244 L409 267 L400 299 L360 311 L323 324 L281 321 L247 339 L213 322 L181 330 L155 309 L132 305 L119 275 L94 263 L91 234 L72 215 L78 190 L61 167 L72 137 L57 115 Z"/>
+<text x="260" y="157" text-anchor="middle" class="map-label">المملكة العربية</text><text x="260" y="183" text-anchor="middle" class="map-label">السعودية</text>
+<path class="redline" d="M72 195 Q222 170 448 204"/>
+</svg><div class="word-layer"><span class="word-pill" id="stamp"></span></div></div>
+<p class="hint">اختاري كلمة واحدة، ثم اضغطي الزر لتظهر بصمتكِ على الخريطة</p>
+<div class="statement">واجبي تجاه وطني أن أكون مواطنةً واعيةً تحميه وتخدمه</div>
+<label class="prompt" for="word">ما الكلمة التي تتركينها بصمةً للوطن؟</label>
+<div class="inputrow"><input id="word" maxlength="22" placeholder="كلمة واحدة فقط" autocomplete="off"><button class="primary" id="add" type="button">اتركي بصمتكِ للوطن</button></div>
+<div class="suggestions" aria-label="أمثلة لكلمات وطنية"><button type="button">أحميه</button><button type="button">أخدمه</button><button type="button">أتعلم</button><button type="button">أخلص</button><button type="button">أحافظ</button></div>
+<div class="actions"><button class="secondary" id="print" type="button">طباعة بصمات الفصل</button><button class="secondary" id="clear" type="button">بدء مجموعة جديدة</button></div>
+<section class="board"><h2>كلماتنا للوطن</h2><div class="words" id="words"><p class="empty">ستظهر هنا الكلمات التي تضيفها الطالبات على هذا الجهاز.</p></div></section>
 </main>
+<footer>نشاط المادة ٣٤ • <strong>المعلمة/ جواهر السبيعي</strong> • جوهرة ماث</footer>
+</div>
 <script>
-const cols=13,rows=7,words=['بالعلم','والعمل','نبني','مستقبل','وطننا'];
-const dirs={N:[0,-1,'S'],E:[1,0,'W'],S:[0,1,'N'],W:[-1,0,'E']};
-let cells=[],solution=[],pos=0,got=new Set();
-function generate(){
- cells=Array.from({length:rows},()=>Array.from({length:cols},()=>({N:1,E:1,S:1,W:1,seen:false})));
- const stack=[[0,0]];cells[0][0].seen=true;
- while(stack.length){const [x,y]=stack[stack.length-1],choices=[];
-  for(const d of Object.keys(dirs)){const[nx,ny]=[x+dirs[d][0],y+dirs[d][1]];if(nx>=0&&ny>=0&&nx<cols&&ny<rows&&!cells[ny][nx].seen)choices.push([d,nx,ny])}
-  if(!choices.length){stack.pop();continue}
-  const[d,nx,ny]=choices[Math.floor(Math.random()*choices.length)];cells[y][x][d]=0;cells[ny][nx][dirs[d][2]]=0;cells[ny][nx].seen=true;stack.push([nx,ny]);
- }
- solution=[[0,0]];const path=[[0,0]],visited=new Set(['0,0']);
- function dfs(x,y){if(x===cols-1&&y===rows-1)return true;for(const d of ['E','S','N','W']){const[nx,ny]=[x+dirs[d][0],y+dirs[d][1]];if(nx<0||ny<0||nx>=cols||ny>=rows||cells[y][x][d]||visited.has(nx+','+ny))continue;visited.add(nx+','+ny);path.push([nx,ny]);if(dfs(nx,ny))return true;path.pop()}return false}
- dfs(0,0);solution=path.slice();pos=0;got=new Set();draw();
-}
-function tokenMap(){const map=new Map();for(let i=0;i<words.length;i++){const idx=Math.max(1,Math.min(solution.length-2,Math.round((i+1)*solution.length/(words.length+1))));map.set(solution[idx].join(','),i)}return map}
-function draw(){
- const maze=document.getElementById('maze'),tokens=tokenMap();maze.style.gridTemplateColumns='repeat('+cols+',auto)';maze.replaceChildren();
- for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const c=cells[y][x],el=document.createElement('div');el.className='cell';el.dataset.n=c.N;el.dataset.e=c.E;el.dataset.s=c.S;el.dataset.w=c.W;
- const ti=tokens.get(x+','+y);if(ti!==undefined&&!got.has(ti)){el.classList.add('token');el.innerHTML='<span class="token-label">'+words[ti]+'</span>'}
- if(x===cols-1&&y===rows-1)el.innerHTML='<span class="end-dot">🛡️</span>';
- maze.append(el)}
- const player=document.createElement('span');player.className='player';player.setAttribute('aria-label','قطعة اللعب');maze.children[solution[pos][1]*cols+solution[pos][0]].append(player);
- const collected=document.getElementById('collected');collected.replaceChildren();words.forEach((w,i)=>{const chip=document.createElement('span');chip.className='chip'+(got.has(i)?' done':'');chip.textContent=got.has(i)?w:'؟';collected.append(chip)});
-}
-function move(d){const[x,y]=solution[pos],nx=x+dirs[d][0],ny=y+dirs[d][1];if(nx<0||ny<0||nx>=cols||ny>=rows||cells[y][x][d])return;let idx=solution.findIndex(([a,b])=>a===nx&&b===ny);if(idx<0){ // allow any legal corridor, then return to the path
- document.getElementById('status').textContent='تابعي البحث عن الممر الصحيح 🌿';return
- }pos=idx;const tokens=tokenMap(),ti=tokens.get(nx+','+ny);if(ti!==undefined){if(ti===got.size)got.add(ti);else if(!got.has(ti))document.getElementById('status').textContent='اجمعي الكلمات بالترتيب ✨'}draw();if(got.size===words.length&&pos===solution.length-1){document.getElementById('status').textContent='أحسنتِ! وصلتِ إلى نهاية المتاهة وجمعتِ الكلمات كلها 🎉';document.getElementById('answer').focus()}}
-document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>move(b.dataset.move)));
-document.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();move(({ArrowUp:'N',ArrowRight:'E',ArrowDown:'S',ArrowLeft:'W'})[e.key])}});
-document.getElementById('restart').addEventListener('click',()=>{document.getElementById('status').textContent='';document.getElementById('answer').value='';generate()});
-document.getElementById('print').addEventListener('click',()=>window.print());
-document.getElementById('check').addEventListener('click',()=>{const normalized=s=>s.replace(/[،,.!؟]/g,'').replace(/\s+/g,' ').trim();if(got.size<words.length){document.getElementById('status').textContent='أكملي المتاهة واجمعي الكلمات أولًا 🌟';return}if(normalized(document.getElementById('answer').value)===normalized(words.join(' '))){document.getElementById('status').textContent='إجابة صحيحة! بالعلم والعمل نبني مستقبل وطننا 🇸🇦'}else{document.getElementById('status').textContent='راجعي الكلمات التي جمعتِها وحاولي مرة أخرى 💚'}});
-generate();
+const input=document.getElementById('word'),stamp=document.getElementById('stamp'),list=document.getElementById('words');let entries=[];
+function draw(){list.replaceChildren();if(!entries.length){const p=document.createElement('p');p.className='empty';p.textContent='ستظهر هنا الكلمات التي تضيفها الطالبات على هذا الجهاز.';list.append(p);return}entries.forEach(w=>{const s=document.createElement('span');s.className='word';s.textContent=w;list.append(s)})}
+function add(){const w=input.value.trim().replace(/\s+/g,' ');if(!w){input.focus();return}if(w.includes(' ')){input.setCustomValidity('اكتبي كلمة واحدة فقط');input.reportValidity();input.addEventListener('input',()=>input.setCustomValidity(''),{once:true});return}stamp.textContent=w;stamp.classList.remove('show');void stamp.offsetWidth;stamp.classList.add('show');entries.push(w);draw();input.value='';input.focus()}
+document.getElementById('add').addEventListener('click',add);input.addEventListener('keydown',e=>{if(e.key==='Enter')add()});
+document.querySelectorAll('.suggestions button').forEach(b=>b.addEventListener('click',()=>{input.value=b.textContent;add()}));
+document.getElementById('clear').addEventListener('click',()=>{entries=[];stamp.textContent='';stamp.classList.remove('show');draw()});
+document.getElementById('print').addEventListener('click',()=>window.print());draw();
 </script>
 </body>
 </html>
