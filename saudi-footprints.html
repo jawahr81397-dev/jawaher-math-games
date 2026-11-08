@@ -40,7 +40,7 @@ footer{text-align:center;color:var(--muted);padding:0 10px 22px;font-size:13px}f
 <body>
 <div class="wrap">
 <header class="top"><a class="brand" href="index.html#schoolActivities"><span class="gem">💎</span><span>جوهرة ماث</span></a><a class="crumb" href="index.html#schoolActivities">الأنشطة المدرسية ←</a></header>
-<section class="hero"><div class="kicker">نشاط تفاعلي للمادة ٣٤</div><h1>بصمتنا بكلمة</h1><p>الدفاع عن العقيدة الإسلامية والمجتمع والوطن واجب على كل مواطن. اختاري كلمة تعبّر عن بصمتكِ في خدمة وطنكِ.</p></section>
+<section class="hero"><div class="kicker">نشاط تفاعلي للمادة ٣٤</div><h1>بصمتنا بكلمة</h1><p>المادة ٣٤ توضّح أن الدفاع عن العقيدة والمجتمع والوطن واجب. اختاري كلمة واحدة تعبّر عن دوركِ تجاه وطنكِ.</p></section>
 <main class="card">
 <div class="titleline"><span>🇸🇦</span><span>اتركي بصمتكِ على خريطة المملكة</span><span>🇸🇦</span></div>
 <div class="map-wrap" role="img" aria-label="خريطة المملكة العربية السعودية"><svg viewBox="0 0 520 350" aria-hidden="true">
@@ -49,18 +49,18 @@ footer{text-align:center;color:var(--muted);padding:0 10px 22px;font-size:13px}f
 <path class="redline" d="M72 195 Q222 170 448 204"/>
 </svg><div class="word-layer"><span class="word-pill" id="stamp"></span></div></div>
 <p class="hint">اختاري كلمة واحدة، ثم اضغطي الزر لتظهر بصمتكِ على الخريطة</p>
-<div class="statement">واجبي تجاه وطني أن أكون مواطنةً واعيةً تحميه وتخدمه</div>
-<label class="prompt" for="word">ما الكلمة التي تتركينها بصمةً للوطن؟</label>
+<div class="statement">أعبّر عن واجبي تجاه وطني بكلمة واحدة</div>
+<label class="prompt" for="word">اكتبي كلمة واحدة عن واجبكِ تجاه وطنكِ</label>
 <div class="inputrow"><input id="word" maxlength="22" placeholder="كلمة واحدة فقط" autocomplete="off"><button class="primary" id="add" type="button">اتركي بصمتكِ للوطن</button></div>
-<div class="suggestions" aria-label="أمثلة لكلمات وطنية"><button type="button">أحميه</button><button type="button">أخدمه</button><button type="button">أتعلم</button><button type="button">أخلص</button><button type="button">أحافظ</button></div>
-<div class="actions"><button class="secondary" id="print" type="button">طباعة بصمات الفصل</button><button class="secondary" id="clear" type="button">بدء مجموعة جديدة</button></div>
-<section class="board"><h2>كلماتنا للوطن</h2><div class="words" id="words"><p class="empty">ستظهر هنا الكلمات التي تضيفها الطالبات على هذا الجهاز.</p></div></section>
+<div class="suggestions" aria-label="أمثلة لكلمات وطنية"><button type="button">حماية</button><button type="button">خدمة</button><button type="button">علم</button><button type="button">وفاء</button><button type="button">تعاون</button></div>
+<div class="actions"><button class="secondary" id="print" type="button">طباعة بصماتنا</button><button class="secondary" id="clear" type="button">مسح الكلمات والبدء من جديد</button></div>
+<section class="board"><h2>بصمات الطالبات</h2><div class="words" id="words"><p class="empty">كل طالبة تضيف كلمة واحدة؛ تظهر الكلمات هنا على هذا الجهاز.</p></div></section>
 </main>
 <footer>نشاط المادة ٣٤ • <strong>المعلمة/ جواهر السبيعي</strong> • جوهرة ماث</footer>
 </div>
 <script>
 const input=document.getElementById('word'),stamp=document.getElementById('stamp'),list=document.getElementById('words');let entries=[];
-function draw(){list.replaceChildren();if(!entries.length){const p=document.createElement('p');p.className='empty';p.textContent='ستظهر هنا الكلمات التي تضيفها الطالبات على هذا الجهاز.';list.append(p);return}entries.forEach(w=>{const s=document.createElement('span');s.className='word';s.textContent=w;list.append(s)})}
+function draw(){list.replaceChildren();if(!entries.length){const p=document.createElement('p');p.className='empty';p.textContent='كل طالبة تضيف كلمة واحدة؛ تظهر الكلمات هنا على هذا الجهاز.';list.append(p);return}entries.forEach(w=>{const s=document.createElement('span');s.className='word';s.textContent=w;list.append(s)})}
 function add(){const w=input.value.trim().replace(/\s+/g,' ');if(!w){input.focus();return}if(w.includes(' ')){input.setCustomValidity('اكتبي كلمة واحدة فقط');input.reportValidity();input.addEventListener('input',()=>input.setCustomValidity(''),{once:true});return}stamp.textContent=w;stamp.classList.remove('show');void stamp.offsetWidth;stamp.classList.add('show');entries.push(w);draw();input.value='';input.focus()}
 document.getElementById('add').addEventListener('click',add);input.addEventListener('keydown',e=>{if(e.key==='Enter')add()});
 document.querySelectorAll('.suggestions button').forEach(b=>b.addEventListener('click',()=>{input.value=b.textContent;add()}));
