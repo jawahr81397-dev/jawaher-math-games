@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f1">
+<title>بصمات صغيرة، حب كبير | جوهرة ماث</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#075b43;--green2:#0c7654;--red:#a8343c;--ink:#263a32;--muted:#6a7b72;--paper:#fffefa;--line:#e7e3d7}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 10% 10%,#edf4e9,transparent 35%),radial-gradient(ellipse at 90% 30%,#f7e9e3,transparent 30%),#f8f7f1;color:var(--ink);font-family:Cairo,Arial,sans-serif}
+button,input,textarea{font:inherit}
+.wrap{width:min(900px,calc(100% - 28px));margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;color:var(--green);font-weight:800}
+.top a{color:inherit;text-decoration:none}
+.brand{display:flex;gap:9px;align-items:center}
+.gem{font-size:24px}
+.crumb{font-size:13px;color:var(--muted)}
+.hero{text-align:center;padding:22px 12px 18px}
+.kicker{color:var(--green);font-weight:700;letter-spacing:.04em}
+h1{font:800 clamp(30px,7vw,52px) Alexandria,Cairo,sans-serif;color:var(--green);margin:8px 0}
+.hero p{color:var(--muted);line-height:1.9;margin:0 auto;max-width:620px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:clamp(18px,4vw,34px);box-shadow:0 18px 55px #4c5d4510;margin:20px auto 30px}
+.map-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.map-title strong{color:var(--green);font:700 20px Alexandria,Cairo,sans-serif}
+.map-title span{font-size:13px;color:var(--muted)}
+.map-wrap{position:relative;width:min(100%,450px);margin:0 auto 16px;aspect-ratio:1.35;display:grid;place-items:center;touch-action:none}
+.map-svg{position:absolute;width:100%;height:100%;overflow:visible}
+.kingdom{fill:#e8eee4;stroke:#496b55;stroke-width:2.3;stroke-linejoin:round}
+.map-label{fill:#46634d;font:700 19px Cairo,sans-serif}
+.canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.draw-hint{text-align:center;font-size:13px;color:#78867d;margin:5px 0 19px}
+.prompt{display:block;font-weight:800;color:var(--green);margin:16px 0 8px}
+textarea,input{width:100%;background:#fff;border:1px solid #ddd9ce;border-radius:14px;padding:13px 15px;color:var(--ink);outline:none}
+textarea{min-height:105px;resize:vertical;line-height:1.9}
+textarea:focus,input:focus{border-color:var(--green2);box-shadow:0 0 0 3px #0c765415}
+.row{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{border:0;border-radius:14px;padding:12px 20px;font-weight:800;cursor:pointer}
+.primary{background:var(--green);color:white;box-shadow:0 8px 18px #075b4325}
+.primary:hover{background:var(--green2)}
+.secondary{background:#f3f2ec;color:var(--green);border:1px solid #e5e1d6}
+.result{display:none;margin:20px 0 0;padding:22px;border:2px solid #d8e4d7;border-radius:20px;background:linear-gradient(145deg,#f7fbf5,#fffefa);text-align:center}
+.result.show{display:block}
+.result h2{margin:0 0 5px;color:var(--green);font:700 23px Alexandria,Cairo,sans-serif}
+.result .say{font-size:17px;line-height:1.9;white-space:pre-wrap}
+.result .author{color:var(--muted);margin-top:9px}
+.result .mark{font-size:23px;color:var(--red);margin:12px}
+.note{text-align:center;color:var(--muted);font-size:12px;margin:16px 0 0}
+footer{text-align:center;color:var(--muted);padding:0 10px 25px;font-size:13px}
+footer strong{color:var(--green)}
+@media(max-width:560px){.row{grid-template-columns:1fr}.crumb{display:none}.hero{padding-top:12px}.map-title{align-items:flex-start;flex-direction:column}.card{border-radius:22px}.map-label{font-size:16px}}
+@media print{body{background:#fff}.top,.hero,.draw-hint,.prompt,.row,.actions,.note,footer{display:none!important}.wrap{width:100%}.card{margin:0;border:0;box-shadow:none}.result{display:block!important;border:2px solid #aaa}.map-wrap{max-width:330px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html"><span class="gem">💎</span><span>جوهرة ماث</span></a><a class="crumb" href="index.html#schoolActivities">الأنشطة المدرسية ←</a></header>
+<section class="hero">
+<div class="kicker">بصمات صغيرة • حب كبير</div>
+<h1>السعودية خط أحمر</h1>
+<p>وطننا يسكن قلوبنا. ارسمي خطًا أحمر على خريطة المملكة، واكتبي فكرة جميلة تعبّر عن بصمتكِ للوطن.</p>
+</section>
+<main class="card">
+<div class="map-title"><strong>اتركي بصمتكِ على خريطة الوطن</strong><span>المسي الخريطة وارسمي بإصبعكِ</span></div>
+<div class="map-wrap" id="mapArea" aria-label="مساحة رسم بصمة على خريطة المملكة">
+<svg class="map-svg" viewBox="0 0 520 380" role="img" aria-label="خريطة المملكة العربية السعودية">
+<path class="kingdom" d="M82 90 L110 60 L159 70 L185 40 L244 48 L276 68 L302 98 L342 105 L359 131 L392 142 L408 171 L440 194 L421 226 L435 251 L409 274 L400 310 L360 322 L323 335 L281 332 L247 349 L213 333 L181 341 L155 320 L132 316 L119 286 L94 274 L91 245 L72 226 L78 201 L61 178 L72 148 L57 126 Z"/>
+<path d="M87 183 Q205 158 432 198" fill="none" stroke="#a8343c" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+<text x="260" y="184" text-anchor="middle" class="map-label">المملكة العربية</text>
+<text x="260" y="210" text-anchor="middle" class="map-label">السعودية</text>
+</svg>
+<canvas class="canvas" id="canvas"></canvas>
+</div>
+<p class="draw-hint">ارسمي خطكِ الأحمر، أو اتركيه فارغًا واكتبي بصمتكِ بالكلمات</p>
+<div class="row">
+<label><span class="prompt">اسم الطالبة (اختياري)</span><input id="studentName" maxlength="40" placeholder="اكتبي اسمكِ"></label>
+<label><span class="prompt">الفصل (اختياري)</span><input id="className" maxlength="30" placeholder="مثال: خامس أ"></label>
+</div>
+<label><span class="prompt">من إبداعكِ وتفكيركِ: كيف تتركين بصمتكِ للوطن؟</span><textarea id="message" maxlength="300" placeholder="أعبّر عن حبي لوطني بـ..."></textarea></label>
+<div class="actions">
+<button class="primary" id="makeMark" type="button">🇸🇦 اتركي بصمتكِ للوطن</button>
+<button class="secondary" id="clearMap" type="button">مسح الخط</button>
+<button class="secondary" id="printCard" type="button">طباعة مشاركتي</button>
+</div>
+<section class="result" id="result" aria-live="polite">
+<div class="mark">♥</div><h2>بصمتكِ للوطن</h2><div class="say" id="resultMessage"></div><div class="author" id="resultAuthor"></div>
+</section>
+<p class="note">تظهر مشاركتكِ على هذا الجهاز فقط، ويمكنكِ طباعتها أو حفظها من نافذة الطباعة.</p>
+</main>
+<footer>نشاط مدرسي تفاعلي من <strong>جوهرة ماث</strong> • المعلمة/ جواهر السبيعي</footer>
+</div>
+<script>
+const canvas=document.getElementById('canvas'),area=document.getElementById('mapArea'),ctx=canvas.getContext('2d');let drawing=false,hasInk=false;
+function sizeCanvas(){const r=area.getBoundingClientRect(),dpr=window.devicePixelRatio||1;canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#a8343c'}
+function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+canvas.addEventListener('pointerdown',e=>{drawing=true;hasInk=true;canvas.setPointerCapture(e.pointerId);const p=point(e);ctx.beginPath();ctx.moveTo(p.x,p.y)});
+canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=point(e);ctx.lineTo(p.x,p.y);ctx.stroke()});
+function stop(){drawing=false}canvas.addEventListener('pointerup',stop);canvas.addEventListener('pointercancel',stop);
+document.getElementById('clearMap').addEventListener('click',()=>{ctx.clearRect(0,0,canvas.width,canvas.height);hasInk=false});
+document.getElementById('makeMark').addEventListener('click',()=>{const message=document.getElementById('message').value.trim();if(!message){document.getElementById('message').focus();return}const name=document.getElementById('studentName').value.trim(),cls=document.getElementById('className').value.trim();document.getElementById('resultMessage').textContent=message;document.getElementById('resultAuthor').textContent=[name,cls].filter(Boolean).join(' • ');document.getElementById('result').classList.add('show');document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'})});
+document.getElementById('printCard').addEventListener('click',()=>{if(!document.getElementById('message').value.trim()){document.getElementById('message').focus();return}if(!document.getElementById('result').classList.contains('show'))document.getElementById('makeMark').click();window.print()});
+new ResizeObserver(sizeCanvas).observe(area);sizeCanvas();
+</script>
+</body>
+</html>
