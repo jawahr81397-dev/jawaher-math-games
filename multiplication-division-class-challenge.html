@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10182e">
+<title>تحدي الضرب والقسمة | جوهرة ماث</title>
+<style>
+:root{--bg:#10182e;--panel:#192541;--line:#35476b;--gold:#ffd36f;--mint:#8ee6d1;--white:#f8f7ff;--muted:#c4cbe0;--purple:#b9a3f4;--red:#ff9b9b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Cairo",Tahoma,Arial,sans-serif;color:var(--white);background:radial-gradient(ellipse at 50% 0%,#263964 0,#10182e 65%);direction:rtl}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1050px,calc(100% - 28px));margin:auto}
+header{text-align:center;padding:22px 12px 16px;border-bottom:1px solid #ffffff20}
+.kicker{display:inline-block;padding:6px 13px;border:1px solid #ffd36f80;border-radius:99px;color:var(--gold);font-weight:800;font-size:14px}
+h1{font-size:clamp(25px,5vw,42px);margin:12px 0 5px}
+.subtitle{color:var(--muted);margin:0;line-height:1.8}
+main{padding:20px 0 32px}
+.panel{background:linear-gradient(145deg,#1b2948f5,#17223df5);border:1px solid #ffffff22;border-radius:23px;padding:clamp(16px,3vw,26px);box-shadow:0 15px 40px #0003;margin-bottom:16px}
+h2{margin:0 0 12px;color:var(--gold);font-size:22px}
+.note{color:var(--muted);line-height:1.8;margin:5px 0 16px}
+.setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:grid;gap:7px;font-weight:700;color:#ebe8fa}
+.field select,.field input{width:100%;min-height:48px;border-radius:12px;border:1px solid #7180a7;background:#101a31;color:#fff;padding:10px 12px}
+.field select option{color:#111}
+.team-names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+.btn{border:0;border-radius:13px;padding:12px 20px;background:linear-gradient(130deg,#ffdc87,#f5bd52);color:#27213a;font-weight:900;box-shadow:0 7px 17px #0002}
+.btn.secondary{background:#2e3d60;color:#fff;border:1px solid #69799e;box-shadow:none}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.btn:focus-visible,.choice:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.hidden{display:none!important}
+.game-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.turn-badge{color:var(--mint);font-weight:900}
+.scoreboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
+.team-card{padding:12px;border:1px solid var(--line);border-radius:16px;background:#101b34;text-align:center;transition:.2s}
+.team-card.active{border-color:var(--gold);box-shadow:0 0 0 2px #ffd36f38,0 0 24px #ffd36f20;transform:translateY(-2px)}
+.team-name{font-weight:800;overflow-wrap:anywhere}
+.team-score{font-size:32px;font-weight:900;color:var(--gold);line-height:1.35}
+.team-label{font-size:12px;color:var(--muted)}
+.progress-track{height:9px;border-radius:99px;background:#0e172b;overflow:hidden;margin:12px 0 18px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--gold));transition:width .3s}
+.question-card{text-align:center;border:1px solid #ffffff20;background:linear-gradient(145deg,#202f51,#182440);border-radius:21px;padding:clamp(18px,4vw,32px)}
+.qmeta{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:8px}
+.pill{padding:5px 12px;border-radius:99px;background:#ffffff12;color:var(--muted);font-weight:800;font-size:14px}
+.pill.type{color:#141c32;background:var(--mint)}
+.pill.type.division{background:var(--purple)}
+.clock{font-size:16px;color:var(--gold);font-weight:900}
+.prompt{font-size:clamp(38px,9vw,76px);font-weight:1000;direction:ltr;margin:12px 0 3px;letter-spacing:1px}
+.question-hint{color:var(--muted);margin:0}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;max-width:620px;margin:20px auto 0}
+.choice{min-height:62px;border:1px solid #7180a7;border-radius:15px;background:#263658;color:#fff;font-size:clamp(23px,5vw,32px);font-weight:900;transition:.15s}
+.choice:hover:not(:disabled){background:#354a76;border-color:var(--gold);transform:scale(1.02)}
+.choice:disabled{cursor:default;opacity:.8}
+.choice.correct{background:#17634f;border-color:var(--mint);color:#e4fff7}
+.choice.wrong{background:#683d4b;border-color:var(--red)}
+.feedback{min-height:34px;margin:13px 0 0;font-weight:900;font-size:18px}
+.feedback.good{color:var(--mint)}.feedback.try{color:#ffd8a5}
+.round-summary{text-align:center;padding:16px;border-radius:17px;background:#111b33;border:1px solid #ffffff1c;line-height:1.9}
+.winner{font-size:25px;color:var(--gold);font-weight:1000}
+.score-list{display:grid;gap:8px;max-width:480px;margin:14px auto}
+.score-line{display:flex;justify-content:space-between;padding:9px 14px;background:#ffffff0c;border-radius:12px}
+.small{font-size:13px;color:var(--muted);line-height:1.7}
+footer{text-align:center;padding:5px 12px 25px;color:#b9c0d5;font-size:13px}
+@media(max-width:650px){.setup-grid{grid-template-columns:1fr}.scoreboard{grid-template-columns:repeat(2,minmax(0,1fr))}.team-names{grid-template-columns:1fr 1fr}}
+@media(max-width:390px){.choices{gap:8px}.choice{min-height:56px}.panel{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="kicker">🎯 تحدي جماعي | الصف الخامس</span>
+    <h1>تحدي الضرب والقسمة</h1>
+    <p class="subtitle">جداول ٤ إلى ١١ · في كل جولة سؤال ضرب وسؤال قسمة · فكّري، تشاوري، وأجيبي قبل انتهاء الوقت!</p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="panel" id="setup">
+    <h2>جهّزي التحدي</h2>
+    <p class="note">قسّمي الفصل إلى فرق. تتناوب الفرق، ولكل فريق سؤال ضرب يتبعه سؤال قسمة من عائلة الحقائق نفسها.</p>
+    <div class="setup-grid">
+      <label class="field">عدد الفرق
+        <select id="teamCount">
+          <option value="2">فريقان</option>
+          <option value="3">٣ فرق</option>
+          <option value="4">٤ فرق</option>
+        </select>
+      </label>
+      <label class="field">عدد الجولات لكل فريق
+        <select id="roundCount">
+          <option value="2">جولتان</option>
+          <option value="3" selected>٣ جولات</option>
+          <option value="5">٥ جولات</option>
+        </select>
+      </label>
+      <div class="team-names" id="teamNames"></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="startBtn" type="button">ابدئي التحدي ✨</button>
+      <button class="btn secondary" id="soundBtn" type="button" aria-pressed="true">🔊 الصوت يعمل</button>
+    </div>
+    <p class="small">يُعرض على شاشة الفصل ويُدار من جهاز المعلمة. لا يحتاج دخول الطالبات أو كتابة أسماء.</p>
+  </section>
+
+  <section class="panel hidden" id="playArea">
+    <div class="game-head">
+      <h2 id="gameTitle">التحدي بدأ!</h2>
+      <span class="turn-badge" id="turnBadge"></span>
+    </div>
+    <div class="scoreboard" id="scoreboard"></div>
+    <div class="progress-track" aria-label="تقدم التحدي"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="question-card" aria-live="polite">
+      <div class="qmeta">
+        <span class="pill" id="roundPill"></span>
+        <span class="pill type" id="typePill"></span>
+        <span class="clock" id="clock">⏱ ١٥</span>
+      </div>
+      <div class="prompt" id="prompt">؟</div>
+      <p class="question-hint" id="questionHint">تشاوروا سريعًا ثم اختاري إجابة الفريق.</p>
+      <div class="choices" id="choices"></div>
+      <p class="feedback" id="feedback" role="status"></p>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="finishArea">
+    <div class="round-summary">
+      <div class="winner" id="winnerText"></div>
+      <p>النتيجة النهائية</p>
+      <div class="score-list" id="finalScores"></div>
+      <div class="actions">
+        <button class="btn" id="againBtn" type="button">العبوا من جديد 🔁</button>
+        <button class="btn secondary" id="backBtn" type="button">تعديل الفرق والجولات</button>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>جوهرة ماث · تحدي صفّي تفاعلي للضرب والقسمة</footer>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const arabic=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[Number(d)]);
+const rand=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+let teams=[],pairIndex=0,rounds=3,qIndex=0,currentPair=null,timerId=null,timeLeft=15,soundOn=true,locked=false;
+function updateTeamNameFields(){
+ const count=Number($("teamCount").value);
+ const box=$("teamNames");
+ box.innerHTML="";
+ for(let i=0;i<count;i++){
+   const label=document.createElement("label");
+   label.className="field";
+   label.textContent="اسم الفريق "+arabic(i+1);
+   const input=document.createElement("input");
+   input.maxLength=22;input.value="الفريق "+arabic(i+1);input.setAttribute("aria-label",label.textContent);
+   label.appendChild(input);box.appendChild(label);
+ }
+}
+$("teamCount").addEventListener("change",updateTeamNameFields);
+updateTeamNameFields();
+function chirp(kind){
+ if(!soundOn)return;
+ try{
+   const ctx=new (window.AudioContext||window.webkitAudioContext)();
+   const now=ctx.currentTime;
+   const notes=kind==="win"?[660,880,1046]:kind==="applause"?[660,880,988,1174]:[220,185];
+   notes.forEach((hz,i)=>{
+     const osc=ctx.createOscillator(),gain=ctx.createGain();
+     osc.type=kind==="wrong"?"triangle":"sine";
+     osc.frequency.value=hz;
+     gain.gain.setValueAtTime(.0001,now+i*.12);
+     gain.gain.exponentialRampToValueAtTime(kind==="wrong"?.045:.07,now+i*.12+.025);
+     gain.gain.exponentialRampToValueAtTime(.0001,now+i*.12+.18);
+     osc.connect(gain);gain.connect(ctx.destination);
+     osc.start(now+i*.12);osc.stop(now+i*.12+.2);
+   });
+   window.setTimeout(()=>ctx.close(),1100);
+ }catch(e){}
+}
+$("soundBtn").addEventListener("click",function(){
+ soundOn=!soundOn;
+ this.textContent=soundOn?"🔊 الصوت يعمل":"🔇 الصوت مغلق";
+ this.setAttribute("aria-pressed",String(soundOn));
+});
+function showTeams(){
+ const board=$("scoreboard");board.innerHTML="";
+ teams.forEach((team,i)=>{
+   const card=document.createElement("div");card.className="team-card"+(i===pairIndex%teams.length?" active":"");card.id="teamCard"+i;
+   card.innerHTML="<div class=\"team-name\"></div><div class=\"team-score\">"+arabic(team.score)+"</div><div class=\"team-label\">نقطة</div>";
+   card.querySelector(".team-name").textContent=team.name;
+   board.appendChild(card);
+ });
+}
+function highlightTeam(){
+ teams.forEach((_,i)=>$("teamCard"+i).classList.toggle("active",i===pairIndex%teams.length));
+}
+function makePair(){
+ const table=rand(4,11),factor=rand(2,12),product=table*factor;
+ return [
+  {kind:"mul",a:table,b:factor,answer:product,table:table},
+  {kind:"div",a:product,b:table,answer:factor,table:table}
+ ];
+}
+function makeChoices(answer){
+ const vals=new Set([answer]);
+ const candidates=[answer+1,answer-1,answer+2,answer-2,answer+3,answer-3,rand(1,12),rand(1,12),rand(1,12)];
+ candidates.forEach(n=>{if(n>0&&vals.size<4)vals.add(n)});
+ while(vals.size<4)vals.add(rand(1,144));
+ return [...vals].sort(()=>Math.random()-.5);
+}
+function updateProgress(){
+ const total=teams.length*rounds*2;
+ const done=pairIndex*2+qIndex;
+ $("progressBar").style.width=Math.min(100,done/total*100)+"%";
+}
+function startGame(){
+ const count=Number($("teamCount").value);
+ teams=Array.from($("teamNames").querySelectorAll("input")).slice(0,count).map((input,i)=>({name:input.value.trim()||"الفريق "+arabic(i+1),score:0}));
+ rounds=Number($("roundCount").value);pairIndex=0;qIndex=0;currentPair=makePair();locked=false;
+ $("setup").classList.add("hidden");$("finishArea").classList.add("hidden");$("playArea").classList.remove("hidden");
+ $("gameTitle").textContent="هيا يا بطلات!";
+ showTeams();renderQuestion();
+}
+function renderQuestion(){
+ if(timerId){clearInterval(timerId);timerId=null}
+ locked=false;timeLeft=15;
+ const team=teams[pairIndex%teams.length];
+ const q=currentPair[qIndex];
+ $("turnBadge").textContent="دور "+team.name+" · الجولة "+arabic(Math.floor(pairIndex/teams.length)+1)+" من "+arabic(rounds);
+ $("roundPill").textContent="الفريق "+arabic(pairIndex%teams.length+1)+" · السؤال "+(qIndex===0?"١ من ٢":"٢ من ٢");
+ $("typePill").textContent=q.kind==="mul"?"سؤال ضرب":"سؤال قسمة";
+ $("typePill").className="pill type"+(q.kind==="div"?" division":"");
+ $("prompt").textContent=q.kind==="mul"?arabic(q.a)+" × "+arabic(q.b)+" = ؟":arabic(q.a)+" ÷ "+arabic(q.b)+" = ؟";
+ $("questionHint").textContent="تشاوروا سريعًا ثم اختاري إجابة "+team.name+".";
+ $("feedback").textContent="";$("feedback").className="feedback";
+ $("clock").textContent="⏱ "+arabic(timeLeft);
+ const choices=$("choices");choices.innerHTML="";
+ makeChoices(q.answer).forEach(value=>{
+   const button=document.createElement("button");button.type="button";button.className="choice";button.textContent=arabic(value);
+   button.addEventListener("click",()=>chooseAnswer(value,button));choices.appendChild(button);
+ });
+ highlightTeam();updateProgress();
+ timerId=setInterval(()=>{
+   timeLeft--; $("clock").textContent="⏱ "+arabic(Math.max(0,timeLeft));
+   if(timeLeft<=5&&timeLeft>0)chirp("tick");
+   if(timeLeft<=0)resolveQuestion(null);
+ },1000);
+}
+function chooseAnswer(value,button){
+ if(locked)return;
+ const q=currentPair[qIndex];
+ if(value===q.answer){button.classList.add("correct");resolveQuestion(value)}
+ else{button.classList.add("wrong");resolveQuestion(value)}
+}
+function resolveQuestion(value){
+ if(locked)return;
+ locked=true;if(timerId){clearInterval(timerId);timerId=null}
+ const q=currentPair[qIndex],ok=value===q.answer;
+ if(ok){teams[pairIndex%teams.length].score++;chirp("win")}
+ else{chirp("wrong")}
+ document.querySelectorAll(".choice").forEach(btn=>{
+   btn.disabled=true;
+   if(Number(btn.textContent.replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)))===q.answer)btn.classList.add("correct");
+ });
+ showTeams();highlightTeam();
+ $("feedback").textContent=ok?"إجابة صحيحة! نقطة للفريق 🌟":value===null?"انتهى الوقت! الإجابة "+arabic(q.answer):"قريبة! الإجابة الصحيحة "+arabic(q.answer);
+ $("feedback").className="feedback "+(ok?"good":"try");
+ $("clock").textContent=ok?"✨ أحسنتن":"⏱ انتهى السؤال";
+ window.setTimeout(nextStep,1500);
+}
+function nextStep(){
+ qIndex++;
+ if(qIndex<2){renderQuestion();return}
+ qIndex=0;pairIndex++;
+ if(pairIndex>=teams.length*rounds){finishGame();return}
+ currentPair=makePair();renderQuestion();
+}
+function finishGame(){
+ if(timerId){clearInterval(timerId);timerId=null}
+ $("playArea").classList.add("hidden");$("finishArea").classList.remove("hidden");
+ const max=Math.max(...teams.map(t=>t.score)),winners=teams.filter(t=>t.score===max);
+ $("winnerText").textContent=winners.length===teams.length?"تعادل جميل بين الفرق! 🎉":winners.length===1?"🏆 الفائزات: "+winners[0].name:"🏆 فوز مشترك: "+winners.map(t=>t.name).join(" و ");
+ $("finalScores").innerHTML="";
+ [...teams].sort((a,b)=>b.score-a.score).forEach(t=>{
+   const row=document.createElement("div");row.className="score-line";
+   const name=document.createElement("strong"),score=document.createElement("span");
+   name.textContent=t.name;score.textContent=arabic(t.score)+" نقطة";row.append(name,score);$("finalScores").appendChild(row);
+ });
+ chirp("applause");
+}
+$("startBtn").addEventListener("click",startGame);
+$("againBtn").addEventListener("click",startGame);
+$("backBtn").addEventListener("click",function(){
+ if(timerId){clearInterval(timerId);timerId=null}
+ $("playArea").classList.add("hidden");$("finishArea").classList.add("hidden");$("setup").classList.remove("hidden");
+});
+})();
+</script>
+</body>
+</html>
