@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071925">
+<title>مهمة الكسور والالتزام | جوهرة ماث</title>
+<style>
+:root{--bg:#071925;--card:#102b3b;--gold:#f3ce83;--mint:#9ce6d9;--text:#f4f7fb;--muted:#c0d0da}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:20px;background:radial-gradient(ellipse at 80% 0,#244d5d,transparent 40%),var(--bg);color:var(--text);font:16px system-ui,Tahoma,Arial,sans-serif}
+main{width:min(680px,100%);margin:3vh auto}
+.card{background:#102b3bf2;border:1px solid #f3ce8366;border-radius:25px;padding:clamp(20px,5vw,38px);box-shadow:0 18px 55px #0005}
+h1,h2{color:var(--gold);text-align:center;margin:5px 0 14px}
+p{color:var(--muted);line-height:1.9;text-align:center}
+.tag{display:block;text-align:center;color:var(--mint);margin-bottom:14px}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:14px;padding:13px 18px;background:linear-gradient(120deg,#f3ce83,#fff1c8);color:#172836}
+button:disabled{opacity:.5;cursor:not-allowed}
+.start{display:block;margin:24px auto 0}
+.top{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}
+.track{height:9px;background:#ffffff20;border-radius:99px;margin:10px 0 22px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--mint);transition:width .3s}
+.question{background:#ffffff0b;border:1px solid #ffffff20;border-radius:18px;padding:18px;text-align:center;margin:18px 0}
+.expression{font-size:clamp(34px,9vw,54px);font-weight:800;color:#fff2ca;direction:ltr;display:inline-block}
+.inputs{display:flex;justify-content:center;align-items:end;gap:12px;flex-wrap:wrap;margin:20px 0}
+.field{display:grid;gap:6px;text-align:center;color:var(--muted);font-size:13px}
+input[type=number],input.answer{width:90px;padding:12px 8px;border-radius:12px;border:2px solid #ffffff30;background:#f8fbff;color:#172836;text-align:center;font:800 24px system-ui}
+.actions{text-align:center}
+.feedback{min-height:48px;text-align:center;line-height:1.8;margin:12px 0;color:var(--mint)}
+.note{font-size:13px}
+.pledge{margin-top:20px;padding:20px;background:#ffffff0b;border:1px solid #f3ce8366;border-radius:18px}
+.check{display:flex;align-items:flex-start;gap:10px;line-height:1.8;margin:18px 0}
+.check input{width:22px;height:22px;flex:none;margin-top:3px;accent-color:#75d5b5}
+.center{text-align:center}
+[hidden]{display:none!important}
+@media(max-width:430px){body{padding:12px}.card{border-radius:19px}.inputs{gap:8px}.field input{width:74px}}
+</style>
+</head>
+<body>
+<main>
+  <section class="card" id="welcome">
+    <span class="tag">💎 مهمة استعادة الوقت</span>
+    <h1>تحدّي الكسور والالتزام</h1>
+    <p>أجيبي عن ٥ أسئلة في تحويل الكسر غير الفعلي والعدد الكسري. بعد الحل، أكملي بطاقة التعهّد.</p>
+    <p class="note">أدخلي الأعداد في الخانات المناسبة ثم اضغطي «تحقّقي من الحل».</p>
+    <button class="start" onclick="begin()">ابدئي المهمة</button>
+  </section>
+  <section class="card" id="game" hidden>
+    <div class="top"><span id="step"></span><span id="score"></span></div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <div class="question">
+      <div class="tag" id="direction"></div>
+      <div class="expression" id="expression"></div>
+    </div>
+    <div class="inputs" id="inputs"></div>
+    <div class="actions">
+      <button id="check" onclick="checkAnswer()">تحقّقي من الحل</button>
+      <button id="next" onclick="nextQuestion()" hidden>السؤال التالي ←</button>
+    </div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+  </section>
+  <section class="card" id="finish" hidden>
+    <span class="tag">✨ أنهيتِ التحدي</span>
+    <h2 id="result"></h2>
+    <p>بقيت خطوة واحدة لإكمال مهمتك:</p>
+    <div class="pledge">
+      <h2>بطاقة التعهّد</h2>
+      <p>أتعهد بالالتزام بوقت الحصة، والدخول قبل بدايتها، وتجهيز أدوات الرياضيات.</p>
+      <label class="check">
+        <input type="checkbox" id="agree" onchange="document.getElementById('done').disabled=!this.checked">
+        <span>أتعهد بالالتزام بوقت الحصة.</span>
+      </label>
+      <div class="center"><button id="done" disabled onclick="complete()">أتممتُ التعهّد</button></div>
+    </div>
+    <p class="feedback" id="thanks" aria-live="polite"></p>
+  </section>
+</main>
+<script>
+let current=0,points=0,firstTry=true,q=null;
+const total=5;
+const fmt=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const toLatin=s=>String(s).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).trim();
+const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+function begin(){document.getElementById("welcome").hidden=true;document.getElementById("game").hidden=false;makeQuestion()}
+function makeQuestion(){
+ firstTry=true;
+ document.getElementById("feedback").textContent="";
+ document.getElementById("check").hidden=false;
+ document.getElementById("next").hidden=true;
+ const d=rand(2,9),whole=rand(1,5),rem=rand(1,d-1),improper=whole*d+rem,reverse=Math.random()<.5;
+ q={reverse,d,whole,rem,improper};
+ document.getElementById("step").textContent="السؤال "+fmt(current+1)+" من "+fmt(total);
+ document.getElementById("score").textContent="الصحيح من أول محاولة: "+fmt(points);
+ document.getElementById("fill").style.width=(current/total*100)+"%";
+ document.getElementById("direction").textContent=reverse?"حوّلي العدد الكسري إلى كسر غير فعلي":"حوّلي الكسر غير الفعلي إلى عدد كسري";
+ document.getElementById("expression").textContent=reverse?fmt(whole)+" "+fmt(rem)+"/"+fmt(d):fmt(improper)+"/"+fmt(d);
+ const fields=reverse?[["البسط","numerator"],["المقام","denominator"]]:[["العدد الصحيح","whole"],["البسط","numerator"],["المقام","denominator"]];
+ document.getElementById("inputs").innerHTML=fields.map(([label,id])=>'<label class="field">'+label+'<input class="answer" id="'+id+'" inputmode="numeric" autocomplete="off" aria-label="'+label+'"></label>').join("");
+ document.getElementById(reverse?"numerator":"whole").focus({preventScroll:true});
+}
+function read(id){return toLatin(document.getElementById(id)?.value||"")}
+function checkAnswer(){
+ const reverse=q.reverse,gotN=Number(read("numerator")),gotD=Number(read("denominator"));
+ const ok=reverse?gotN===q.improper&&gotD===q.d:Number(read("whole"))===q.whole&&gotN===q.rem&&gotD===q.d;
+ const feedback=document.getElementById("feedback");
+ if(ok){
+  if(firstTry)points++;
+  feedback.textContent=firstTry?"أحسنتِ! إجابة صحيحة من أول محاولة 🌟":"صحيح، تابعي التحدي ✨";
+  document.getElementById("check").hidden=true;
+  document.getElementById("next").hidden=false;
+ }else{
+  firstTry=false;
+  feedback.textContent=reverse
+   ?"تذكّري: اضربي العدد الصحيح في المقام ثم أضيفي البسط، والمقام يبقى كما هو. حاولي مرة أخرى."
+   :"تذكّري: اقسمي البسط على المقام؛ الناتج هو العدد الصحيح والباقي هو البسط الجديد. حاولي مرة أخرى.";
+ }
+}
+function nextQuestion(){
+ current++;
+ if(current===total){
+  document.getElementById("game").hidden=true;
+  document.getElementById("finish").hidden=false;
+  document.getElementById("fill").style.width="100%";
+  document.getElementById("result").textContent="نتيجتك "+fmt(points)+" من "+fmt(total);
+ }else makeQuestion();
+}
+function complete(){
+ document.getElementById("thanks").textContent="تمّ التعهّد. شكرًا لحرصك على وقت الحصة 🤍";
+ document.getElementById("done").disabled=true;
+}
+</script>
+</body>
+</html>
