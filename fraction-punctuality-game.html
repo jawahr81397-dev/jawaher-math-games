@@ -62,7 +62,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <header>
 <div class="kicker">مهمة تعويضية في مهارة رياضية</div>
 <h1>تحويل الكسر غير الفعلي والعدد الكسري</h1>
-<p>أجيبي عن خمسة أسئلة، ثم أكملي بطاقة التعهّد بالالتزام بوقت الحصة.</p>
+<p>أجيبي عن سؤالين فقط، ثم أكملي بطاقة التعهّد بالالتزام بوقت الحصة.</p>
 </header>
 <h2>تذكير بالقواعد</h2>
 <div class="instruction">
@@ -108,20 +108,20 @@ button:disabled{opacity:.5;cursor:not-allowed}
 </section>
 </main>
 <script>
-let current=0,points=0,firstTry=true,q=null;
-const total=5;
+let current=0,points=0,firstTry=true,q=null,directions=[];
+const total=2;
 const fmt=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 const toLatin=s=>String(s).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).trim();
 const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 function fraction(n,d){return '<span class="fraction" aria-label="'+fmt(n)+' على '+fmt(d)+'"><span class="num">'+fmt(n)+'</span><span class="den">'+fmt(d)+'</span></span>'}
-function begin(){document.getElementById("welcome").hidden=true;document.getElementById("game").hidden=false;makeQuestion()}
+function begin(){directions=Math.random()<.5?[false,true]:[true,false];document.getElementById("welcome").hidden=true;document.getElementById("game").hidden=false;makeQuestion()}
 function makeQuestion(){
  firstTry=true;
  document.getElementById("feedback").textContent="";
  document.getElementById("feedback").className="feedback";
  document.getElementById("check").hidden=false;
  document.getElementById("next").hidden=true;
- const d=rand(2,9),whole=rand(1,5),rem=rand(1,d-1),improper=whole*d+rem,reverse=Math.random()<.5;
+ const d=rand(2,9),whole=rand(1,5),rem=rand(1,d-1),improper=whole*d+rem,reverse=directions[current];
  q={reverse,d,whole,rem,improper};
  document.getElementById("step").textContent="السؤال "+fmt(current+1)+" من "+fmt(total);
  document.getElementById("score").textContent="الإجابات الصحيحة من أول محاولة: "+fmt(points);
