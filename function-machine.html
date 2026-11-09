@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#faf8ff">
+<title>آلة الدالة | جوهرة ماث</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#493a63;--muted:#766d88;--purple:#76559b;--lilac:#f1eafb;--mint:#eaf7f2;--gold:#d4ad68;--line:#e3d8ed;--white:#fff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);font-family:Cairo,Arial,sans-serif;background:radial-gradient(ellipse at 12% 8%,#d8f1e9 0,transparent 32%),radial-gradient(ellipse at 89% 15%,#e9ddf6 0,transparent 35%),#faf8ff}button,input,select{font:inherit}button{cursor:pointer}.wrap{width:min(980px,calc(100% - 28px));margin:auto}.top{padding:18px 0}.top a{display:inline-flex;align-items:center;gap:8px;color:var(--purple);font-weight:800;text-decoration:none}.hero{text-align:center;padding:22px 12px 16px}.badge{display:inline-flex;padding:7px 15px;border:1px solid #d8c9e7;border-radius:99px;background:#ffffffb8;color:#70548c;font-weight:700;font-size:13px}.hero h1{font:800 clamp(30px,6vw,48px) Alexandria,Cairo,sans-serif;color:#5e477c;margin:13px 0 8px}.hero p{margin:0;color:var(--muted);line-height:1.9}.card{margin:18px auto 38px;padding:clamp(18px,4vw,34px);border:1px solid var(--line);border-radius:27px;background:#ffffffdf;box-shadow:0 15px 45px #67548316}.machine{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px}.machine-box{min-height:156px;display:grid;place-content:center;text-align:center;padding:18px;border-radius:22px;border:1px solid #dfd2ed;background:linear-gradient(145deg,#fff,#f8f3ff)}.machine-box.output{background:linear-gradient(145deg,#fff,#eff9f5);border-color:#d5e9e1}.label{font-size:13px;color:var(--muted);font-weight:700}.number{font:800 clamp(34px,8vw,52px) Alexandria,Cairo,sans-serif;color:#674b8b;margin:5px 0}.output .number{color:#477d70}.machine-icon{width:72px;height:72px;display:grid;place-items:center;border-radius:23px;background:linear-gradient(145deg,#efe6fa,#e2f4ef);font-size:35px;box-shadow:0 8px 18px #69558217}.machine-icon span{display:inline-block;animation:spin 12s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.rule-panel{margin:22px 0;padding:18px;border-radius:19px;background:#f8f5fc;border:1px solid #ebe2f1}.rule-panel label{display:block;font-weight:800;margin:0 0 8px}.rule-panel select{width:100%;min-height:49px;border:1px solid #d8cbe4;border-radius:13px;padding:10px 13px;color:var(--ink);background:white}.input-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.input-row label{grid-column:1/-1;font-weight:800}.input-row input{min-width:0;min-height:52px;padding:10px 15px;border-radius:14px;border:1px solid #d8cbe4;background:white;color:var(--ink);font-size:20px;text-align:center}.btn{min-height:52px;padding:10px 20px;border:0;border-radius:14px;background:linear-gradient(125deg,#e8d3a4,#f6eacb);color:#493a63;font-weight:800;box-shadow:0 6px 16px #b39b6a27}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.steps{display:none;margin:18px 0 0;padding:16px;border-radius:16px;background:#f0f8f5;border:1px solid #d5e9e1;line-height:1.9}.steps.show{display:block}.steps strong{color:#477d70}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}.btn.secondary{background:#fff;border:1px solid #ded3e9;box-shadow:none}.hint{text-align:center;margin:16px 0 0;color:var(--muted);font-size:13px;line-height:1.9}.status{min-height:26px;text-align:center;margin:10px 0 0;font-weight:700;color:#b45162}.footer{text-align:center;padding:0 0 26px;color:#8b8298;font-size:13px}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:620px){.machine{gap:8px}.machine-box{min-height:130px;padding:11px}.machine-icon{width:54px;height:54px;border-radius:18px;font-size:27px}.input-row{grid-template-columns:1fr}.input-row label{grid-column:1}.btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a href="index.html#activities">← العودة إلى الأنشطة</a></header>
+<section class="hero">
+<span class="badge">💎 نشاط تفاعلي | الصف الخامس</span>
+<h1>آلة الدالة</h1>
+<p>أدخلي عددًا، اختاري قاعدة الآلة، واكتشفي كيف يتحول المدخل إلى مخرج!</p>
+</section>
+<main class="card">
+<div class="machine" aria-live="polite">
+<div class="machine-box"><span class="label">المدخل</span><span class="number" id="inputDisplay">؟</span></div>
+<div class="machine-icon" aria-label="آلة الدالة"><span>⚙️</span></div>
+<div class="machine-box output"><span class="label">المخرج</span><span class="number" id="outputDisplay">؟</span></div>
+</div>
+<div class="rule-panel">
+<label for="rule">اختاري قاعدة الدالة</label>
+<select id="rule">
+<option value="doublePlus">أضرب في ٢ ثم أضيف ٣</option>
+<option value="tripleMinus">أضرب في ٣ ثم أطرح ٢</option>
+<option value="addThenDouble">أضيف ٤ ثم أضرب في ٢</option>
+<option value="timesFive">أضرب في ٥</option>
+<option value="addSeven">أضيف ٧</option>
+</select>
+</div>
+<div class="input-row">
+<label for="inputNumber">اكتبي العدد الداخل إلى الآلة</label>
+<input id="inputNumber" type="number" inputmode="numeric" placeholder="مثال: ٦" min="-9999" max="9999" aria-describedby="hint">
+<button class="btn" id="run" type="button">شغّلي الآلة ✨</button>
+</div>
+<div class="steps" id="steps" aria-live="polite"></div>
+<p class="status" id="status" role="status"></p>
+<div class="actions">
+<button class="btn secondary" id="random" type="button">🎲 أعطني عددًا</button>
+<button class="btn secondary" id="reset" type="button">↺ ابدئي من جديد</button>
+</div>
+<p class="hint" id="hint">فكّري أولًا: ما المخرج المتوقع؟ ثم شغّلي الآلة وتأكدي من إجابتك.</p>
+</main>
+<footer class="footer">جوهرة ماث — حيث تتحول الأرقام إلى اكتشافات</footer>
+</div>
+<script>
+const rules={
+ doublePlus:{first:x=>x*2,second:x=>x+3,firstText:x=>x+' × ٢ = '+(x*2),secondText:x=>(x*2)+' + ٣ = '+(x*2+3)},
+ tripleMinus:{first:x=>x*3,second:x=>x-2,firstText:x=>x+' × ٣ = '+(x*3),secondText:x=>(x*3)+' − ٢ = '+(x*3-2)},
+ addThenDouble:{first:x=>x+4,second:x=>x*2,firstText:x=>x+' + ٤ = '+(x+4),secondText:x=>(x+4)+' × ٢ = '+((x+4)*2)},
+ timesFive:{first:x=>x*5,firstText:x=>x+' × ٥ = '+(x*5)},
+ addSeven:{first:x=>x+7,firstText:x=>x+' + ٧ = '+(x+7)}
+};
+const ruleEl=document.getElementById('rule'),input=document.getElementById('inputNumber'),inDisplay=document.getElementById('inputDisplay'),outDisplay=document.getElementById('outputDisplay'),steps=document.getElementById('steps'),status=document.getElementById('status');
+function digits(n){return String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])}
+function run(){
+ const raw=input.value;
+ if(raw===''||!Number.isFinite(Number(raw))){status.textContent='اكتبي عددًا صحيحًا أولًا.';input.focus();return}
+ const x=Number(raw);
+ if(!Number.isInteger(x)||Math.abs(x)>9999){status.textContent='اكتبي عددًا صحيحًا من ٤ أرقام أو أقل.';input.focus();return}
+ const rule=rules[ruleEl.value],first=rule.first(x),result=rule.second?rule.second(first):first;
+ inDisplay.textContent=digits(x);outDisplay.textContent=digits(result);status.textContent='';
+ const lines=[rule.firstText(x)];if(rule.secondText)lines.push(rule.secondText(x));
+ steps.innerHTML='<strong>خطوات التحويل:</strong><br>'+lines.map(digits).join('<br>')+'<br><strong>إذن المخرج هو '+digits(result)+' 🌟</strong>';
+ steps.classList.add('show');
+}
+document.getElementById('run').addEventListener('click',run);
+input.addEventListener('keydown',e=>{if(e.key==='Enter')run()});
+ruleEl.addEventListener('change',()=>{if(input.value!=='')run()});
+document.getElementById('random').addEventListener('click',()=>{input.value=String(Math.floor(Math.random()*19)-4);run()});
+document.getElementById('reset').addEventListener('click',()=>{input.value='';inDisplay.textContent='؟';outDisplay.textContent='؟';steps.textContent='';steps.classList.remove('show');status.textContent='';input.focus()});
+</script>
+</body>
+</html>
