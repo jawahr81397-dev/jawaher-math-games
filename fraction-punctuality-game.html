@@ -91,20 +91,16 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 <section class="card" id="finish" hidden>
 <header>
-<div class="kicker">اكتمل التدريب</div>
-<h1>نتيجة المهمة</h1>
+<div class="kicker">مهمة الغد</div>
+<h1>بطاقة تنفيذ داخل الحصة</h1>
 <p id="result"></p>
 </header>
 <div class="pledge">
-<h2>التعهّد بالالتزام</h2>
-<blockquote>أتعهد بالالتزام بوقت الحصة، والدخول قبل بدايتها، وتجهيز أدوات الرياضيات.</blockquote>
-<label class="check">
-<input type="checkbox" id="agree" onchange="document.getElementById('done').disabled=!this.checked">
-<span>أتعهد بالالتزام بوقت الحصة.</span>
-</label>
-<div class="center"><button id="done" disabled onclick="complete()">تأكيد التعهّد</button></div>
+<h2>مهمتك غدًا</h2>
+<blockquote>ادخلي قبل بداية الحصة وجهزي أدوات الرياضيات. في أول الحصة، حلي السؤال التالي على بطاقة صغيرة وقدميها للمعلمة.</blockquote>
+<div class="question"><div class="direction" id="taskDirection"></div><div class="expression" id="taskProblem"></div></div>
+<p class="note">اكتبي خطوات الحل بوضوح، وراجعي البسط والمقام قبل التسليم.</p>
 </div>
-<div class="feedback" id="thanks" aria-live="polite"></div>
 </section>
 </main>
 <script>
@@ -155,13 +151,10 @@ function nextQuestion(){
   document.getElementById("game").hidden=true;
   document.getElementById("finish").hidden=false;
   document.getElementById("result").textContent="الإجابات الصحيحة من أول محاولة: "+fmt(points)+" من "+fmt(total)+".";
+  const d=rand(3,9),whole=rand(2,4),rem=rand(1,d-1),improper=whole*d+rem,convertToMixed=Math.random()<.5;
+  document.getElementById("taskDirection").textContent=convertToMixed?"حوّلي الكسر غير الفعلي إلى عدد كسري":"حوّلي العدد الكسري إلى كسر غير فعلي";
+  document.getElementById("taskProblem").innerHTML=convertToMixed?fraction(improper,d):'<span class="whole">'+fmt(whole)+'</span>'+fraction(rem,d);
  }else makeQuestion();
-}
-function complete(){
- const lines=["اسمك على القائمة السوداء للمتأخرات… تحت المراجعة 😄","دفعة ٢٠٢٧، القائمة السوداء تسأل: وين الانضباط اليوم؟","ما توقعتها منك! اسمك بالقائمة السوداء إلى أن تسبقين الجرس بكرا.","القائمة السوداء سجّلت التأخير… الحضور المبكر يمسح الملاحظة.","اسمك بالقائمة السوداء مؤقتًا؛ اطلعي منها بالحضور قبل الجرس.","دفعة ٢٠٢٧، خلّوا الجرس ينتظركم بدل ما تنتظرونه!"];
- const line=lines[Math.floor(Math.random()*lines.length)];
- document.getElementById("thanks").textContent="تم تأكيد التعهّد. "+line;
- document.getElementById("done").disabled=true;
 }
 </script>
 </body>
