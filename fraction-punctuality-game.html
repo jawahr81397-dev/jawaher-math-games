@@ -158,7 +158,7 @@ function nextQuestion(){
  }else makeQuestion();
 }
 function complete(){
- const lines=["انتبهي، قربنا نحط اسمك في القائمة السوداء للمتأخرات 😄","دفعة ٢٠٢٧، ما توقعتها منك! الجرس حضر قبلك اليوم.","تأخيرك فوّت عليكِ فرصة إجابة اليوم!","المفاجآت الحلوة ما تنتظر المتأخرات 😉","الجرس سبقك اليوم، نبي نشوفك قبله بكرا.","دفعة ٢٠٢٧، ننتظرك قبل الجرس… مو بعده!"];
+ const lines=["اسمك على القائمة السوداء… تحت المراجعة! 😄","دفعة ٢٠٢٧، وين انضباطكم اليوم؟","بكرا أبي أشوفك قبل الجرس، اتفقنا؟"];
  const line=lines[Math.floor(Math.random()*lines.length)];
  document.getElementById("thanks").textContent="تم تأكيد التعهّد. "+line;
  document.getElementById("done").disabled=true;
