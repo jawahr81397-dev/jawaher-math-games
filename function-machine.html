@@ -95,7 +95,7 @@ const rules=[
 const ruleById=Object.fromEntries(rules.map(r=>[r.id,r]));
 let activeClass="",activeName="",currentQuestion=0,questions=[],answers=[],score=0,practiceCount=0;
 function digits(value){return String(value).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[Number(d)])}
-function integerFrom(value){const normalized=String(value).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));if(!/^-?\d+$/.test(normalized.trim()))return null;const n=Number(normalized);return Number.isSafeInteger(n)?n:null}
+function integerFrom(value){const normalized=String(value).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));if(!/^\d+$/.test(normalized.trim()))return null;const n=Number(normalized);return Number.isSafeInteger(n)?n:null}
 async function api(payload){
  const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","apikey":API_KEY},body:JSON.stringify(payload)});
  const data=await res.json().catch(()=>({}));
