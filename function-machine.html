@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="wrap">
-<header class="top"><a href="index.html#activities">← العودة إلى الأنشطة التعليمية</a></header>
+
 <section class="hero">
 <span class="badge">💎 نشاط تفاعلي | الصف الخامس</span>
 <h1>آلة الدالة</h1>
@@ -86,11 +86,11 @@ const classSelect=document.getElementById("classSelect"),studentNameInput=docume
 const rosterStatus=document.getElementById("rosterStatus"),enterBtn=document.getElementById("enterBtn");
 const activity=document.getElementById("activity");
 const rules=[
- {id:"times2",label:"س × ٢",calc:x=>x*2,steps:x=>[digits(x)+" × ٢ = "+digits(x*2)]},
+ {id:"times2",label:"٢س",calc:x=>x*2,steps:x=>[digits(x)+" × ٢ = "+digits(x*2)]},
  {id:"times3plus1",label:"٣س + ١",calc:x=>x*3+1,steps:x=>[digits(x)+" × ٣ = "+digits(x*3),digits(x*3)+" + ١ = "+digits(x*3+1)]},
- {id:"times4minus2",label:"٤س − ٢",calc:x=>x*4-2,steps:x=>[digits(x)+" × ٤ = "+digits(x*4),digits(x*4)+" − ٢ = "+digits(x*4-2)]},
+ {id:"times4plus2",label:"٤س + ٢",calc:x=>x*4+2,steps:x=>[digits(x)+" × ٤ = "+digits(x*4),digits(x*4)+" + ٢ = "+digits(x*4+2)]},
  {id:"plus6",label:"س + ٦",calc:x=>x+6,steps:x=>[digits(x)+" + ٦ = "+digits(x+6)]},
- {id:"minus3times2",label:"٢(س − ٣)",calc:x=>(x-3)*2,steps:x=>[digits(x)+" − ٣ = "+digits(x-3),digits(x-3)+" × ٢ = "+digits((x-3)*2)]}
+ {id:"times5",label:"٥س",calc:x=>x*5,steps:x=>[digits(x)+" × ٥ = "+digits(x*5)]}
 ];
 const ruleById=Object.fromEntries(rules.map(r=>[r.id,r]));
 let activeClass="",activeName="",currentQuestion=0,questions=[],answers=[],score=0,practiceCount=0;
