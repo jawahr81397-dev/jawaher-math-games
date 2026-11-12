@@ -97,5 +97,12 @@ document.getElementById('difficulty').addEventListener('change',()=>{const f=fil
 
 for(let c of [...new Set(QUESTIONS.map(x=>x.c))]){let o=document.createElement('option');o.value=c;o.textContent=c;document.getElementById('filter').appendChild(o)}document.getElementById('filter').addEventListener('change',function(){const matches=filtered();if(matches.length){index=matches[0];show()}else alert('لا توجد أسئلة في هذا الدرس بالمستوى المحدد')});
 document.getElementById('difficulty').addEventListener('change',function(){const matches=filtered();if(matches.length){index=matches[0];show()}else alert('لا توجد أسئلة في المستوى المحدد لهذا الدرس')});
+// Make navigation reliable on touch devices without changing saved student data.
+document.querySelectorAll('button[onclick="nextQuestion()"],button[onclick="prevQuestion()"]').forEach(function(btn){
+  const isNext=btn.getAttribute('onclick')==='nextQuestion()';
+  btn.removeAttribute('onclick');
+  btn.type='button';
+  btn.addEventListener('click',function(ev){ev.preventDefault();if(isNext)nextQuestion();else prevQuestion()});
+});
 show();renderScores();
 </script></body></html>
