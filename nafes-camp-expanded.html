@@ -86,6 +86,15 @@ function toggleSound(){soundOn=!soundOn;document.getElementById('sound').textCon
 function resetScores(){if(confirm('هل تريدين تصفير جميع نقاط الطالبات؟ لا يمكن التراجع بعد إعادة تحميل الصفحة.')){scores={};history=[];save();renderScores()}}
 function addStudent(){let n=prompt('اكتبي الاسم الأول واسم الأب:');if(!n)return;n=n.trim();if(names.includes(n)){alert('الاسم موجود بالفعل');return}names.push(n);save();renderScores()}
 function exportScores(){let csv='الطالبة,النقاط\n'+names.map(n=>'"'+n+'",'+(scores[n]||0)).join('\n');let blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='نتائج-معسكر-نافس.csv';a.click();URL.revokeObjectURL(url)}
+
+// دعم النقر باللمس في Safari وداخل متصفحات التطبيقات، دون المساس بالتخزين.
+document.querySelectorAll('button,select,.choice').forEach(el=>{
+  el.style.touchAction='manipulation';
+  el.style.pointerEvents='auto';
+});
+document.getElementById('filter').addEventListener('change',()=>{const f=filtered();if(f.length){index=f[0];show()}});
+document.getElementById('difficulty').addEventListener('change',()=>{const f=filtered();if(f.length){index=f[0];show()}});
+
 for(let c of [...new Set(QUESTIONS.map(x=>x.c))]){let o=document.createElement('option');o.value=c;o.textContent=c;document.getElementById('filter').appendChild(o)}document.getElementById('filter').addEventListener('change',function(){const matches=filtered();if(matches.length){index=matches[0];show()}else alert('لا توجد أسئلة في هذا الدرس بالمستوى المحدد')});
 document.getElementById('difficulty').addEventListener('change',function(){const matches=filtered();if(matches.length){index=matches[0];show()}else alert('لا توجد أسئلة في المستوى المحدد لهذا الدرس')});
 show();renderScores();
