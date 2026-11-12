@@ -42,14 +42,18 @@ function save(){localStorage.setItem(KEY,JSON.stringify({names,scores,seen:[...s
 function show(){let q=QUESTIONS[index];document.getElementById('progress').textContent=ar(index+1)+' / '+ar(QUESTIONS.length);document.getElementById('level').textContent=q.l;document.getElementById('cat').textContent=q.c;document.getElementById('bar').style.width=(seen.size/QUESTIONS.length*100)+'%';document.getElementById('question').textContent=ar(q.t);document.getElementById('choices').innerHTML='';q.o.forEach((v,i)=>{let b=document.createElement('button');b.className='choice';b.innerHTML='<b>'+['أ','ب','ج','د'][i]+'</b> '+ar(v);b.onclick=()=>check(i);document.getElementById('choices').appendChild(b)});document.getElementById('explain').style.display='none';seen.add(index);clearInterval(tickId);ticking=false;clock=60;document.getElementById("timerControl").textContent="▶️ بدء المؤقت";document.getElementById('timer').textContent=ar(clock);save();document.getElementById('bar').style.width=(seen.size/QUESTIONS.length*100)+'%'}
 function check(i){let q=QUESTIONS[index];document.querySelectorAll('.choice').forEach((b,j)=>{b.classList.toggle('correct',j===q.a);b.classList.toggle('wrong',j===i&&i!==q.a)});reveal();beep(i===q.a?880:260,.2)}function reveal(){let q=QUESTIONS[index],e=document.getElementById('explain');e.style.display='block';e.textContent='💡 الحل: '+ar(q.e);document.querySelectorAll('.choice')[q.a].classList.add('correct')}
 function moveQuestion(direction){
- let f=filtered();
- if(f.length<2){f=QUESTIONS.map((_,i)=>i)}
- if(f.length<2){alert('لا توجد أسئلة إضافية حاليًا');return}
- let p=f.indexOf(index);
- let next=f[(p+(direction>0?1:f.length-1))%f.length];
- if(next===index)next=f.find(i=>i!==index);
- if(next===undefined)return;
- index=next;show();beep(650);
+ // Navigate safely even if the current question is outside the selected filter.
+ const list=filtered();
+ if(!list.length){alert('لا توجد أسئلة مطابقة للتصفية الحالية');return}
+ const position=list.indexOf(index);
+ const step=direction>0?1:-1;
+ let target;
+ if(position===-1){target=step>0?list[0]:list[list.length-1]}
+ else{target=list[(position+step+list.length)%list.length]}
+ if(target===undefined||!QUESTIONS[target]){alert('تعذر عرض السؤال التالي');return}
+ index=target;
+ show();
+ beep(650);
 }
 function nextQuestion(){moveQuestion(1)}
 function prevQuestion(){moveQuestion(-1)}
