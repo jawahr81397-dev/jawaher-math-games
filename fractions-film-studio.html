@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>استوديو الكسور | من يكشف الخدعة؟</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--y:#ffd23f;--d:#3b1d5e;--t:#19c3b1;--p:#ff6f91}
+html,body{margin:0;min-height:100%;font-family:Tahoma,"Geeza Pro",Arial,sans-serif;background:linear-gradient(160deg,#4a2a7a,#7a3fa0 60%,#c2417a);color:#fff;-webkit-text-size-adjust:100%}
+.scr{display:none;padding:12px;max-width:560px;margin:auto;min-height:100vh}.scr.on{display:block}
+.card{background:#fff;color:var(--d);border-radius:20px;padding:14px;margin:10px 0}
+.b{font:inherit;font-size:20px;font-weight:bold;min-height:52px;border:0;border-radius:16px;background:var(--y);color:var(--d);padding:8px 16px;box-shadow:0 4px 0 #c9a100;cursor:pointer}
+.b:disabled{opacity:.5}.b.w{width:100%;margin-top:10px}.b.g{background:#2ecc71;color:#fff;box-shadow:0 4px 0 #1b8f4c}.b.r{background:#ff5c5c;color:#fff;box-shadow:0 4px 0 #b53030}
+.o{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:10px}.o .b{font-size:26px;min-height:64px}
+h1{font-size:30px;color:var(--y);text-align:center;margin:6px 0}p{line-height:1.7}.c{text-align:center}
+input{font:inherit;font-size:22px;width:100%;padding:12px;border-radius:14px;border:3px solid var(--t);text-align:center}
+.fr{display:inline-flex;flex-direction:column;align-items:center;font-weight:bold;font-size:26px;line-height:1.1;margin:0 6px;direction:ltr;vertical-align:middle}.fr i{display:block;width:100%;height:3px;background:currentColor;border-radius:2px;margin:3px 0}
+.row{display:flex;align-items:center;justify-content:space-around;gap:6px}.fg{flex:1;text-align:center}.pie{width:100%;max-width:120px}
+.sl{width:54px;height:54px;border:3px dashed #7b3fa0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold}
+.bar{display:flex;height:22px;border:2px solid #7b3fa0;border-radius:8px;overflow:hidden;background:#fff;width:100%;margin-top:6px}.bar u{flex:1;border-left:1px solid #7b3fa0}
+.bw{display:flex;align-items:center;gap:10px;margin:8px 0}.mq{filter:blur(9px);transition:filter 1s}.mq.rv{filter:none}
+.bm{display:flex;justify-content:space-between;border-top:8px solid #c9a100;transition:transform 1s;transform-origin:50% 0;margin:18px 6px 30px}
+.pn{border:3px solid #7b3fa0;border-radius:0 0 40px 40px;padding:6px 14px;background:#fff7d6;margin-top:-4px}
+.lane{position:relative;height:44px;margin:10px 0;background:repeating-linear-gradient(90deg,#e8e0f5 0 10%,#fff 10% 20%);border-radius:10px;border-right:6px solid var(--p)}.lane span{position:absolute;top:2px;font-size:32px;transform:translateX(-100%)}
+.bub{background:#fff7d6;border:3px solid var(--y);border-radius:18px;padding:12px;font-size:20px;flex:1}
+.tx{font-size:19px;margin:6px 4px}.cd{min-width:84px;margin:4px}.sh2{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.sls{display:flex;justify-content:center;gap:8px;margin:10px 0}.sls div{width:84px;height:68px;border:3px dashed var(--t);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--d);background:#fff}
+.hd{display:flex;justify-content:space-between;font-size:15px;margin:2px 0 6px}.st{display:flex;gap:3px}.st i{flex:1;height:14px;border-radius:3px;background:#0005;border:2px dashed #fff6}.st .ok{background:#2ecc71;border-style:solid}.st .bad{background:#ff5c5c;border-style:solid}.st .cur{border-color:var(--y)}
+.fb{border-radius:16px;padding:10px;margin-top:10px;color:var(--d);background:#fff;font-size:17px;line-height:1.9}.fb.ok{border:3px solid #2ecc71}.fb.no{border:3px solid #ff5c5c}
+.spot{box-shadow:0 0 30px 8px var(--y);animation:gl 1.5s infinite alternate}@keyframes gl{to{box-shadow:0 0 6px 2px var(--y)}}
+#cur{position:fixed;inset:0;pointer-events:none;z-index:9;display:flex;direction:ltr}#cur div{flex:1;background:repeating-linear-gradient(90deg,#9c1238,#e0245e 18px);transition:transform 1s}.l{transform:translateX(-100%)}.r{transform:translateX(100%)}#cur.sh div{transform:none}
+#ti{position:fixed;inset:0;z-index:10;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--y);font-size:30px;padding:20px;text-shadow:0 0 18px #fff}#ti.on{display:flex}
+.fl{position:fixed;top:8px;left:8px;z-index:11;display:flex;gap:6px}.fl button{width:44px;height:44px;border-radius:50%;border:0;font-size:20px;background:#fff9}
+.bob{animation:bob 1.2s infinite alternate}@keyframes bob{to{transform:translateY(-8px) rotate(4deg)}}
+.bu{position:fixed;top:60%;font-size:28px;animation:up 1.4s forwards;z-index:7;pointer-events:none}@keyframes up{to{transform:translateY(-300px);opacity:0}}
+.rm *{transition:none!important;animation:none!important}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+img.res{width:100%;border-radius:14px;margin:8px 0;border:3px solid var(--y)}#pr{display:none}
+@media print{body>*:not(#pr){display:none!important}#pr{display:block}#pr img{width:100%}}
+</style></head><body>
+<div class="fl"><button id="mt" aria-label="الصوت">🔊</button><button id="rmb" aria-label="تقليل الحركة">🐢</button></div>
+<div id="cur"><div class="l"></div><div class="r"></div></div>
+<div id="ti"></div>
+
+<section id="s0" class="scr on"><div class="c"><svg class="bob" width="110" viewBox="0 0 80 80"><circle cx="40" cy="42" r="30" fill="#ffd9b3"/><path d="M16 32Q40 -2 64 32Z" fill="#e0245e"/><circle cx="30" cy="44" r="4" fill="#333"/><circle cx="50" cy="44" r="4" fill="#333"/><path d="M28 56Q40 68 52 56" stroke="#333" fill="none" stroke-width="3"/></svg></div>
+<h1>🎬 استوديو الكسور</h1><p class="c" style="font-size:22px;margin:0">من يكشف الخدعة؟</p>
+<div class="card"><p class="c"><b>مرحبًا بكِ في استوديو الكسور!</b><br>اليوم أنتِ مخرجة الفيلم، ومهمتك اكتشاف خدع الكسور لإكمال ١٠ مشاهد سينمائية!</p>
+<input id="nm" placeholder="اكتبي اسمكِ هنا" maxlength="30" autocomplete="off">
+<button class="b w" id="go">🎥 ابدئي التصوير</button><button class="b w g" id="rs" style="display:none">▶ متابعة الفيلم</button></div></section>
+
+<section id="s1" class="scr"><div class="hd"><span id="h1"></span><span id="h2"></span><span id="h3"></span></div><div class="st" id="st"></div>
+<div id="stage"></div></section>
+
+<section id="s2" class="scr"><h1 id="e1"></h1><div id="e2"></div></section>
+<div id="pr"><img id="pri" alt=""></div>
+
+<script>
+/* ===== بيانات الأسئلة (منفصلة عن المنطق) ===== */
+const AR='٠١٢٣٤٥٦٧٨٩',ar=s=>String(s).replace(/\d/g,d=>AR[d]);
+const gcd=(a,b)=>b?gcd(b,a%b):a,lcm=(a,b)=>a*b/gcd(a,b);
+const F=(n,d)=>`<span class="fr"><b>${ar(n)}</b><i></i><b>${ar(d)}</b></span>`;
+const val=f=>f[0]/f[1],cmp=(a,b)=>{const x=a[0]*b[1],y=b[0]*a[1];return x>y?'>':x<y?'<':'='};
+const ex=fs=>{const L=fs.reduce((l,f)=>lcm(l,f[1]),1);return 'نوحّد المقامات إلى '+ar(L)+': '+fs.map(f=>F(...f)+' = '+F(f[0]*L/f[1],L)).join(' ، ')};
+const pie=(n,d,c)=>{let s='<svg viewBox="0 0 100 100" class="pie">';const p=t=>[50+46*Math.cos(t),50+46*Math.sin(t)];for(let i=0;i<d;i++){const a=i/d*6.2832-1.5708,b=(i+1)/d*6.2832-1.5708,[x,y]=p(a),[u,v]=p(b);s+=`<path d="M50 50L${x} ${y}A46 46 0 0 1 ${u} ${v}Z" fill="${i<n?c:'#fff'}" stroke="#7b3fa0" stroke-width="2"/>`}return s+'</svg>'};
+const bar=(f,c='#19c3b1')=>'<div class="bar" dir="ltr">'+[...Array(f[1])].map((_,i)=>`<u style="${i<f[0]?'background:'+c:''}"></u>`).join('')+'</div>';
+const fig=(f,g)=>`<div class="fg">${g?g(f):''}${F(...f)}</div>`;
+const bws=fs=>fs.map(f=>`<div class="bw">${F(...f)}${bar(f)}</div>`).join('');
+const face=`<svg width="70" viewBox="0 0 80 80" class="bob"><circle cx="40" cy="42" r="30" fill="#ffd9b3"/><path d="M16 32Q40 -2 64 32Z" fill="#7b3fa0"/><circle cx="30" cy="44" r="4"/><circle cx="50" cy="44" r="4"/><path d="M28 56Q40 68 52 56" stroke="#333" fill="none" stroke-width="3"/></svg>`;
+const SYM=(a,b,t,x,g,af)=>({k:'sym',a,b,t,x,af,e:ex([a,b]),vis:`<div class="row" dir="ltr">${fig(a,g)}<div class="sl" id="sl">؟</div>${fig(b,g)}</div>`});
+const BIG=(fs,t,x,vis,af)=>({k:'ch',t,x,vis,af,o:fs.map(f=>F(...f)),ans:fs.findIndex(f=>fs.every(h=>val(f)>=val(h))),e:ex(fs)});
+const SEQ=(f,asc,t,x,ic)=>({k:'seq',f,asc,t,x,ic,e:ex(f)});
+const pz=f=>pie(f[0],f[1],'#ff8a5c'),ck=f=>pie(f[0],f[1],'#ff6f91');
+const rc=(a,b)=>`<div class="lane" dir="ltr"><span style="left:${val(a)*100}%">🏃‍♀️</span></div><div class="lane" dir="ltr"><span style="left:${val(b)*100}%">🚴‍♀️</span></div>`;
+const tilt=(a,b)=>()=>{const c=cmp(a,b);document.getElementById('bm').style.transform=c=='='?'none':`rotate(${c=='>'?-8:8}deg)`};
+const Q=[
+SYM([3,4],[2,3],'خدعة البيتزا 🍕','أي الكسرين أكبر؟ اختاري الرمز الصحيح.',pz),
+{...BIG([[5,8],[3,4]],'الميزان المخادع ⚖️','اختاري الكسر الأكبر، فالأثقل يهبط!',`<div class="bm" id="bm" dir="ltr"><div class="pn">${F(5,8)}</div><div class="pn">${F(3,4)}</div></div>`,tilt([5,8],[3,4]))},
+{k:'ch',t:'سباق الشخصيات 🏁',x:'الأولى قطعت ٤/٦ من المسار والثانية ٢/٣. أيهما قطع مسافة أكبر؟'.replace('٤/٦','').replace('٢/٣',''),vis:rc([4,6],[2,3])+`<div class="row"><span>الأولى ${F(4,6)}</span><span>الثانية ${F(2,3)}</span></div>`,o:['الأولى','الثانية','متساويتان'],ans:2,e:ex([[4,6],[2,3]])},
+SEQ([[1,2],[3,4],[2,3]],1,'ترتيب اللقطات 🎞️','رتّبي بطاقات اللقطات من الأصغر إلى الأكبر (تصاعديًا) بالضغط عليها بالترتيب.','🎞️'),
+BIG([[5,6],[7,9]],'الكعكة الغامضة 🎂','أي الكعكتين تمثل الكسر الأكبر؟',`<div class="row">${fig([5,6],ck)}${fig([7,9],ck)}</div>`),
+{k:'ch',t:'خدعة المخرج 🎭',x:'هل كلام الشخصية صحيح أم خطأ؟',vis:`<div class="row" style="align-items:flex-start">${face}<div class="bub">«بما أن ${ar(8)} أكبر من ${ar(5)}، فإن ${F(3,8)} أكبر من ${F(3,5)}!»</div></div>`,o:['صحيح','خطأ'],ans:3*5>3*8?0:1,e:'عند تساوي البسطين يكون الكسر ذو المقام الأصغر هو الأكبر؛ فـ '+F(3,5)+' أكبر من '+F(3,8)+'.'},
+SEQ([[3,8],[5,8],[7,8]],0,'صناديق الفشار 🍿','رتّبي صناديق الفشار من الأكبر إلى الأصغر (تنازليًا).','🍿'),
+SYM([6,9],[2,3],'شاشة الكسور المتكافئة 📺','قارني الكسرين واختاري >  أو <  أو = .',f=>bar(f)),
+SYM([4,5],[7,10],'المشهد المفقود 🔍','اكشفي اللغز! اختاري الرمز المناسب.',f=>'<div class="mq">'+bar(f,'#ff6f91')+'</div>',()=>document.querySelectorAll('.mq').forEach(e=>e.classList.add('rv'))),
+BIG([[5,6],[7,12],[3,4]],'المشهد الأخير: تحدي المخرجة 🌟','أي الكسور هو الأكبر؟',`<div class="spot" style="border-radius:12px;padding:6px">${bws([[5,6],[7,12],[3,4]])}</div>`)
+];
+Q[2].x='أي الشخصيتين قطعت مسافة أكبر؟ أطوال المسارات متناسبة مع الكسرين.';
+Q.forEach(q=>{if(q.k=='ch'&&q.t.startsWith('سباق')){const a=[4,6],b=[2,3],c=cmp(a,b);q.ans=c=='='?2:c=='>'?0:1}if(q.k=='ch'&&q.t.startsWith('خدعة المخرج')){q.ans=(3*5>3*8)?0:1}});
+
+/* ===== الصوت ===== */
+let AC,mute=false,bg;
+function tone(f,d=.15,t='sine',v=.08,at=0){if(mute||!AC)return;const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+at;o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d)}
+const S={pick:()=>tone(520,.1),ok:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.2,'triangle',.1,i*.09)),bad:()=>{tone(300,.2);tone(250,.25,'sine',.08,.15)},next:()=>{tone(400,.08);tone(600,.1,'sine',.08,.08)},clap:()=>{tone(180,.08,'square',.1);tone(90,.15,'square',.1,.05)},curtain:()=>[200,260,330,400].forEach((f,i)=>tone(f,.3,'sawtooth',.03,i*.2)),end:()=>[523,659,784,659,784,1047,1319].forEach((f,i)=>tone(f,.35,'triangle',.1,i*.18))};
+function audio(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}}AC.resume&&AC.resume();if(!bg){const n=[262,294,330,392,440,392,330,294];let k=0;bg=setInterval(()=>tone(n[k++%8],.5,'sine',.02),700)}}
+const $=id=>document.getElementById(id),w0=ms=>new Promise(r=>setTimeout(r,sk?0:ms));
+$('mt').onclick=()=>{audio();mute=!mute;$('mt').textContent=mute?'🔇':'🔊'};
+$('rmb').onclick=()=>document.body.classList.toggle('rm');
+
+/* ===== الحالة والحفظ المحلي ===== */
+const KEY='jm_fractions_studio_v1';let st={name:'',i:0,score:0,ans:[],done:false},i=0,lock=true,sk=false,pl=[],mv=false;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.name){$('nm').value=s.name;if(!s.done&&s.ans.length>0&&s.ans.length<10){st=s;$('rs').style.display='block'}}}catch(e){}
+function show(n){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==n));scrollTo(0,0)}
+function burst(){for(let k=0;k<14;k++){const s=document.createElement('span');s.textContent=['⭐','✨','🎉'][k%3];s.className='bu';s.style.cssText=`left:${10+Math.random()*80}%;animation-delay:${Math.random()*.3}s`;document.body.append(s);setTimeout(()=>s.remove(),1700)}}
+
+/* ===== المقدمة السينمائية ===== */
+async function intro(){
+ const nm=$('nm').value.trim();if(!nm){$('nm').focus();return}
+ audio();S.pick();st={name:nm,i:0,score:0,ans:[],done:false};save();sk=false;const t=$('ti');
+ t.innerHTML='<div id="tt"></div><button class="b" id="skp" style="margin-top:40px;font-size:16px">تخطي ⏭</button>';t.classList.add('on');$('skp').onclick=()=>sk=true;
+ $('cur').classList.add('sh');S.curtain();await w0(1100);S.clap();
+ $('tt').textContent='بطلة فيلمنا اليوم هي…';await w0(1200);
+ $('tt').textContent=nm;$('tt').style.fontSize='46px';S.ok();burst();await w0(1800);
+ t.classList.remove('on');t.innerHTML='';i=0;show(1);render();$('cur').classList.remove('sh');
+}
+$('go').onclick=intro;
+$('rs').onclick=()=>{audio();i=st.ans.length;show(1);render()};
+
+/* ===== عرض المشهد ===== */
+function strip(){$('st').innerHTML=Q.map((_,k)=>`<i class="${k<st.ans.length?(st.ans[k].ok?'ok':'bad'):k==i?'cur':''}"></i>`).join('');
+ $('h1').textContent='🎬 '+st.name;$('h2').textContent='المشهد '+ar(i+1)+' / '+ar(10)+' — منجز '+ar(st.ans.length);$('h3').textContent='⭐ '+ar(st.score)}
+function render(){const q=Q[i];lock=false;mv=false;pl=[];strip();
+ $('stage').innerHTML=`<div class="card"><b>${q.t}</b><div style="margin-top:8px">${q.vis||''}</div></div><p class="tx">${q.x}</p><div id="op"></div><div id="fb"></div>`;
+ const op=$('op');
+ if(q.k=='sym'){op.className='o';op.dir='ltr';op.innerHTML=['>','<','='].map(v=>`<button class="b" data-v="${v}">${v}</button>`).join('');op.querySelectorAll('button').forEach(b=>b.onclick=()=>choose(b.dataset.v,b))}
+ else if(q.k=='ch'){op.className='o';op.innerHTML=q.o.map((h,k)=>`<button class="b" data-v="${k}">${h}</button>`).join('');op.querySelectorAll('button').forEach(b=>b.onclick=()=>choose(+b.dataset.v,b))}
+ else seqUI()}
+function seqUI(){const q=Q[i],op=$('op');let ord=q.f.map((_,k)=>k);const cor=correctSeq(q);do{ord.sort(()=>Math.random()-.5)}while(ord.every((v,k)=>v==cor[k]));
+ op.innerHTML=`<div class="sh2">${ord.map(k=>`<button class="b cd" data-k="${k}">${q.ic}<br>${F(...q.f[k])}</button>`).join('')}</div><div class="sls">${q.f.map(()=>'<div></div>').join('')}</div><div class="o"><button class="b" id="rst">↺ إعادة</button><button class="b g" id="okb" disabled>اعتمدي الترتيب ✔</button></div>`;
+ op.querySelectorAll('.cd').forEach(b=>b.onclick=()=>{if(lock||b.disabled)return;b.disabled=true;S.pick();pl.push(+b.dataset.k);op.querySelectorAll('.sls div')[pl.length-1].innerHTML=F(...q.f[+b.dataset.k]);$('okb').disabled=pl.length<q.f.length});
+ $('rst').onclick=()=>{if(!lock){pl=[];seqUI()}};
+ $('okb').onclick=()=>{if(lock||pl.length<q.f.length)return;finish(pl.every((v,k)=>v==cor[k]),pl.map(k=>q.f[k].join('/')).join(' ، '))}}
+const correctSeq=q=>q.f.map((_,k)=>k).sort((a,b)=>q.asc?val(q.f[a])-val(q.f[b]):val(q.f[b])-val(q.f[a]));
+function choose(v,btn){if(lock)return;const q=Q[i];S.pick();
+ if(q.k=='sym'){const c=cmp(q.a,q.b);$('sl').textContent=c;document.querySelectorAll('#op .b').forEach(b=>{if(b.dataset.v==c)b.classList.add('g')});if(v!=c)btn.classList.add('r');finish(v==c,v)}
+ else{document.querySelectorAll('#op .b').forEach(b=>{if(+b.dataset.v==q.ans)b.classList.add('g')});if(v!=q.ans)btn.classList.add('r');finish(v==q.ans,q.o[v].replace(/<[^>]+>/g,''))}}
+const PR=['أحسنتِ يا مخرجة! 🌟','لقطة رائعة! 🎬','عين ذكية تكشف الخدعة! 🔍','تصوير ممتاز! ✨','أنتِ نجمة الاستوديو! ⭐'];
+function finish(ok,given){if(lock)return;lock=true;const q=Q[i];
+ st.ans.push({q:i+1,ok,given:String(given)});if(ok)st.score++;save();
+ document.querySelectorAll('#op .cd,#op #okb,#op #rst').forEach(b=>b.disabled=true);
+ q.af&&q.af();ok?(S.ok(),burst()):S.bad();strip();
+ let right='';if(q.k=='sym')right=cmp(q.a,q.b);else if(q.k=='ch')right=q.o[q.ans];else right=correctSeq(q).map(k=>F(...q.f[k])).join(' ، ');
+ $('fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?PR[i%5]:'لا بأس، المخرجات الكبيرات يجربن مرة أخرى! 💪 الإجابة الصحيحة: '+(q.k=='sym'?`<span dir="ltr">${right}</span>`:right)}</b><br>${q.e}</div><button class="b w" id="nx">${i==9?'🎞️ اعرضي الفيلم':'المشهد التالي ◀'}</button>`;
+ $('nx').onclick=()=>{if(mv)return;mv=true;S.next();if(i==9)ending();else{i++;render();scrollTo(0,0)}};
+ $('fb').scrollIntoView({behavior:'smooth',block:'end'})}
+
+/* ===== النهاية والنتيجة ===== */
+const mk=()=>{const sc=st.score;return{id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),name:st.name,game:'استوديو الكسور | من يكشف الخدعة؟',grade:'السادس الابتدائي',score:sc,outOf:10,mastery:sc*10,correct:sc,wrong:10-sc,answers:st.ans,at:new Date().toISOString()}};
+async function sendToTeacherDashboard(r){/* جاهزة للربط لاحقًا مع Supabase بعد الإعداد والاعتماد؛ لا تُستدعى الآن ولا تُرسل أي بيانات */return{sent:false}}
+function cv(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return[c,c.getContext('2d')]}
+function T(g,t,px,x,y,col){g.font=`bold ${px}px Tahoma,Arial,sans-serif`;g.fillStyle=col;g.textAlign='center';g.direction='rtl';g.fillText(t,x,y)}
+const dt=()=>{const d=new Date();return ar(d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear())};
+function poster(r){const[c,g]=cv(600,900),gr=g.createLinearGradient(0,0,0,900);gr.addColorStop(0,'#3b1d5e');gr.addColorStop(1,'#c2417a');g.fillStyle=gr;g.fillRect(0,0,600,900);g.strokeStyle='#ffd23f';g.lineWidth=8;g.strokeRect(20,20,560,860);
+ T(g,'🎬 فيلم رسوم متحركة',32,300,100,'#19c3b1');T(g,'استوديو الكسور',68,300,200,'#ffd23f');T(g,'من يكشف الخدعة؟',36,300,260,'#fff');
+ T(g,'★'.repeat(r.score)+'☆'.repeat(10-r.score),34,300,340,'#ffd23f');T(g,'بطلة الفيلم',30,300,450,'#19c3b1');T(g,r.name,r.name.length>12?40:60,300,530,'#fff');
+ T(g,'النتيجة: '+ar(r.score)+' من '+ar(10),42,300,630,'#ffd23f');T(g,'نسبة الإتقان: '+ar(r.mastery)+'٪',38,300,700,'#fff');
+ if(r.mastery>=90)T(g,'نجمة استوديو الكسور — إتقان متميز',30,300,780,'#ffd23f');T(g,'المعلمة/ جواهر السبيعي',24,300,850,'#ddd');return c.toDataURL('image/png')}
+function cert(r){const[c,g]=cv(1000,700);g.fillStyle='#fff8e1';g.fillRect(0,0,1000,700);g.strokeStyle='#b8860b';g.lineWidth=12;g.strokeRect(25,25,950,650);g.strokeStyle='#7b3fa0';g.lineWidth=3;g.strokeRect(45,45,910,610);
+ T(g,'🎬 شهادة إتقان مقارنة الكسور الاعتيادية',44,500,130,'#7b3fa0');T(g,'تُمنح هذه الشهادة للطالبة',30,500,215,'#555');T(g,r.name,70,500,310,'#c2417a');
+ T(g,'الصف السادس الابتدائي',32,500,390,'#3b1d5e');T(g,'الدرجة: '+ar(r.score)+' من '+ar(10)+'   |   نسبة الإتقان: '+ar(r.mastery)+'٪',34,500,460,'#3b1d5e');
+ T(g,'تاريخ الإنجاز: '+dt(),28,500,530,'#555');T(g,'⭐ استوديو الكسور ⭐',30,500,590,'#b8860b');T(g,'المعلمة/ جواهر السبيعي',32,500,640,'#7b3fa0');return c.toDataURL('image/png')}
+function dl(url,name){const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove()}
+async function ending(){sk=false;const r=mk();st.done=true;save();try{localStorage.setItem(KEY+'_result',JSON.stringify(r))}catch(e){}
+ const t=$('ti');t.innerHTML='<div id="tt"></div>';t.classList.add('on');$('cur').classList.add('sh');S.curtain();await w0(1100);
+ $('tt').textContent='انتهى التصوير… وحان موعد العرض الأول!';S.end();await w0(2600);
+ const P=poster(r),ok=r.mastery>=90,C=ok?cert(r):'';
+ $('e1').textContent='🎞️ العرض الأول';
+ $('e2').innerHTML=`<img class="res" src="${P}" alt="ملصق الفيلم"><button class="b w" id="dp">💾 حفظ الملصق كصورة</button>`+(ok?`<img class="res" src="${C}" alt="الشهادة"><button class="b w g" id="dc">💾 حفظ الشهادة كصورة PNG</button><button class="b w" id="pc">🖨️ طباعة الشهادة</button>`:`<div class="card"><p class="c">أحسنتِ يا ${r.name.replace(/</g,'')}! أنتِ قريبة جدًا من الإتقان، أعيدي التصوير وكوني نجمة الاستوديو 🌟</p></div>`)+`<p class="c" style="font-size:14px">إن لم يبدأ التنزيل في الآيفون، اضغطي مطولًا على الصورة واختاري «حفظ في الصور».</p><button class="b w" id="again">🔁 إعادة اللعب</button>`;
+ $('dp').onclick=()=>dl(P,'فيلم-استوديو-الكسور.png');if(ok){$('dc').onclick=()=>dl(C,'شهادة-الكسور.png');$('pc').onclick=()=>{$('pri').src=C;setTimeout(()=>print(),300)}}
+ $('again').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}st={name:r.name,i:0,score:0,ans:[],done:false};show(0);$('rs').style.display='none'};
+ t.classList.remove('on');t.innerHTML='';show(2);$('cur').classList.remove('sh');if(ok)burst()}
+</script></body></html>
