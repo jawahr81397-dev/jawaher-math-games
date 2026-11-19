@@ -147,7 +147,7 @@ const k=K(p),bob=Math.sin(now/600)*(p>.2&&p<.8?1.3:.2);
 pl.style.left=k[1]+'%';pl.style.top=(k[2]+bob)+'%';
 pi.style.transform=`perspective(600px) rotateY(${k[5]}deg) rotateX(${k[6]}deg) rotate(${k[3]}deg) scale(${k[4]})`;
 spT+=dt;if(state==1&&p>.1&&p<.88&&spT>.07){spT=0;const r=pl.getBoundingClientRect(),e=document.createElement('i');e.className='sp';e.style.left=(r.left+r.width*.1)+'px';e.style.top=(r.top+r.height*.5)+'px';document.body.appendChild(e);e.onanimationend=()=>e.remove()}
-let c='';if(state==1){if(p>.06&&p<.2)c=`رحلتكِ إلى السعادة بدأت يا ${name} 💗`;else if(p>.34&&p<.54)c='اتركي خلفكِ الواجبات… واستعدي لأيام مليئة بالضحكات!';else if(p>.82&&p<.99)c=`وصلتِ بسلام يا ${name} 💕`}
+let c='';if(state==1){if(p>.06&&p<.2)c=`رحلتكِ إلى السعادة بدأت يا ${name} 💗`;else if(p>.34&&p<.54)c='حلّقي نحو أيامٍ مليئة بالفرح والضحكات والذكريات الجميلة!';else if(p>.82&&p<.99)c=`وصلتِ بسلام يا ${name} 💕`}
 if(c!==capT){capT=c;const e=$('#cap');if(c){e.textContent=c;e.className='on'}else e.className=''}
 const wind=1+p*1.2;for(const l of lf){l.y+=l.v*dt;l.x+=Math.sin(now/900+l.ph)*18*dt-6*dt*wind;l.r+=40*dt;if(l.y>H+20){l.y=-20;l.x=Math.random()*W}if(l.x<-20)l.x=W;l.e.style.transform=`translate3d(${l.x}px,${l.y}px,0) rotate(${l.r}deg)`}
 bf.forEach((b,i)=>{const t=now/1000+b.ph;b.e.style.transform=`translate3d(${W*(.2+.18*i)+Math.sin(t*.7)*60}px,${H*(.25+.12*i)+Math.cos(t*.9)*40}px,0)`})}
